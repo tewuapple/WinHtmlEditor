@@ -395,7 +395,7 @@ namespace WinHtmlEditor
 
         private void tsbAbout_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("这是一个免费的HTML控件，你可以自由使用。\r\n如有任何问题或建议请联系QQ：362586605，本人博客请访问：hi.baidu.com/new/tewuapple,是否现在就访问？\r\n", "关于", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+            if (MessageBox.Show("这是一个免费的HTML控件，你可以自由使用。\r\n如有任何问题或建议请加入QQ群：217478320，本人博客请访问：hi.baidu.com/new/tewuapple,是否现在就访问？\r\n", "关于", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
             {
                 Process.Start("http://hi.baidu.com/new/tewuapple");
             }
