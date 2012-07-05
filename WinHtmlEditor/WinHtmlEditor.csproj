@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinHtmlEditor</RootNamespace>
-    <AssemblyName>Sonic.HtmlEditor</AssemblyName>
+    <AssemblyName>WinHtmlEditor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
