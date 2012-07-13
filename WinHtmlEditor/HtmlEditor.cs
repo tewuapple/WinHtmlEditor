@@ -18,6 +18,7 @@ namespace WinHtmlEditor
             InitializeComponent();
         }
 
+        [Description("设置或获取有格式的内容"), Category("Appearance")]
         public string BodyInnerHTML
         {
             get
@@ -50,7 +51,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    return this.wb.Document.Body.InnerHtml;
+                    return this.wb.Document.Body.InnerText;
                 }
                 catch
                 {
@@ -61,7 +62,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    this.wb.Document.Body.InnerHtml = value;
+                    this.wb.Document.Body.InnerText = value;
                 }
                 catch
                 {
@@ -232,10 +233,13 @@ namespace WinHtmlEditor
             else
             {
                 TextBox box2 = this.tscMain.ContentPanel.Controls["textHTMLCode"] as TextBox;
-                this.HTML = box2.Text;
-                this.tscMain.ContentPanel.Controls.Remove(box2);
+                if (box2 != null)
+                {
+                    this.HTML = box2.Text;
+                    this.tscMain.ContentPanel.Controls.Remove(box2);
+                    box2.Dispose();
+                }
                 this.wb.Visible = true;
-                box2.Dispose();
             }
         }
 
@@ -395,9 +399,9 @@ namespace WinHtmlEditor
 
         private void tsbAbout_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("这是一个免费的HTML控件，你可以自由使用。\r\n如有任何问题或建议请加入QQ群：217478320，本人博客请访问：hi.baidu.com/new/tewuapple,是否现在就访问？\r\n", "关于", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+            if (MessageBox.Show("这是一个免费的HTML控件，你可以自由使用。\r\n如有任何问题或建议请加入QQ群：217478320，开源项目请访问：github.com/tewuapple/WinHtmlEditor,是否现在就访问？\r\n", "关于", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
             {
-                Process.Start("http://hi.baidu.com/new/tewuapple");
+                Process.Start("https://github.com/tewuapple/WinHtmlEditor");
             }
         }
 
