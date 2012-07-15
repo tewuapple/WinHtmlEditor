@@ -179,6 +179,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\wordcount.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wordclean.png" />
+    <None Include="Resources\Time.gif" />
+    <None Include="Resources\SpellCheck.png" />
+    <None Include="Resources\Print.png" />
+    <None Include="Resources\Date.png" />
+    <Content Include="Resources\Subscript .png" />
+    <Content Include="Resources\Superscript .png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

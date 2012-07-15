@@ -8,7 +8,7 @@ using mshtml;
 namespace WinHtmlEditor
 {
     #region HTMLEditHelper class
-    class HTMLEditHelper
+    public class HTMLEditHelper
     {
         private IHTMLDocument2 m_pDoc2 = null;
 

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
@@ -229,6 +230,8 @@ namespace WinHtmlEditor
                 box.Visible = true;
                 this.wb.Visible = false;
                 this.tsbShowHTML.Enabled = true;
+                box.KeyUp -= new KeyEventHandler(this.textHTMLCode_KeyUp);
+                box.KeyUp += new KeyEventHandler(this.textHTMLCode_KeyUp);
             }
             else
             {
@@ -240,6 +243,14 @@ namespace WinHtmlEditor
                     box2.Dispose();
                 }
                 this.wb.Visible = true;
+            }
+        }
+
+        private void textHTMLCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
+            {
+                ((TextBox)sender).SelectAll();
             }
         }
 
@@ -493,16 +504,149 @@ namespace WinHtmlEditor
 
         private void tsbWordCount_Click(object sender, EventArgs e)
         {
-            var iSumWords = 0;
-            IHTMLDocument2 document = wb.Document.DomDocument as IHTMLDocument2;
-            IHTMLBodyElement body = document.body as IHTMLBodyElement;
-            IHTMLTxtRange rng = body.createTextRange() as IHTMLTxtRange;
-            rng.collapse(true);
-            while (rng.move("word", 1) > 0)
+            //var iSumWords = 0;
+            //IHTMLDocument2 document = wb.Document.DomDocument as IHTMLDocument2;
+            //IHTMLBodyElement body = document.body as IHTMLBodyElement;
+            //IHTMLTxtRange rng = body.createTextRange() as IHTMLTxtRange;
+            //rng.collapse(true);
+            //while (rng.move("word", 1) > 0)
+            //{
+            //    iSumWords++;
+            //}
+            //MessageBox.Show("大约" + iSumWords.ToString() + "字");
+            var innerText = wb.Document.Body.InnerText;
+            if (innerText != null)
             {
-                iSumWords++;
+                int wordCount = Regex.Matches(innerText, @"[A-Za-z0-9][A-Za-z0-9'-.]*").Count;//带数字的英文单词字数
+                int numCount = Regex.Matches(innerText, @"[0-9][0-9'-.]*").Count;//数字字数
+                int chineseWordCount = Regex.Matches(innerText, @"[\u4e00-\u9fa5]").Count;//中文单词字数
+                MessageBox.Show(string.Format("数字字数：{0}，英文字数：{1}，中文单词字数：{2}", numCount, wordCount - numCount, chineseWordCount));
             }
-            MessageBox.Show("大约" + iSumWords.ToString() + "字");
+        }
+
+        private void tsbSuperscript_Click(object sender, EventArgs e)
+        {
+            this.wb.Document.ExecCommand("Superscript", false, null);
+        }
+
+        private void tsbSubscript_Click(object sender, EventArgs e)
+        {
+            this.wb.Document.ExecCommand("Subscript", false, null);
+        }
+
+        private void tsbPrint_Click(object sender, EventArgs e)
+        {
+            this.wb.Document.ExecCommand("Print", false, null);
+        }
+
+        private void tsbDate_Click(object sender, EventArgs e)
+        {
+            htmledit.PasteIntoSelection(DateTime.Now.ToLongDateString());
+        }
+
+        private void tsbTime_Click(object sender, EventArgs e)
+        {
+            htmledit.PasteIntoSelection(DateTime.Now.ToLongTimeString());
+        }
+
+        private void tsbSpellCheck_Click(object sender, EventArgs e)
+        {
+        }
+
+        public static string ClearWord(string sourceText, bool bIgnoreFont = true, bool bRemoveStyles = true, bool cleanWordKeepsStructure = true)
+        {
+            sourceText = Regex.Replace(sourceText, @"<o:p>\s*<\/o:p>", "");
+            sourceText = Regex.Replace(sourceText, @"<o:p>.*?<\/o:p>", " ");
+            // Remove mso-xxx styles.
+            sourceText = Regex.Replace(sourceText, @"\s*mso-[^:]+:[^;""]+;?", "", RegexOptions.IgnoreCase);
+            // Remove margin styles.
+            sourceText = Regex.Replace(sourceText, @"\s*MARGIN: 0cm 0cm 0pt\s*;", "", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*MARGIN: 0cm 0cm 0pt\s*""", "\"", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*TEXT-INDENT: 0cm\s*;", "", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*TEXT-INDENT: 0cm\s*""", "\"", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*TEXT-ALIGN: [^\s;]+;?""", "\"", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*PAGE-BREAK-BEFORE: [^\s;]+;?""", "\"", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*FONT-VARIANT: [^\s;]+;?""", "\"", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*tab-stops:[^;""]*;?", "", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*tab-stops:[^""]*", "", RegexOptions.IgnoreCase);
+            // Remove FONT face attributes.
+            if (bIgnoreFont)
+            {
+                sourceText = Regex.Replace(sourceText, @"\s*face=""[^""]*""", "", RegexOptions.IgnoreCase);
+                sourceText = Regex.Replace(sourceText, @"\s*face=[^ >]*", "", RegexOptions.IgnoreCase);
+                sourceText = Regex.Replace(sourceText, @"\s*FONT-FAMILY:[^;""]*;?", "", RegexOptions.IgnoreCase);
+            }
+
+            // Remove Class attributes
+            sourceText = Regex.Replace(sourceText, @"<(\w[^>]*) class=([^ |>]*)([^>]*)", "<$1$3", RegexOptions.IgnoreCase);
+            // Remove styles.
+            if (bRemoveStyles)
+                sourceText = Regex.Replace(sourceText, @"<(\w[^>]*) style=""([^\""]*)""([^>]*)", "<$1$3", RegexOptions.IgnoreCase);
+            // Remove empty styles.
+            sourceText = Regex.Replace(sourceText, @"\s*style=""\s*""", "", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"<SPAN\s*[^>]*>\s* \s*<\/SPAN>", " ", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"<SPAN\s*[^>]*><\/SPAN>", "", RegexOptions.IgnoreCase);
+            // Remove Lang attributes
+            sourceText = Regex.Replace(sourceText, @"<(\w[^>]*) lang=([^ |>]*)([^>]*)", "<$1$3", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"<SPAN\s*>(.*?)<\/SPAN>", "$1", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"<FONT\s*>(.*?)<\/FONT>", "$1", RegexOptions.IgnoreCase);
+            // Remove XML elements and declarations
+            sourceText = Regex.Replace(sourceText, @"<\\?\?xml[^>]*>", "", RegexOptions.IgnoreCase);
+
+            // Remove Tags with XML namespace declarations: <o:p><\/o:p>
+            sourceText = Regex.Replace(sourceText, @"<\/?\w+:[^>]*>", "", RegexOptions.IgnoreCase);
+            // Remove comments [SF BUG-1481861].
+            sourceText = Regex.Replace(sourceText, @"<\!--.*?-->/", "");
+            sourceText = Regex.Replace(sourceText, @"<(U|I|STRIKE)> <\/\1>", " ");
+            sourceText = Regex.Replace(sourceText, @"<H\d>\s*<\/H\d>", "", RegexOptions.IgnoreCase);
+
+            // Remove "display:none" tags.
+            sourceText = Regex.Replace(sourceText, @"<(\w+)[^>]*\sstyle=""[^""]*DISPLAY\s?:\s?none(.*?)<\/\1>", "", RegexOptions.IgnoreCase);
+
+            // Remove language tags
+            sourceText = Regex.Replace(sourceText, @"<(\w[^>]*) language=([^ |>]*)([^>]*)", "<$1$3", RegexOptions.IgnoreCase);
+
+            // Remove onmouseover and onmouseout events (from MS Word comments effect)
+            sourceText = Regex.Replace(sourceText, @"<(\w[^>]*) onmouseover=""([^\""]*)""([^>]*)", "<$1$3", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"<(\w[^>]*) onmouseout=""([^\""]*)""([^>]*)", "<$1$3", RegexOptions.IgnoreCase);
+
+            if (cleanWordKeepsStructure)
+            {
+                // The original <Hn> tag send from Word is something like this: <Hn style="margin-top:0px;margin-bottom:0px">
+                sourceText = Regex.Replace(sourceText, @"<H(\d)([^>]*)>", "<h$1>", RegexOptions.IgnoreCase);
+
+                // Word likes to insert extra <font> tags, when using MSIE. (Wierd).
+                sourceText = Regex.Replace(sourceText, @"<(H\d)><FONT[^>]*>(.*?)<\/FONT><\/\1>", @"<$1>$2<\/$1>", RegexOptions.IgnoreCase);
+                sourceText = Regex.Replace(sourceText, @"<(H\d)><EM>(.*?)<\/EM><\/\1>", @"<$1>$2<\/$1>", RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                sourceText = Regex.Replace(sourceText, @"<H1([^>]*)>", @"<div$1><b><font size=""6"">", RegexOptions.IgnoreCase);
+                sourceText = Regex.Replace(sourceText, @"<H2([^>]*)>", @"<div$1><b><font size=""5"">", RegexOptions.IgnoreCase);
+                sourceText = Regex.Replace(sourceText, @"<H3([^>]*)>", @"<div$1><b><font size=""4"">", RegexOptions.IgnoreCase);
+                sourceText = Regex.Replace(sourceText, @"<H4([^>]*)>", @"<div$1><b><font size=""3"">", RegexOptions.IgnoreCase);
+                sourceText = Regex.Replace(sourceText, @"<H5([^>]*)>", @"<div$1><b><font size=""2"">", RegexOptions.IgnoreCase);
+                sourceText = Regex.Replace(sourceText, @"<H6([^>]*)>", @"<div$1><b><font size=""1"">", RegexOptions.IgnoreCase);
+
+                sourceText = Regex.Replace(sourceText, @"<\/H\d>", @"<\/font><\/b><\/div>", RegexOptions.IgnoreCase);
+
+                // Transform <P> to <DIV>
+                //var re = new Regex(@"(<P)([^>]*>.*?)(<\/P>)", RegexOptions.IgnoreCase); // Different because of a IE 5.0 error
+                sourceText = Regex.Replace(sourceText, @"(<P)([^>]*>.*?)(<\/P>)", @"<div$2<\/div>", RegexOptions.IgnoreCase);
+
+                // Remove empty tags (three times, just to be sure).
+                // This also removes any empty anchor
+                sourceText = Regex.Replace(sourceText, @"<([^\s>]+)(\s[^>]*)?>\s*<\/\1>", "");
+                sourceText = Regex.Replace(sourceText, @"<([^\s>]+)(\s[^>]*)?>\s*<\/\1>", "");
+                sourceText = Regex.Replace(sourceText, @"<([^\s>]+)(\s[^>]*)?>\s*<\/\1>", "");
+            }
+            return sourceText;
+        }
+
+        private void tsbWordClean_Click(object sender, EventArgs e)
+        {
+            if (this.BodyInnerHTML != null)
+                this.wb.Document.Body.InnerHtml = ClearWord(this.BodyInnerHTML);
         }
     }
 }
