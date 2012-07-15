@@ -551,6 +551,8 @@ namespace WinHtmlEditor
 
         private void tsbSpellCheck_Click(object sender, EventArgs e)
         {
+            this.spellCheck.Text = this.wb.Document.Body.InnerHtml;
+            this.spellCheck.SpellCheck();
         }
 
         public static string ClearWord(string sourceText, bool bIgnoreFont = true, bool bRemoveStyles = true, bool cleanWordKeepsStructure = true)
@@ -647,6 +649,16 @@ namespace WinHtmlEditor
         {
             if (this.BodyInnerHTML != null)
                 this.wb.Document.Body.InnerHtml = ClearWord(this.BodyInnerHTML);
+        }
+
+        private void spellCheck_DeletedWord(object sender, NetSpell.SpellChecker.SpellingEventArgs e)
+        {
+            this.wb.Document.Body.InnerHtml = e.Text;
+        }
+
+        private void spellCheck_ReplacedWord(object sender, NetSpell.SpellChecker.ReplaceWordEventArgs e)
+        {
+            this.wb.Document.Body.InnerHtml = e.Text;
         }
     }
 }

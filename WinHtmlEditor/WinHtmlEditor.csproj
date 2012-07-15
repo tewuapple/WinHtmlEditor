@@ -188,6 +188,12 @@
     <Content Include="Resources\Subscript .png" />
     <Content Include="Resources\Superscript .png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetSpell.SpellChecker\NetSpell.SpellChecker.csproj">
+      <Project>{A426EE0B-E52E-4D74-AF24-06797142D7B2}</Project>
+      <Name>NetSpell.SpellChecker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

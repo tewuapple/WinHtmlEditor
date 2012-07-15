@@ -85,6 +85,8 @@
             this.tsbSpellCheck = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
+            this.wordDictionary = new NetSpell.SpellChecker.Dictionary.WordDictionary(this.components);
+            this.spellCheck = new NetSpell.SpellChecker.Spelling(this.components);
             this.tscMain.ContentPanel.SuspendLayout();
             this.tscMain.TopToolStripPanel.SuspendLayout();
             this.tscMain.SuspendLayout();
@@ -660,6 +662,17 @@
             this.tsbAbout.Text = "关于";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
             // 
+            // wordDictionary
+            // 
+            this.wordDictionary.DictionaryFile = "en-US.dic";
+            this.wordDictionary.DictionaryFolder = "dic";
+            // 
+            // spellCheck
+            // 
+            this.spellCheck.Dictionary = this.wordDictionary;
+            this.spellCheck.DeletedWord += new NetSpell.SpellChecker.Spelling.DeletedWordEventHandler(this.spellCheck_DeletedWord);
+            this.spellCheck.ReplacedWord += new NetSpell.SpellChecker.Spelling.ReplacedWordEventHandler(this.spellCheck_ReplacedWord);
+            // 
             // HtmlEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -739,5 +752,7 @@
         private System.Windows.Forms.ToolStripButton tsbAbout;
         internal System.Windows.Forms.WebBrowser wb;
         private System.Windows.Forms.ToolStripButton tsbWordClean;
+        private NetSpell.SpellChecker.Dictionary.WordDictionary wordDictionary;
+        private NetSpell.SpellChecker.Spelling spellCheck;
     }
 }
