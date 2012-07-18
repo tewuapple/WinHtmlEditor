@@ -504,24 +504,26 @@ namespace WinHtmlEditor
 
         private void tsbWordCount_Click(object sender, EventArgs e)
         {
-            //var iSumWords = 0;
-            //IHTMLDocument2 document = wb.Document.DomDocument as IHTMLDocument2;
-            //IHTMLBodyElement body = document.body as IHTMLBodyElement;
-            //IHTMLTxtRange rng = body.createTextRange() as IHTMLTxtRange;
-            //rng.collapse(true);
-            //while (rng.move("word", 1) > 0)
-            //{
-            //    iSumWords++;
-            //}
-            //MessageBox.Show("大约" + iSumWords.ToString() + "字");
-            var innerText = wb.Document.Body.InnerText;
-            if (innerText != null)
+            var body = this.wb.Document.Body;
+            if (body != null)
             {
-                int wordCount = Regex.Matches(innerText, @"[A-Za-z0-9][A-Za-z0-9'-.]*").Count;//带数字的英文单词字数
-                int numCount = Regex.Matches(innerText, @"[0-9][0-9'-.]*").Count;//数字字数
-                int chineseWordCount = Regex.Matches(innerText, @"[\u4e00-\u9fa5]").Count;//中文单词字数
-                MessageBox.Show(string.Format("数字字数：{0}，英文字数：{1}，中文单词字数：{2}", numCount, wordCount - numCount, chineseWordCount));
+                int wordCount = WordCount(body.InnerText);
+                MessageBox.Show(string.Format("字数：{0}", wordCount));
             }
+        }
+
+        private int WordCount(string value)
+        {
+            var sec = Regex.Split(value, @"\s");
+            int count = 0;
+            foreach (var si in sec)
+            {
+                int ci = Regex.Matches(si, @"[\u0000-\u00ff]+").Count;
+                foreach (var c in si)
+                    if ((int)c > 0x00FF) ci++;
+                count += ci;
+            }
+            return count;
         }
 
         private void tsbSuperscript_Click(object sender, EventArgs e)
