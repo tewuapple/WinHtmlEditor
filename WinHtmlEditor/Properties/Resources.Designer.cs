@@ -67,6 +67,26 @@ namespace WinHtmlEditor.Properties {
             }
         }
         
+        /// <summary>
+        ///   查找类似 这是一个免费的HTML控件，你可以自由使用。
+        ///如有任何问题或建议请加入QQ群：217478320，开源项目请访问：github.com/tewuapple/WinHtmlEditor,是否现在就访问？
+        /// 的本地化字符串。
+        /// </summary>
+        internal static string AboutInfo {
+            get {
+                return ResourceManager.GetString("AboutInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 关于 的本地化字符串。
+        /// </summary>
+        internal static string AboutText {
+            get {
+                return ResourceManager.GetString("AboutText", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap BackColor {
             get {
                 object obj = ResourceManager.GetObject("BackColor", resourceCulture);
@@ -235,6 +255,24 @@ namespace WinHtmlEditor.Properties {
             }
         }
         
+        /// <summary>
+        ///   查找类似 支持文件|*.html;*.shtml;*.txt;*.htm|所有文件|*.* 的本地化字符串。
+        /// </summary>
+        internal static string OpenFilter {
+            get {
+                return ResourceManager.GetString("OpenFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请选择文件 的本地化字符串。
+        /// </summary>
+        internal static string OpenTitle {
+            get {
+                return ResourceManager.GetString("OpenTitle", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap Outdent {
             get {
                 object obj = ResourceManager.GetObject("Outdent", resourceCulture);
@@ -267,6 +305,24 @@ namespace WinHtmlEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("Save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 HTML文件|*.html|SHTML文件|*.shtml|HTM文件|*.htm|文本文件|*.txt 的本地化字符串。
+        /// </summary>
+        internal static string SaveFilter {
+            get {
+                return ResourceManager.GetString("SaveFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存文件 的本地化字符串。
+        /// </summary>
+        internal static string SaveTitle {
+            get {
+                return ResourceManager.GetString("SaveTitle", resourceCulture);
             }
         }
         

@@ -1,74 +1,73 @@
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace WinHtmlEditor
 {
-    partial class frmTable : Form
+    partial class FrmTable : Form
     {
-        public frmTable()
+        public FrmTable()
         {
             InitializeComponent();
             comboAlignment.SelectedIndex = 0; //Default
         }
         
-        public DialogResult m_Result = DialogResult.Cancel;
-        public int m_Rows = 1;
-        public int m_Cols = 1;
-        public string m_Alignment = string.Empty;
-        public int m_BorderSize = 1;
-        public int m_CellPadding = 1;
-        public int m_CellSpacing = 2;
-        public string m_WidthPercent = string.Empty;
-        public int m_WidthPixels = 0;
-        public bool m_WidthSpecified = false;
+        public DialogResult MResult = DialogResult.Cancel;
+        public int MRows = 1;
+        public int MCols = 1;
+        public string MAlignment = string.Empty;
+        public int MBorderSize = 1;
+        public int MCellPadding = 1;
+        public int MCellSpacing = 2;
+        public string MWidthPercent = string.Empty;
+        public int MWidthPixels;
+        public bool MWidthSpecified;
 
         private void FillinGlobals()
         {
-            m_Result = DialogResult.OK;
+            MResult = DialogResult.OK;
 
-            m_Rows = (int)UpDownNumberOfRows.Value;
-            m_Cols = (int)UpDownNumberOfCols.Value;
+            MRows = (int)UpDownNumberOfRows.Value;
+            MCols = (int)UpDownNumberOfCols.Value;
 
-            m_Alignment = string.Empty;
+            MAlignment = string.Empty;
             if (comboAlignment.SelectedIndex > 0)
-                m_Alignment = comboAlignment.Items[comboAlignment.SelectedIndex].ToString();
-            m_BorderSize = (int)UpDownBorderSize.Value;
-            m_CellPadding = (int)UpDownCellPadding.Value;
-            m_CellSpacing = (int)UpDownCellSpacing.Value;
+                MAlignment = comboAlignment.Items[comboAlignment.SelectedIndex].ToString();
+            MBorderSize = (int)UpDownBorderSize.Value;
+            MCellPadding = (int)UpDownCellPadding.Value;
+            MCellSpacing = (int)UpDownCellSpacing.Value;
 
-            m_WidthPercent = string.Empty;
-            m_WidthPixels = 0;
-            m_WidthSpecified = false;
+            MWidthPercent = string.Empty;
+            MWidthPixels = 0;
+            MWidthSpecified = false;
             if( (chkSpecifyWidth.Checked) && (UpDownWidth.Text.Length > 0) )
             {
-                m_WidthSpecified = true;
+                MWidthSpecified = true;
                 if (radioBtnWidthInPercentage.Checked)
-                    m_WidthPercent = UpDownWidth.Text + "%";
+                    MWidthPercent = UpDownWidth.Text + "%";
                 else
-                    m_WidthPixels = Convert.ToInt32(UpDownWidth.Text);
+                    MWidthPixels = Convert.ToInt32(UpDownWidth.Text);
             }
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        private void BtnOk_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             FillinGlobals();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            m_Result = DialogResult.Cancel;
+            Hide();
+            MResult = DialogResult.Cancel;
         }
 
-        private void frmTable_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmTableForm_Closing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                this.Hide();
+                Hide();
                 e.Cancel = true;
-                m_Result = DialogResult.Cancel;
+                MResult = DialogResult.Cancel;
             }
         }
     }

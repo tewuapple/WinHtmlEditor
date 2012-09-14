@@ -51,11 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmTable.cs">
+    <Compile Include="FrmTable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTable.designer.cs">
-      <DependentUpon>frmTable.cs</DependentUpon>
+    <Compile Include="FrmTable.designer.cs">
+      <DependentUpon>FrmTable.cs</DependentUpon>
     </Compile>
     <Compile Include="HTMLEditHelper.cs" />
     <Compile Include="HtmlEditor.cs">
@@ -73,8 +73,8 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmTable.resx">
-      <DependentUpon>frmTable.cs</DependentUpon>
+    <EmbeddedResource Include="FrmTable.resx">
+      <DependentUpon>FrmTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HtmlEditor.resx">
       <DependentUpon>HtmlEditor.cs</DependentUpon>

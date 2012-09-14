@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using WinHtmlEditor.Properties;
 using mshtml;
 using System.Diagnostics;
 
@@ -26,18 +28,22 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    return this.wb.Document.Body.InnerHtml;
+                    Debug.Assert(wb.Document != null, "wb.Document != null");
+                    if (wb.Document.Body != null) return wb.Document.Body.InnerHtml;
                 }
                 catch
                 {
                     return "";
                 }
+                return null;
             }
             set
             {
                 try
                 {
-                    this.wb.Document.Body.InnerHtml = value;
+                    Debug.Assert(wb.Document != null, "wb.Document != null");
+                    Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+                    wb.Document.Body.InnerHtml = value;
                 }
                 catch
                 {
@@ -52,18 +58,22 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    return this.wb.Document.Body.InnerText;
+                    Debug.Assert(wb.Document != null, "wb.Document != null");
+                    if (wb.Document.Body != null) return wb.Document.Body.InnerText;
                 }
                 catch
                 {
                     return "";
                 }
+                return null;
             }
             set
             {
                 try
                 {
-                    this.wb.Document.Body.InnerText = value;
+                    Debug.Assert(wb.Document != null, "wb.Document != null");
+                    Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+                    wb.Document.Body.InnerText = value;
                 }
                 catch
                 {
@@ -79,13 +89,15 @@ namespace WinHtmlEditor
         {
             get
             {
-                return this.wb.DocumentText;
+                return wb.DocumentText;
             }
             set
             {
                 try
                 {
-                    this.wb.Document.Body.InnerHtml = value;
+                    Debug.Assert(wb.Document != null, "wb.Document != null");
+                    Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+                    wb.Document.Body.InnerHtml = value;
                 }
                 catch
                 {
@@ -98,11 +110,11 @@ namespace WinHtmlEditor
         {
             get
             {
-                return this.topToolBar.Visible;
+                return topToolBar.Visible;
             }
             set
             {
-                this.topToolBar.Visible = value;
+                topToolBar.Visible = value;
             }
         }
 
@@ -111,11 +123,11 @@ namespace WinHtmlEditor
         {
             get
             {
-                return this.wb.Visible;
+                return wb.Visible;
             }
             set
             {
-                this.wb.Visible = value;
+                wb.Visible = value;
             }
         }
 
@@ -124,28 +136,37 @@ namespace WinHtmlEditor
         {
             get
             {
-                return this.wb.WebBrowserShortcutsEnabled;
+                return wb.WebBrowserShortcutsEnabled;
             }
             set
             {
-                this.wb.WebBrowserShortcutsEnabled = value;
+                wb.WebBrowserShortcutsEnabled = value;
             }
         }
 
         #region 公开方法
-        public bool AddToobarButtom(ToolStripButton Buttom)
+        /// <summary>
+        /// 在当前工具栏上新加一个按钮
+        /// </summary>
+        /// <param name="buttom">按钮</param>
+        /// <returns></returns>
+        public bool AddToobarButtom(ToolStripButton buttom)
         {
-            Buttom.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            return (this.topToolBar.Items.Add(Buttom) > 0);
+            buttom.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            return (topToolBar.Items.Add(buttom) > 0);
         }
 
+        /// <summary>
+        /// 去除指定位置上的按钮
+        /// </summary>
+        /// <param name="index">位置索引</param>
         public void RemoveToobarButtom(int index)
         {
             if (index >= 1)
             {
                 try
                 {
-                    this.topToolBar.Items.RemoveAt(index + 0x20);
+                    topToolBar.Items.RemoveAt(index + 0x20);
                 }
                 catch
                 {
@@ -153,34 +174,52 @@ namespace WinHtmlEditor
             }
         }
 
+        /// <summary>
+        /// 重置为空白页
+        /// </summary>
         public void Navigate()
         {
-            this.Navigate("about:blank");
+            Navigate("about:blank");
         }
 
+        /// <summary>
+        /// 将指定的统一资源定位符 (URL) 处的文档加载到 System.Windows.Forms.WebBrowser 控件中，替换上一个文档。
+        /// </summary>
+        /// <param name="url">指定的统一资源定位符 (URL)</param>
         public void Navigate(string url)
         {
-            this.wb.Navigate(url);
+            wb.Navigate(url);
         }
+
+        /// <summary>
+        /// The currently selected text/controls will be replaced by the given HTML code.
+        /// If nothing is selected, the HTML code is inserted at the cursor position
+        /// </summary>
+        /// <param name="sHtml"></param>
+        public void PasteIntoSelection(string sHtml)
+        {
+            HTMLEditHelper.PasteIntoSelection(sHtml);
+        }
+
         #endregion
 
         private void tsbNew_Click(object sender, EventArgs e)
         {
-            this.HTML = "";
+            HTML = "";
         }
 
         private void tsbOpen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog
+            var dialog = new OpenFileDialog
             {
                 FileName = "",
-                Filter = "支持文件|*.html;*.shtml;*.txt;*.htm|所有文件|*.*",
-                Title = "请选择文件"
+                Filter = Resources.OpenFilter,
+                Title = Resources.OpenTitle
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                StreamReader reader = new StreamReader(dialog.FileName, Encoding.Default);
-                this.HTML = reader.ReadToEnd();
+                var reader = new StreamReader(dialog.FileName, Encoding.Default);
+                HTML = reader.ReadToEnd();
                 reader.Close();
             }
             dialog.Dispose();
@@ -188,16 +227,16 @@ namespace WinHtmlEditor
 
         private void tsbSave_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog
+            var dialog = new SaveFileDialog
             {
                 FileName = "",
-                Filter = "HTML文件|*.html|SHTML文件|*.shtml|HTM文件|*.htm|文本文件|*.txt",
-                Title = "保存文件"
+                Filter = Resources.SaveFilter,
+                Title = Resources.SaveTitle
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter writer = new StreamWriter(dialog.FileName);
-                writer.Write(this.wb.DocumentText);
+                var writer = new StreamWriter(dialog.FileName);
+                writer.Write(wb.DocumentText);
                 writer.Close();
             }
             dialog.Dispose();
@@ -210,39 +249,39 @@ namespace WinHtmlEditor
 
         public void ShowHTML()
         {
-            bool visible = this.wb.Visible;
-            for (int i = 0; i < this.topToolBar.Items.Count; i++)
+            bool visible = wb.Visible;
+            for (int i = 0; i < topToolBar.Items.Count; i++)
             {
-                this.topToolBar.Items[i].Enabled = !visible;
+                topToolBar.Items[i].Enabled = !visible;
             }
             if (visible)
             {
-                TextBox box = new TextBox
+                var box = new TextBox
                 {
                     Name = "textHTMLCode",
                     Dock = DockStyle.Fill,
-                    Text = this.HTML,
+                    Text = HTML,
                     ScrollBars = ScrollBars.Vertical,
                     Multiline = true
                 };
-                this.tscMain.ContentPanel.Controls.Add(box);
+                tscMain.ContentPanel.Controls.Add(box);
                 box.Select(0, 0);
                 box.Visible = true;
-                this.wb.Visible = false;
-                this.tsbShowHTML.Enabled = true;
-                box.KeyUp -= new KeyEventHandler(this.textHTMLCode_KeyUp);
-                box.KeyUp += new KeyEventHandler(this.textHTMLCode_KeyUp);
+                wb.Visible = false;
+                tsbShowHTML.Enabled = true;
+                box.KeyUp -= textHTMLCode_KeyUp;
+                box.KeyUp += textHTMLCode_KeyUp;
             }
             else
             {
-                TextBox box2 = this.tscMain.ContentPanel.Controls["textHTMLCode"] as TextBox;
+                var box2 = tscMain.ContentPanel.Controls["textHTMLCode"] as TextBox;
                 if (box2 != null)
                 {
-                    this.HTML = box2.Text;
-                    this.tscMain.ContentPanel.Controls.Remove(box2);
+                    HTML = box2.Text;
+                    tscMain.ContentPanel.Controls.Remove(box2);
                     box2.Dispose();
                 }
-                this.wb.Visible = true;
+                wb.Visible = true;
             }
         }
 
@@ -256,113 +295,127 @@ namespace WinHtmlEditor
 
         private void tsbCopy_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Copy", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Copy", false, null);
         }
 
         private void tsbCut_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Cut", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Cut", false, null);
         }
 
         private void tsbPaste_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Paste", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Paste", false, null);
         }
 
         private void tsbDelete_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Delete", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Delete", false, null);
         }
 
         private void tsbFind_Click(object sender, EventArgs e)
         {
-            this.wb.Focus();
+            wb.Focus();
             SendKeys.SendWait("^f");
         }
 
         private void tsbClearFormat_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("RemoveFormat", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("RemoveFormat", false, null);
         }
 
         private void tsbCenter_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("JustifyCenter", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("JustifyCenter", false, null);
         }
 
         private void tsbLeft_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("JustifyLeft", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("JustifyLeft", false, null);
         }
 
         private void tsbRight_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("JustifyRight", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("JustifyRight", false, null);
         }
 
         private void tsbUnderline_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Underline", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Underline", false, null);
         }
 
         private void tsbItalic_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Italic", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Italic", false, null);
         }
 
         private void tsbBlod_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Bold", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Bold", false, null);
         }
 
         private void tsbBgcolor_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
+            var dialog = new ColorDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string str = string.Format("#{0:X2}{1:X2}{2:X2}", dialog.Color.R, dialog.Color.G, dialog.Color.B);
-                this.wb.Document.ExecCommand("BackColor", false, str);
+                Debug.Assert(wb.Document != null, "wb.Document != null");
+                wb.Document.ExecCommand("BackColor", false, str);
             }
         }
 
         private void tsbFontColor_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
+            var dialog = new ColorDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string str = string.Format("#{0:X2}{1:X2}{2:X2}", dialog.Color.R, dialog.Color.G, dialog.Color.B);
-                this.wb.Document.ExecCommand("ForeColor", false, str);
+                Debug.Assert(wb.Document != null, "wb.Document != null");
+                wb.Document.ExecCommand("ForeColor", false, str);
             }
         }
 
         private void tsbSetFont_Click(object sender, EventArgs e)
         {
-            FontDialog dialog = new FontDialog
+            var dialog = new FontDialog
             {
                 ShowEffects = true,
                 ShowColor = true
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                this.wb.Document.ExecCommand("FontSize", false, dialog.Font.Size);
-                this.wb.Document.ExecCommand("FontName", false, dialog.Font.Name);
+                Debug.Assert(wb.Document != null, "wb.Document != null");
+                wb.Document.ExecCommand("FontSize", false, dialog.Font.Size);
+                wb.Document.ExecCommand("FontName", false, dialog.Font.Name);
                 if (dialog.Font.Underline)
                 {
-                    this.wb.Document.ExecCommand("Underline", false, null);
+                    wb.Document.ExecCommand("Underline", false, null);
                 }
                 if (dialog.Font.Italic)
                 {
-                    this.wb.Document.ExecCommand("Italic", false, null);
+                    wb.Document.ExecCommand("Italic", false, null);
                 }
                 if (dialog.Font.Bold)
                 {
-                    this.wb.Document.ExecCommand("Bold", false, null);
+                    wb.Document.ExecCommand("Bold", false, null);
                 }
                 Color color = dialog.Color;
                 if (dialog.Color != Color.Black)
                 {
                     string str = string.Format("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
-                    this.wb.Document.ExecCommand("ForeColor", false, str);
+                    wb.Document.ExecCommand("ForeColor", false, str);
                 }
             }
             dialog.Dispose();
@@ -370,47 +423,55 @@ namespace WinHtmlEditor
 
         private void tsbLink_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("CreateLink", true, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("CreateLink", true, null);
         }
 
         private void tsbUnlink_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Unlink", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Unlink", false, null);
         }
 
         private void tsbImg_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("InsertImage", true, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("InsertImage", true, null);
         }
 
         private void tsbInsertHorizontalRule_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("InsertHorizontalRule", true, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("InsertHorizontalRule", true, null);
         }
 
         private void tsbOutdent_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Outdent", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Outdent", false, null);
         }
 
         private void tsbIndent_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Indent", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Indent", false, null);
         }
 
         private void tsbUL_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("InsertUnorderedList", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("InsertUnorderedList", false, null);
         }
 
         private void tsbOL_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("InsertOrderedList", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("InsertOrderedList", false, null);
         }
 
         private void tsbAbout_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("这是一个免费的HTML控件，你可以自由使用。\r\n如有任何问题或建议请加入QQ群：217478320，开源项目请访问：github.com/tewuapple/WinHtmlEditor,是否现在就访问？\r\n", "关于", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+            if (MessageBox.Show(Resources.AboutInfo, Resources.AboutText, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
             {
                 Process.Start("https://github.com/tewuapple/WinHtmlEditor");
             }
@@ -418,9 +479,11 @@ namespace WinHtmlEditor
 
         private void wb_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            HtmlDocument document = this.wb.Document;
-            document.Body.KeyDown -= new HtmlElementEventHandler(this.Body_KeyDown);
-            document.Body.KeyDown += new HtmlElementEventHandler(this.Body_KeyDown);
+            HtmlDocument document = wb.Document;
+            Debug.Assert(document != null, "document != null");
+            Debug.Assert(document.Body != null, "document.Body != null");
+            document.Body.KeyDown -= Body_KeyDown;
+            document.Body.KeyDown += Body_KeyDown;
         }
 
         private void Body_KeyDown(object sender, HtmlElementEventArgs e)
@@ -433,23 +496,17 @@ namespace WinHtmlEditor
                         SelectAll();
                         e.ReturnValue = true;
                         break;
-                    default:
-                        break;
                 }
             }
-            if ((e.KeyPressedCode == 13) && this.EnterToBR)
+            if ((e.KeyPressedCode == 13) && EnterToBR)
             {
-                IHTMLDocument2 domDocument = this.wb.Document.DomDocument as IHTMLDocument2;
-                IHTMLTxtRange range = domDocument.selection.createRange() as IHTMLTxtRange;
-                if (!e.ShiftKeyPressed)
-                {
-                    range.pasteHTML("<br>");
-                }
-                else
-                {
-                    range.pasteHTML("<P>&nbsp;</P>");
-                }
-                range.collapse(true);
+                Debug.Assert(wb.Document != null, "wb.Document != null");
+                var domDocument = wb.Document.DomDocument as IHTMLDocument2;
+                Debug.Assert(domDocument != null, "domDocument != null");
+                var range = domDocument.selection.createRange() as IHTMLTxtRange;
+                Debug.Assert(range != null, "range != null");
+                range.pasteHTML(!e.ShiftKeyPressed ? "<br>" : "<P>&nbsp;</P>");
+                range.collapse();
                 range.select();
                 e.ReturnValue = true;
             }
@@ -457,26 +514,30 @@ namespace WinHtmlEditor
 
         private void HtmlEditor_Load(object sender, EventArgs e)
         {
-            this.topToolBar.Dock = DockStyle.Top;
-            this.wb.Navigate("about:blank");
-            IHTMLDocument2 domDocument = this.wb.Document.DomDocument as IHTMLDocument2;
-            this.wb.IsWebBrowserContextMenuEnabled = false;
+            topToolBar.Dock = DockStyle.Top;
+            wb.Navigate("about:blank");
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            var domDocument = wb.Document.DomDocument as IHTMLDocument2;
+            wb.IsWebBrowserContextMenuEnabled = false;
+            Debug.Assert(domDocument != null, "domDocument != null");
             domDocument.designMode = "on";
-            this.SelectAllMenu.Click += new EventHandler(this.SelectAllMenu_Click);
-            this.DeleteMenu.Click += new EventHandler(this.tsbDelete_Click);
-            this.FindMenu.Click += new EventHandler(this.tsbFind_Click);
-            this.CopyMenu.Click += new EventHandler(this.tsbCopy_Click);
-            this.CutMenu.Click += new EventHandler(this.tsbCut_Click);
-            this.PasteMenu.Click += new EventHandler(this.tsbPaste_Click);
-            this.SaveToFileMenu.Click += new EventHandler(this.tsbSave_Click);
-            this.RemoveFormatMenu.Click += new EventHandler(this.tsbClearFormat_Click);
-            htmledit.DOMDocument = domDocument;
+            SelectAllMenu.Click += SelectAllMenu_Click;
+            DeleteMenu.Click += tsbDelete_Click;
+            FindMenu.Click += tsbFind_Click;
+            CopyMenu.Click += tsbCopy_Click;
+            CutMenu.Click += tsbCut_Click;
+            PasteMenu.Click += tsbPaste_Click;
+            SaveToFileMenu.Click += tsbSave_Click;
+            RemoveFormatMenu.Click += tsbClearFormat_Click;
+            HTMLEditHelper.DOMDocument = domDocument;
         }
 
         private void SelectAll()
         {
-            this.wb.Document.ExecCommand("SelectAll", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("SelectAll", false, null);
         }
+
         private void SelectAllMenu_Click(object sender, EventArgs e)
         {
             SelectAll();
@@ -484,27 +545,27 @@ namespace WinHtmlEditor
 
         private void tsbFull_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("JustifyFull", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("JustifyFull", false, null);
         }
-
-        private HTMLEditHelper htmledit = new HTMLEditHelper();
 
         private void tsbInsertTable_Click(object sender, EventArgs e)
         {
-            frmTable m_frmTable = new frmTable();
-            m_frmTable.ShowDialog(this);
-            if (m_frmTable.m_Result == DialogResult.OK)
+            var mFrmTable = new FrmTable();
+            mFrmTable.ShowDialog(this);
+            if (mFrmTable.MResult == DialogResult.OK)
             {
-                htmledit.AppendTable(m_frmTable.m_Cols, m_frmTable.m_Rows,
-                    m_frmTable.m_BorderSize, m_frmTable.m_Alignment,
-                    m_frmTable.m_CellPadding, m_frmTable.m_CellSpacing,
-                    m_frmTable.m_WidthPercent, m_frmTable.m_WidthPixels);
+                HTMLEditHelper.AppendTable(mFrmTable.MCols, mFrmTable.MRows,
+                    mFrmTable.MBorderSize, mFrmTable.MAlignment,
+                    mFrmTable.MCellPadding, mFrmTable.MCellSpacing,
+                    mFrmTable.MWidthPercent, mFrmTable.MWidthPixels);
             }
         }
 
         private void tsbWordCount_Click(object sender, EventArgs e)
         {
-            var body = this.wb.Document.Body;
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            var body = wb.Document.Body;
             if (body != null)
             {
                 int wordCount = WordCount(body.InnerText);
@@ -515,46 +576,43 @@ namespace WinHtmlEditor
         private int WordCount(string value)
         {
             var sec = Regex.Split(value, @"\s");
-            int count = 0;
-            foreach (var si in sec)
-            {
-                int ci = Regex.Matches(si, @"[\u0000-\u00ff]+").Count;
-                foreach (var c in si)
-                    if ((int)c > 0x00FF) ci++;
-                count += ci;
-            }
-            return count;
+            return sec.Sum(si => Regex.Matches(si, @"[\u0000-\u00ff]+").Count + si.Count(c => (int)c > 0x00FF));
         }
 
         private void tsbSuperscript_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Superscript", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Superscript", false, null);
         }
 
         private void tsbSubscript_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Subscript", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Subscript", false, null);
         }
 
         private void tsbPrint_Click(object sender, EventArgs e)
         {
-            this.wb.Document.ExecCommand("Print", false, null);
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Print", false, null);
         }
 
         private void tsbDate_Click(object sender, EventArgs e)
         {
-            htmledit.PasteIntoSelection(DateTime.Now.ToLongDateString());
+            HTMLEditHelper.PasteIntoSelection(DateTime.Now.ToLongDateString());
         }
 
         private void tsbTime_Click(object sender, EventArgs e)
         {
-            htmledit.PasteIntoSelection(DateTime.Now.ToLongTimeString());
+            HTMLEditHelper.PasteIntoSelection(DateTime.Now.ToLongTimeString());
         }
 
         private void tsbSpellCheck_Click(object sender, EventArgs e)
         {
-            this.spellCheck.Text = this.wb.Document.Body.InnerHtml;
-            this.spellCheck.SpellCheck();
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+            spellCheck.Text = wb.Document.Body.InnerHtml;
+            spellCheck.SpellCheck();
         }
 
         public static string ClearWord(string sourceText, bool bIgnoreFont = true, bool bRemoveStyles = true, bool cleanWordKeepsStructure = true)
@@ -649,18 +707,25 @@ namespace WinHtmlEditor
 
         private void tsbWordClean_Click(object sender, EventArgs e)
         {
-            if (this.BodyInnerHTML != null)
-                this.wb.Document.Body.InnerHtml = ClearWord(this.BodyInnerHTML);
+            if (BodyInnerHTML != null)
+            {
+                Debug.Assert(wb.Document != null, "wb.Document != null");
+                Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+                wb.Document.Body.InnerHtml = ClearWord(BodyInnerHTML);
+            }
         }
 
         private void spellCheck_DeletedWord(object sender, NetSpell.SpellChecker.SpellingEventArgs e)
         {
-            this.wb.Document.Body.InnerHtml = e.Text;
+            var htmlDocument = wb.Document;
+            if (htmlDocument != null) if (htmlDocument.Body != null) htmlDocument.Body.InnerHtml = e.Text;
         }
 
         private void spellCheck_ReplacedWord(object sender, NetSpell.SpellChecker.ReplaceWordEventArgs e)
         {
-            this.wb.Document.Body.InnerHtml = e.Text;
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+            wb.Document.Body.InnerHtml = e.Text;
         }
     }
 }

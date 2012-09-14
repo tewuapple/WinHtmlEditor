@@ -126,6 +126,7 @@
             this.wb.Name = "wb";
             this.wb.Size = new System.Drawing.Size(948, 442);
             this.wb.TabIndex = 0;
+            this.wb.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.wb_Navigated);
             // 
             // contextMenuWeb
             // 
