@@ -201,6 +201,59 @@ namespace WinHtmlEditor
             HTMLEditHelper.PasteIntoSelection(sHtml);
         }
 
+        /// <summary>
+        /// 统计Html编辑器内容的字数
+        /// </summary>
+        /// <returns>字数</returns>
+        public int WordCount()
+        {
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+            var sec = Regex.Split(wb.Document.Body.InnerText, @"\s");
+            return sec.Sum(si => Regex.Matches(si, @"[\u0000-\u00ff]+").Count + si.Count(c => (int)c > 0x00FF));
+        }
+
+        /// <summary>
+        /// 源码和设计视图相互切换
+        /// </summary>
+        public void ShowHTML()
+        {
+            bool visible = wb.Visible;
+            for (int i = 0; i < topToolBar.Items.Count; i++)
+            {
+                topToolBar.Items[i].Enabled = !visible;
+            }
+            if (visible)
+            {
+                var box = new TextBox
+                {
+                    Name = "textHTMLCode",
+                    Dock = DockStyle.Fill,
+                    Text = HTML,
+                    ScrollBars = ScrollBars.Vertical,
+                    Multiline = true
+                };
+                tscMain.ContentPanel.Controls.Add(box);
+                box.Select(0, 0);
+                box.Visible = true;
+                wb.Visible = false;
+                tsbShowHTML.Enabled = true;
+                box.KeyUp -= textHTMLCode_KeyUp;
+                box.KeyUp += textHTMLCode_KeyUp;
+            }
+            else
+            {
+                var box2 = tscMain.ContentPanel.Controls["textHTMLCode"] as TextBox;
+                if (box2 != null)
+                {
+                    HTML = box2.Text;
+                    tscMain.ContentPanel.Controls.Remove(box2);
+                    box2.Dispose();
+                }
+                wb.Visible = true;
+            }
+        }
+
         #endregion
 
         private void tsbNew_Click(object sender, EventArgs e)
@@ -245,44 +298,6 @@ namespace WinHtmlEditor
         private void tsbShowHTML_Click(object sender, EventArgs e)
         {
             ShowHTML();
-        }
-
-        public void ShowHTML()
-        {
-            bool visible = wb.Visible;
-            for (int i = 0; i < topToolBar.Items.Count; i++)
-            {
-                topToolBar.Items[i].Enabled = !visible;
-            }
-            if (visible)
-            {
-                var box = new TextBox
-                {
-                    Name = "textHTMLCode",
-                    Dock = DockStyle.Fill,
-                    Text = HTML,
-                    ScrollBars = ScrollBars.Vertical,
-                    Multiline = true
-                };
-                tscMain.ContentPanel.Controls.Add(box);
-                box.Select(0, 0);
-                box.Visible = true;
-                wb.Visible = false;
-                tsbShowHTML.Enabled = true;
-                box.KeyUp -= textHTMLCode_KeyUp;
-                box.KeyUp += textHTMLCode_KeyUp;
-            }
-            else
-            {
-                var box2 = tscMain.ContentPanel.Controls["textHTMLCode"] as TextBox;
-                if (box2 != null)
-                {
-                    HTML = box2.Text;
-                    tscMain.ContentPanel.Controls.Remove(box2);
-                    box2.Dispose();
-                }
-                wb.Visible = true;
-            }
         }
 
         private void textHTMLCode_KeyUp(object sender, KeyEventArgs e)
@@ -564,19 +579,9 @@ namespace WinHtmlEditor
 
         private void tsbWordCount_Click(object sender, EventArgs e)
         {
-            Debug.Assert(wb.Document != null, "wb.Document != null");
-            var body = wb.Document.Body;
-            if (body != null)
-            {
-                int wordCount = WordCount(body.InnerText);
-                MessageBox.Show(string.Format("字数：{0}", wordCount));
-            }
-        }
-
-        private int WordCount(string value)
-        {
-            var sec = Regex.Split(value, @"\s");
-            return sec.Sum(si => Regex.Matches(si, @"[\u0000-\u00ff]+").Count + si.Count(c => (int)c > 0x00FF));
+            PasteIntoSelection("<input></input>");
+            int wordCount = wb.Document.Body.InnerText == null ? 0 : WordCount();
+            MessageBox.Show(string.Format("字数：{0}", wordCount));
         }
 
         private void tsbSuperscript_Click(object sender, EventArgs e)
