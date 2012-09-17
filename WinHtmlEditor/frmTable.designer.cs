@@ -152,7 +152,7 @@ namespace WinHtmlEditor
             this.panel1.Location = new System.Drawing.Point(195, 21);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(163, 95);
-            this.panel1.TabIndex = 8;
+            this.panel1.TabIndex = 0;
             // 
             // UpDownWidth
             // 
@@ -164,7 +164,7 @@ namespace WinHtmlEditor
             0});
             this.UpDownWidth.Name = "UpDownWidth";
             this.UpDownWidth.Size = new System.Drawing.Size(48, 21);
-            this.UpDownWidth.TabIndex = 3;
+            this.UpDownWidth.TabIndex = 1;
             this.UpDownWidth.Value = new decimal(new int[] {
             2,
             0,

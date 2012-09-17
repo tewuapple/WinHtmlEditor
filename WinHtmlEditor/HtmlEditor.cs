@@ -579,7 +579,6 @@ namespace WinHtmlEditor
 
         private void tsbWordCount_Click(object sender, EventArgs e)
         {
-            PasteIntoSelection("<input></input>");
             int wordCount = wb.Document.Body.InnerText == null ? 0 : WordCount();
             MessageBox.Show(string.Format("字数：{0}", wordCount));
         }
