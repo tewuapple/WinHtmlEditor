@@ -28,8 +28,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    Debug.Assert(wb.Document != null, "wb.Document != null");
-                    if (wb.Document.Body != null) return wb.Document.Body.InnerHtml;
+                    if (wb.Document != null && wb.Document.Body != null) return wb.Document.Body.InnerHtml;
                 }
                 catch
                 {
@@ -41,9 +40,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    Debug.Assert(wb.Document != null, "wb.Document != null");
-                    Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
-                    wb.Document.Body.InnerHtml = value;
+                    if (wb.Document != null && wb.Document.Body != null) wb.Document.Body.InnerHtml = value;
                 }
                 catch
                 {
@@ -58,8 +55,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    Debug.Assert(wb.Document != null, "wb.Document != null");
-                    if (wb.Document.Body != null) return wb.Document.Body.InnerText;
+                    if (wb.Document != null && wb.Document.Body != null) return wb.Document.Body.InnerText;
                 }
                 catch
                 {
@@ -71,9 +67,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    Debug.Assert(wb.Document != null, "wb.Document != null");
-                    Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
-                    wb.Document.Body.InnerText = value;
+                    if (wb.Document != null && wb.Document.Body != null) wb.Document.Body.InnerText = value;
                 }
                 catch
                 {
@@ -95,9 +89,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    Debug.Assert(wb.Document != null, "wb.Document != null");
-                    Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
-                    wb.Document.Body.InnerHtml = value;
+                    if (wb.Document != null && wb.Document.Body != null) wb.Document.Body.InnerHtml = value;
                 }
                 catch
                 {
@@ -209,8 +201,10 @@ namespace WinHtmlEditor
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
-            var sec = Regex.Split(wb.Document.Body.InnerText, @"\s");
-            return sec.Sum(si => Regex.Matches(si, @"[\u0000-\u00ff]+").Count + si.Count(c => (int)c > 0x00FF));
+            return wb.Document.Body.InnerText == null
+                       ? 0
+                       : Regex.Split(wb.Document.Body.InnerText, @"\s").
+                             Sum(si => Regex.Matches(si, @"[\u0000-\u00ff]+").Count + si.Count(c => (int) c > 0x00FF));
         }
 
         /// <summary>
@@ -494,7 +488,7 @@ namespace WinHtmlEditor
 
         private void wb_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            HtmlDocument document = wb.Document;
+            var document = wb.Document;
             Debug.Assert(document != null, "document != null");
             Debug.Assert(document.Body != null, "document.Body != null");
             document.Body.KeyDown -= Body_KeyDown;
@@ -579,7 +573,7 @@ namespace WinHtmlEditor
 
         private void tsbWordCount_Click(object sender, EventArgs e)
         {
-            int wordCount = wb.Document.Body.InnerText == null ? 0 : WordCount();
+            int wordCount = WordCount();
             MessageBox.Show(string.Format("字数：{0}", wordCount));
         }
 
