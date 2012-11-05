@@ -1,4 +1,6 @@
-﻿namespace WinHtmlEditor
+﻿using WinHtmlEditor.Common;
+
+namespace WinHtmlEditor
 {
     partial class HtmlEditor
     {
@@ -42,6 +44,8 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.SaveToFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.topToolBar = new System.Windows.Forms.ToolStrip();
+            this.tscbFont = new WinHtmlEditor.Common.ToolStripFontComboBox();
+            this.tscbFontSize = new System.Windows.Forms.ToolStripComboBox();
             this.tsbNew = new System.Windows.Forms.ToolStripButton();
             this.tsbOpen = new System.Windows.Forms.ToolStripButton();
             this.tsbPrint = new System.Windows.Forms.ToolStripButton();
@@ -61,7 +65,7 @@
             this.tsbRight = new System.Windows.Forms.ToolStripButton();
             this.tsbUnderline = new System.Windows.Forms.ToolStripButton();
             this.tsbItalic = new System.Windows.Forms.ToolStripButton();
-            this.tsbBlod = new System.Windows.Forms.ToolStripButton();
+            this.tsbBold = new System.Windows.Forms.ToolStripButton();
             this.tsbBgcolor = new System.Windows.Forms.ToolStripButton();
             this.tsbFontColor = new System.Windows.Forms.ToolStripButton();
             this.tsbSetFont = new System.Windows.Forms.ToolStripButton();
@@ -87,6 +91,7 @@
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.wordDictionary = new NetSpell.SpellChecker.Dictionary.WordDictionary(this.components);
             this.spellCheck = new NetSpell.SpellChecker.Spelling(this.components);
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.tscMain.ContentPanel.SuspendLayout();
             this.tscMain.TopToolStripPanel.SuspendLayout();
             this.tscMain.SuspendLayout();
@@ -102,14 +107,14 @@
             // 
             this.tscMain.ContentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tscMain.ContentPanel.Controls.Add(this.wb);
-            this.tscMain.ContentPanel.Size = new System.Drawing.Size(952, 446);
+            this.tscMain.ContentPanel.Size = new System.Drawing.Size(1296, 446);
             this.tscMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscMain.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tscMain.LeftToolStripPanelVisible = false;
             this.tscMain.Location = new System.Drawing.Point(0, 0);
             this.tscMain.Name = "tscMain";
             this.tscMain.RightToolStripPanelVisible = false;
-            this.tscMain.Size = new System.Drawing.Size(952, 471);
+            this.tscMain.Size = new System.Drawing.Size(1296, 471);
             this.tscMain.TabIndex = 0;
             this.tscMain.Text = "toolStripContainer1";
             // 
@@ -124,7 +129,7 @@
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(948, 442);
+            this.wb.Size = new System.Drawing.Size(1292, 442);
             this.wb.TabIndex = 0;
             this.wb.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.wb_Navigated);
             // 
@@ -208,6 +213,8 @@
             this.topToolBar.Dock = System.Windows.Forms.DockStyle.None;
             this.topToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.topToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tscbFont,
+            this.tscbFontSize,
             this.tsbNew,
             this.tsbOpen,
             this.tsbPrint,
@@ -227,7 +234,7 @@
             this.tsbRight,
             this.tsbUnderline,
             this.tsbItalic,
-            this.tsbBlod,
+            this.tsbBold,
             this.tsbBgcolor,
             this.tsbFontColor,
             this.tsbSetFont,
@@ -254,9 +261,24 @@
             this.topToolBar.Location = new System.Drawing.Point(3, 0);
             this.topToolBar.Name = "topToolBar";
             this.topToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.topToolBar.Size = new System.Drawing.Size(907, 25);
+            this.topToolBar.Size = new System.Drawing.Size(1217, 25);
             this.topToolBar.TabIndex = 0;
             this.topToolBar.Text = "topToolBar";
+            // 
+            // tscbFont
+            // 
+            this.tscbFont.InternalCall = false;
+            this.tscbFont.Name = "tscbFont";
+            this.tscbFont.SelectedFontItem = null;
+            this.tscbFont.SelectedFontNameItem = "";
+            this.tscbFont.Size = new System.Drawing.Size(200, 25);
+            this.tscbFont.SelectedIndexChanged += new System.EventHandler(this.tscbFont_SelectedIndexChanged);
+            this.tscbFont.Leave += new System.EventHandler(this.tscbFont_Leave);
+            // 
+            // tscbFontSize
+            // 
+            this.tscbFontSize.Name = "tscbFontSize";
+            this.tscbFontSize.Size = new System.Drawing.Size(75, 25);
             // 
             // tsbNew
             // 
@@ -438,15 +460,15 @@
             this.tsbItalic.Text = "斜体";
             this.tsbItalic.Click += new System.EventHandler(this.tsbItalic_Click);
             // 
-            // tsbBlod
+            // tsbBold
             // 
-            this.tsbBlod.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbBlod.Image = global::WinHtmlEditor.Properties.Resources.Bold;
-            this.tsbBlod.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbBlod.Name = "tsbBlod";
-            this.tsbBlod.Size = new System.Drawing.Size(23, 22);
-            this.tsbBlod.Text = "粗体";
-            this.tsbBlod.Click += new System.EventHandler(this.tsbBlod_Click);
+            this.tsbBold.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbBold.Image = global::WinHtmlEditor.Properties.Resources.Bold;
+            this.tsbBold.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbBold.Name = "tsbBold";
+            this.tsbBold.Size = new System.Drawing.Size(23, 22);
+            this.tsbBold.Text = "粗体";
+            this.tsbBold.Click += new System.EventHandler(this.tsbBold_Click);
             // 
             // tsbBgcolor
             // 
@@ -681,7 +703,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Controls.Add(this.tscMain);
             this.Name = "HtmlEditor";
-            this.Size = new System.Drawing.Size(952, 471);
+            this.Size = new System.Drawing.Size(1296, 471);
             this.Load += new System.EventHandler(this.HtmlEditor_Load);
             this.tscMain.ContentPanel.ResumeLayout(false);
             this.tscMain.TopToolStripPanel.ResumeLayout(false);
@@ -717,7 +739,7 @@
         private System.Windows.Forms.ToolStripButton tsbRight;
         private System.Windows.Forms.ToolStripButton tsbUnderline;
         private System.Windows.Forms.ToolStripButton tsbItalic;
-        private System.Windows.Forms.ToolStripButton tsbBlod;
+        private System.Windows.Forms.ToolStripButton tsbBold;
         private System.Windows.Forms.ToolStripButton tsbBgcolor;
         private System.Windows.Forms.ToolStripButton tsbFontColor;
         private System.Windows.Forms.ToolStripButton tsbSetFont;
@@ -755,5 +777,8 @@
         private System.Windows.Forms.ToolStripButton tsbWordClean;
         private NetSpell.SpellChecker.Dictionary.WordDictionary wordDictionary;
         private NetSpell.SpellChecker.Spelling spellCheck;
+        private ToolStripFontComboBox tscbFont;
+        private System.Windows.Forms.ToolStripComboBox tscbFontSize;
+        private System.Windows.Forms.Timer timer;
     }
 }

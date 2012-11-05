@@ -1,12 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using WinHtmlEditor.Common;
 using WinHtmlEditor.Properties;
 using mshtml;
 using System.Diagnostics;
@@ -16,6 +18,26 @@ namespace WinHtmlEditor
     [Docking(DockingBehavior.Ask), ComVisible(true), ClassInterface(ClassInterfaceType.AutoDispatch), ToolboxBitmap(typeof(HtmlEditor), "Resources.HTML.bmp")]
     public partial class HtmlEditor : UserControl
     {
+        private IHTMLDocument2 doc;
+        private bool updatingFontName = false;
+        private bool updatingFontSize = false;
+
+        public delegate void TickDelegate();
+        public event TickDelegate Tick;
+
+        public class EnterKeyEventArgs : EventArgs
+        {
+            private bool _cancel = false;
+
+            public bool Cancel
+            {
+                get { return _cancel; }
+                set { _cancel = value; }
+            }
+
+        }
+        public event EventHandler<EnterKeyEventArgs> EnterKeyEvent;
+
         public HtmlEditor()
         {
             InitializeComponent();
@@ -257,36 +279,38 @@ namespace WinHtmlEditor
 
         private void tsbOpen_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog
+            using (var dialog = new OpenFileDialog
             {
                 FileName = "",
                 Filter = Resources.OpenFilter,
                 Title = Resources.OpenTitle
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
+            })
             {
-                var reader = new StreamReader(dialog.FileName, Encoding.Default);
-                HTML = reader.ReadToEnd();
-                reader.Close();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var reader = new StreamReader(dialog.FileName, Encoding.Default);
+                    HTML = reader.ReadToEnd();
+                    reader.Close();
+                }
             }
-            dialog.Dispose();
         }
 
         private void tsbSave_Click(object sender, EventArgs e)
         {
-            var dialog = new SaveFileDialog
+            using (var dialog = new SaveFileDialog
             {
                 FileName = "",
                 Filter = Resources.SaveFilter,
                 Title = Resources.SaveTitle
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
+            })
             {
-                var writer = new StreamWriter(dialog.FileName);
-                writer.Write(wb.DocumentText);
-                writer.Close();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var writer = new StreamWriter(dialog.FileName);
+                    writer.Write(wb.DocumentText);
+                    writer.Close();
+                }
             }
-            dialog.Dispose();
         }
 
         private void tsbShowHTML_Click(object sender, EventArgs e)
@@ -368,7 +392,7 @@ namespace WinHtmlEditor
             wb.Document.ExecCommand("Italic", false, null);
         }
 
-        private void tsbBlod_Click(object sender, EventArgs e)
+        private void tsbBold_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("Bold", false, null);
@@ -376,58 +400,65 @@ namespace WinHtmlEditor
 
         private void tsbBgcolor_Click(object sender, EventArgs e)
         {
-            var dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            using (var dialog = new ColorDialog())
             {
-                string str = string.Format("#{0:X2}{1:X2}{2:X2}", dialog.Color.R, dialog.Color.G, dialog.Color.B);
-                Debug.Assert(wb.Document != null, "wb.Document != null");
-                wb.Document.ExecCommand("BackColor", false, str);
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    string str = string.Format("#{0:X2}{1:X2}{2:X2}", dialog.Color.R, dialog.Color.G, dialog.Color.B);
+                    Debug.Assert(wb.Document != null, "wb.Document != null");
+                    wb.Document.ExecCommand("BackColor", false, str);
+                }
             }
         }
 
         private void tsbFontColor_Click(object sender, EventArgs e)
         {
-            var dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            using (var dialog = new ColorDialog())
             {
-                string str = string.Format("#{0:X2}{1:X2}{2:X2}", dialog.Color.R, dialog.Color.G, dialog.Color.B);
-                Debug.Assert(wb.Document != null, "wb.Document != null");
-                wb.Document.ExecCommand("ForeColor", false, str);
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    string str = string.Format("#{0:X2}{1:X2}{2:X2}", dialog.Color.R, dialog.Color.G, dialog.Color.B);
+                    Debug.Assert(wb.Document != null, "wb.Document != null");
+                    wb.Document.ExecCommand("ForeColor", false, str);
+                }
             }
         }
 
         private void tsbSetFont_Click(object sender, EventArgs e)
         {
-            var dialog = new FontDialog
-            {
-                ShowEffects = true,
-                ShowColor = true
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                Debug.Assert(wb.Document != null, "wb.Document != null");
-                wb.Document.ExecCommand("FontSize", false, dialog.Font.Size);
-                wb.Document.ExecCommand("FontName", false, dialog.Font.Name);
-                if (dialog.Font.Underline)
-                {
-                    wb.Document.ExecCommand("Underline", false, null);
-                }
-                if (dialog.Font.Italic)
-                {
-                    wb.Document.ExecCommand("Italic", false, null);
-                }
-                if (dialog.Font.Bold)
-                {
-                    wb.Document.ExecCommand("Bold", false, null);
-                }
-                Color color = dialog.Color;
-                if (dialog.Color != Color.Black)
-                {
-                    string str = string.Format("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
-                    wb.Document.ExecCommand("ForeColor", false, str);
-                }
-            }
-            dialog.Dispose();
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("StrikeThrough", false, null);
+            //using (var dialog = new FontDialog
+            //{
+            //    ShowEffects = true,
+            //    ShowColor = true
+            //})
+            //{
+            //    if (dialog.ShowDialog() == DialogResult.OK)
+            //    {
+            //        Debug.Assert(wb.Document != null, "wb.Document != null");
+            //        wb.Document.ExecCommand("FontSize", false, dialog.Font.Size);
+            //        wb.Document.ExecCommand("FontName", false, dialog.Font.Name);
+            //        if (dialog.Font.Underline)
+            //        {
+            //            wb.Document.ExecCommand("Underline", false, null);
+            //        }
+            //        if (dialog.Font.Italic)
+            //        {
+            //            wb.Document.ExecCommand("Italic", false, null);
+            //        }
+            //        if (dialog.Font.Bold)
+            //        {
+            //            wb.Document.ExecCommand("Bold", false, null);
+            //        }
+            //        Color color = dialog.Color;
+            //        if (dialog.Color != Color.Black)
+            //        {
+            //            string str = string.Format("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
+            //            wb.Document.ExecCommand("ForeColor", false, str);
+            //        }
+            //    }
+            //}
         }
 
         private void tsbLink_Click(object sender, EventArgs e)
@@ -507,7 +538,8 @@ namespace WinHtmlEditor
                         break;
                 }
             }
-            if ((e.KeyPressedCode == 13) && EnterToBR)
+            if ((e.KeyPressedCode != 13)) return;
+            if (EnterToBR)
             {
                 Debug.Assert(wb.Document != null, "wb.Document != null");
                 var domDocument = wb.Document.DomDocument as IHTMLDocument2;
@@ -516,20 +548,27 @@ namespace WinHtmlEditor
                 Debug.Assert(range != null, "range != null");
                 range.pasteHTML(!e.ShiftKeyPressed ? "<br>" : "<P>&nbsp;</P>");
                 range.collapse();
-                range.select();
-                e.ReturnValue = true;
+                range.@select();
             }
+            if (!e.ShiftKeyPressed)
+            {
+                e.ReturnValue = SetupKeyListener();
+            }
+            e.ReturnValue = true;
         }
 
         private void HtmlEditor_Load(object sender, EventArgs e)
         {
+            SynchFont(string.Empty);
+            SetupTimer();
+            SetupComboFontSize();
             topToolBar.Dock = DockStyle.Top;
             wb.Navigate("about:blank");
             Debug.Assert(wb.Document != null, "wb.Document != null");
-            var domDocument = wb.Document.DomDocument as IHTMLDocument2;
+            doc = wb.Document.DomDocument as IHTMLDocument2;
             wb.IsWebBrowserContextMenuEnabled = false;
-            Debug.Assert(domDocument != null, "domDocument != null");
-            domDocument.designMode = "on";
+            Debug.Assert(doc != null, "domDocument != null");
+            doc.designMode = "on";
             SelectAllMenu.Click += SelectAllMenu_Click;
             DeleteMenu.Click += tsbDelete_Click;
             FindMenu.Click += tsbFind_Click;
@@ -538,7 +577,7 @@ namespace WinHtmlEditor
             PasteMenu.Click += tsbPaste_Click;
             SaveToFileMenu.Click += tsbSave_Click;
             RemoveFormatMenu.Click += tsbClearFormat_Click;
-            HTMLEditHelper.DOMDocument = domDocument;
+            HTMLEditHelper.DOMDocument = doc;
         }
 
         private void SelectAll()
@@ -725,5 +764,529 @@ namespace WinHtmlEditor
             Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
             wb.Document.Body.InnerHtml = e.Text;
         }
+
+        #region Fonts and Color Handling
+
+        //To handle the fact that setting SelectedIndex property calls SelectedIndexChanged event
+        //We set this value to true whenever SelectedIndex is set. 
+        private bool m_InternalCall;
+        private void SetupComboFontSize()
+        {
+            tscbFontSize.DropDownStyle = ComboBoxStyle.DropDownList;
+            tscbFontSize.Items.Add("1 (8 pt)");
+            tscbFontSize.Items.Add("2 (10 pt)");
+            tscbFontSize.Items.Add("3 (12 pt)");
+            tscbFontSize.Items.Add("4 (14 pt)");
+            tscbFontSize.Items.Add("5 (18 pt)");
+            tscbFontSize.Items.Add("6 (24 pt)");
+            tscbFontSize.Items.Add("7 (36 pt)");
+            tscbFontSize.Click += tsComboFontSize_Click;
+            tscbFontSize.SelectedIndexChanged += tsComboFontSize_SelectedIndexChanged;
+        }
+
+        void tsComboFontSize_Click(object sender, EventArgs e)
+        {
+            m_InternalCall = false;
+        }
+
+        void tsComboFontSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Fontsize changed 1 to 7
+                if ((tscbFontSize.SelectedIndex > -1) && (!m_InternalCall))
+                {
+                    if (updatingFontSize) return;
+                    int obj = tscbFontSize.SelectedIndex + 1;
+                    switch (obj)
+                    {
+                        case 1:
+                            FontSize = FontSize.One;
+                            break;
+                        case 2:
+                            FontSize = FontSize.Two;
+                            break;
+                        case 3:
+                            FontSize = FontSize.Three;
+                            break;
+                        case 4:
+                            FontSize = FontSize.Four;
+                            break;
+                        case 5:
+                            FontSize = FontSize.Five;
+                            break;
+                        case 6:
+                            FontSize = FontSize.Six;
+                            break;
+                        case 7:
+                            FontSize = FontSize.Seven;
+                            break;
+                        default:
+                            FontSize = FontSize.Seven;
+                            break;
+                    }
+                    wb.Focus();
+                }
+                m_InternalCall = false;
+            }
+            catch
+            {
+            }
+        }
+
+        /// <summary>
+        /// Called when the font combo box has changed.
+        /// Ignores the event when the timer is updating the font combo Box 
+        /// to synchronize the editor selection with the font combo box.
+        /// </summary>
+        /// <param name="sender">the sender</param>
+        /// <param name="e">EventArgs</param>
+        private void tscbFont_Leave(object sender, EventArgs e)
+        {
+            if (updatingFontName) return;
+            FontFamily ff;
+            try
+            {
+                ff = new FontFamily(tscbFont.Text);
+            }
+            catch (Exception)
+            {
+                updatingFontName = true;
+                tscbFont.Text = FontName.GetName(0);
+                updatingFontName = false;
+                return;
+            }
+            FontName = ff;
+        }
+
+
+        private void tscbFont_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if ((tscbFont.SelectedIndex > -1) &&
+                    (!tscbFont.InternalCall))
+                {
+                    if (updatingFontName) return;
+                    Font f = tscbFont.SelectedFontItem;
+                    FontName = f.FontFamily;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        #endregion
+
+        #region Private variables and methods
+
+        private void SynchFont(string sTagName)
+        {
+            //Times Roman New
+            string fontname = string.Empty;
+            if (doc != null)
+            {
+                object obj = doc.queryCommandValue("FontName");
+                if (obj == null)
+                    return;
+                fontname = obj.ToString();
+                obj = doc.queryCommandValue("FontSize");
+                if (obj == null)
+                    return;
+                //Could indicate a headingxxx, P, or BODY
+                m_InternalCall = true;
+                if (obj.ToString().Length > 0)
+                    tscbFontSize.SelectedIndex = Convert.ToInt32(obj) - 1; //x (x - 1)
+                else
+                    AdjustForHeading(sTagName);
+            }
+            tscbFont.SelectedFontNameItem = fontname;
+        }
+
+        private void AdjustForHeading(string sTag)
+        {
+            if (string.IsNullOrEmpty(sTag))
+                return;
+            int index;
+            if (sTag == "H1")
+                index = 5; //24pt
+            else if (sTag == "H2")
+                index = 4; //18pt
+            else if (sTag == "H3")
+                index = 3; //14pt
+            else if (sTag == "H4")
+                index = 2; //12pt
+            else if (sTag == "H5")
+                index = 1; //10pt
+            else if (sTag == "H6")
+                index = 0; //8pt
+            else
+                return; //do nothing
+            m_InternalCall = true;
+            tscbFontSize.SelectedIndex = index;
+        }
+
+        /// <summary>
+        /// Setup timer with 200ms interval
+        /// </summary>
+        private void SetupTimer()
+        {
+            timer.Interval = 200;
+            timer.Tick += timer_Tick;
+            timer.Start();
+        }
+
+        /// <summary>
+        /// Get the ready state of the internal browser component.
+        /// </summary>
+        public ReadyState ReadyState
+        {
+            get
+            {
+                switch (doc.readyState.ToLower())
+                {
+                    case "uninitialized":
+                        return ReadyState.Uninitialized;
+                    case "loading":
+                        return ReadyState.Loading;
+                    case "loaded":
+                        return ReadyState.Loaded;
+                    case "interactive":
+                        return ReadyState.Interactive;
+                    case "complete":
+                        return ReadyState.Complete;
+                    default:
+                        return ReadyState.Uninitialized;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called when the timer fires to synchronize the format buttons 
+        /// with the text editor current selection.
+        /// SetupKeyListener if necessary.
+        /// Set bold, italic, underline and link buttons as based on editor state.
+        /// Synchronize the font combo box and the font size combo box.
+        /// Finally, fire the Tick event to allow external components to synchronize 
+        /// their state with the editor.
+        /// </summary>
+        /// <param name="sender">the sender</param>
+        /// <param name="e">EventArgs</param>
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            // don't process until browser is in ready state.
+            if (ReadyState != ReadyState.Complete)
+                return;
+            SetupKeyListener();
+            tsbBold.Checked = IsBold();
+            tsbItalic.Checked = IsItalic();
+            tsbUnderline.Checked = IsUnderline();
+            tsbSetFont.Checked = IsStrikeThrough();
+            tsbOL.Checked = IsOrderedList();
+            tsbUL.Checked = IsUnorderedList();
+            tsbLeft.Checked = IsJustifyLeft();
+            tsbCenter.Checked = IsJustifyCenter();
+            tsbRight.Checked = IsJustifyRight();
+            tsbFull.Checked = IsJustifyFull();
+            UpdateFontComboBox();
+            UpdateFontSizeComboBox();
+
+            if (Tick != null)
+                Tick();
+        }
+
+        /// <summary>
+        /// Set up a key listener on the body once.
+        /// The key listener checks for specific key strokes and takes 
+        /// special action in certain cases.
+        /// </summary>
+        /// <returns></returns>
+        private bool SetupKeyListener()
+        {
+            // handle enter code cancellation
+            bool cancel = false;
+            if (EnterKeyEvent != null)
+            {
+                var args = new EnterKeyEventArgs();
+                EnterKeyEvent(this, args);
+                cancel = args.Cancel;
+            }
+            return cancel;
+        }
+
+        /// <summary>
+        /// Determine whether the current block is left justified.
+        /// </summary>
+        /// <returns>true if left justified, otherwise false</returns>
+        public bool IsJustifyLeft()
+        {
+            return doc.queryCommandState("JustifyLeft");
+        }
+
+        /// <summary>
+        /// Determine whether the current block is right justified.
+        /// </summary>
+        /// <returns>true if right justified, otherwise false</returns>
+        public bool IsJustifyRight()
+        {
+            return doc.queryCommandState("JustifyRight");
+        }
+
+        /// <summary>
+        /// Determine whether the current block is center justified.
+        /// </summary>
+        /// <returns>true if center justified, false otherwise</returns>
+        public bool IsJustifyCenter()
+        {
+            return doc.queryCommandState("JustifyCenter");
+        }
+
+        /// <summary>
+        /// Determine whether the current block is full justified.
+        /// </summary>
+        /// <returns>true if full justified, false otherwise</returns>
+        public bool IsJustifyFull()
+        {
+            return doc.queryCommandState("JustifyFull");
+        }
+
+        /// <summary>
+        /// Determine whether the current selection is in Bold mode.
+        /// </summary>
+        /// <returns>whether or not the current selection is Bold</returns>
+        public bool IsBold()
+        {
+            return doc.queryCommandState("Bold");
+        }
+
+        /// <summary>
+        /// Determine whether the current selection is in Italic mode.
+        /// </summary>
+        /// <returns>whether or not the current selection is Italicized</returns>
+        public bool IsItalic()
+        {
+            return doc.queryCommandState("Italic");
+        }
+
+        /// <summary>
+        /// Determine whether the current selection is in Underline mode.
+        /// </summary>
+        /// <returns>whether or not the current selection is Underlined</returns>
+        public bool IsUnderline()
+        {
+            return doc.queryCommandState("Underline");
+        }
+
+        /// <summary>
+        /// Determine whether the current selection is in StrikeThrough mode.
+        /// </summary>
+        /// <returns>whether or not the current selection is StrikeThrough</returns>
+        public bool IsStrikeThrough()
+        {
+            return doc.queryCommandState("StrikeThrough");
+        }
+
+        /// <summary>
+        /// Determine whether the current paragraph is an ordered list.
+        /// </summary>
+        /// <returns>true if current paragraph is ordered, false otherwise</returns>
+        public bool IsOrderedList()
+        {
+            return doc.queryCommandState("InsertOrderedList");
+        }
+
+        /// <summary>
+        /// Determine whether the current paragraph is an unordered list.
+        /// </summary>
+        /// <returns>true if current paragraph is ordered, false otherwise</returns>
+        public bool IsUnorderedList()
+        {
+            return doc.queryCommandState("InsertUnorderedList");
+        }
+
+        /// <summary>
+        /// Update the font size combo box.
+        /// Sets a flag to indicate that the combo box is updating, and should 
+        /// not update the editor's selection.
+        /// </summary>
+        private void UpdateFontSizeComboBox()
+        {
+            if (!tscbFontSize.Focused)
+            {
+                int foo;
+                switch (FontSize)
+                {
+                    case FontSize.One:
+                        foo = 0;
+                        break;
+                    case FontSize.Two:
+                        foo = 1;
+                        break;
+                    case FontSize.Three:
+                        foo = 2;
+                        break;
+                    case FontSize.Four:
+                        foo = 3;
+                        break;
+                    case FontSize.Five:
+                        foo = 4;
+                        break;
+                    case FontSize.Six:
+                        foo = 5;
+                        break;
+                    case FontSize.Seven:
+                        foo = 6;
+                        break;
+                    case FontSize.NA:
+                        foo = -1;
+                        break;
+                    default:
+                        foo = 2;
+                        break;
+                }
+                //string fontsize = Convert.ToString(foo);
+                if (foo != tscbFontSize.SelectedIndex)
+                {
+                    updatingFontSize = true;
+                    tscbFontSize.SelectedIndex = foo;
+                    updatingFontSize = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update the font combo box.
+        /// Sets a flag to indicate that the combo box is updating, and should 
+        /// not update the editor's selection.
+        /// </summary>
+        private void UpdateFontComboBox()
+        {
+            if (!tscbFont.Focused)
+            {
+                FontFamily fam = FontName;
+                if (fam != null)
+                {
+                    string fontname = fam.Name;
+                    if (fontname != tscbFont.Text)
+                    {
+                        updatingFontName = true;
+                        tscbFont.Text = fontname;
+                        updatingFontName = false;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get/Set the current font size.
+        /// </summary>
+        [Browsable(false)]
+        public FontSize FontSize
+        {
+            get
+            {
+                if (ReadyState != ReadyState.Complete)
+                    return FontSize.NA;
+                switch (doc.queryCommandValue("FontSize").ToString())
+                {
+                    case "1":
+                        return FontSize.One;
+                    case "2":
+                        return FontSize.Two;
+                    case "3":
+                        return FontSize.Three;
+                    case "4":
+                        return FontSize.Four;
+                    case "5":
+                        return FontSize.Five;
+                    case "6":
+                        return FontSize.Six;
+                    case "7":
+                        return FontSize.Seven;
+                    default:
+                        return FontSize.NA;
+                }
+            }
+            set
+            {
+                int sz;
+                switch (value)
+                {
+                    case FontSize.One:
+                        sz = 1;
+                        break;
+                    case FontSize.Two:
+                        sz = 2;
+                        break;
+                    case FontSize.Three:
+                        sz = 3;
+                        break;
+                    case FontSize.Four:
+                        sz = 4;
+                        break;
+                    case FontSize.Five:
+                        sz = 5;
+                        break;
+                    case FontSize.Six:
+                        sz = 6;
+                        break;
+                    case FontSize.Seven:
+                        sz = 7;
+                        break;
+                    default:
+                        sz = 7;
+                        break;
+                }
+                if (wb.Document != null) wb.Document.ExecCommand("FontSize", false, sz.ToString(CultureInfo.InvariantCulture));
+            }
+        }
+
+        /// <summary>
+        /// Get/Set the current font name.
+        /// </summary>
+        [Browsable(false)]
+        public FontFamily FontName
+        {
+            get
+            {
+                if (ReadyState != ReadyState.Complete)
+                    return null;
+                var name = doc.queryCommandValue("FontName") as string;
+                if (name == null) return null;
+                return new FontFamily(name);
+            }
+            set
+            {
+                if (value != null)
+                    if (wb.Document != null) wb.Document.ExecCommand("FontName", false, value.Name);
+            }
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Enumeration of possible font sizes for the Editor component
+    /// </summary>
+    public enum FontSize
+    {
+        One,
+        Two,
+        Three,
+        Four,
+        Five,
+        Six,
+        Seven,
+        NA
+    }
+
+    public enum ReadyState
+    {
+        Uninitialized,
+        Loading,
+        Loaded,
+        Interactive,
+        Complete
     }
 }

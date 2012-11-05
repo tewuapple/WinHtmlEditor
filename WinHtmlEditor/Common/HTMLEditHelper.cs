@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using mshtml;
 
-namespace WinHtmlEditor
+namespace WinHtmlEditor.Common
 {
     #region HTMLEditHelper class
     public static class HTMLEditHelper

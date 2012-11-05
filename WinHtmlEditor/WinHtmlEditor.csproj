@@ -55,13 +55,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ToolStripFontComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FrmTable.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmTable.designer.cs">
       <DependentUpon>FrmTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="HTMLEditHelper.cs" />
+    <Compile Include="Common\HTMLEditHelper.cs" />
     <Compile Include="HtmlEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
