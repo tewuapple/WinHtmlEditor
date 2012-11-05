@@ -193,6 +193,7 @@
     <None Include="Resources\SpellCheck.png" />
     <None Include="Resources\Print.png" />
     <None Include="Resources\Date.png" />
+    <None Include="Resources\StrikeThrough.png" />
     <Content Include="Resources\Subscript .png" />
     <Content Include="Resources\Superscript .png" />
   </ItemGroup>

@@ -340,6 +340,13 @@ namespace WinHtmlEditor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap StrikeThrough {
+            get {
+                object obj = ResourceManager.GetObject("StrikeThrough", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Subscript_ {
             get {
                 object obj = ResourceManager.GetObject("Subscript ", resourceCulture);

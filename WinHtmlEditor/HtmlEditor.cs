@@ -428,37 +428,6 @@ namespace WinHtmlEditor
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("StrikeThrough", false, null);
-            //using (var dialog = new FontDialog
-            //{
-            //    ShowEffects = true,
-            //    ShowColor = true
-            //})
-            //{
-            //    if (dialog.ShowDialog() == DialogResult.OK)
-            //    {
-            //        Debug.Assert(wb.Document != null, "wb.Document != null");
-            //        wb.Document.ExecCommand("FontSize", false, dialog.Font.Size);
-            //        wb.Document.ExecCommand("FontName", false, dialog.Font.Name);
-            //        if (dialog.Font.Underline)
-            //        {
-            //            wb.Document.ExecCommand("Underline", false, null);
-            //        }
-            //        if (dialog.Font.Italic)
-            //        {
-            //            wb.Document.ExecCommand("Italic", false, null);
-            //        }
-            //        if (dialog.Font.Bold)
-            //        {
-            //            wb.Document.ExecCommand("Bold", false, null);
-            //        }
-            //        Color color = dialog.Color;
-            //        if (dialog.Color != Color.Black)
-            //        {
-            //            string str = string.Format("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
-            //            wb.Document.ExecCommand("ForeColor", false, str);
-            //        }
-            //    }
-            //}
         }
 
         private void tsbLink_Click(object sender, EventArgs e)
@@ -769,7 +738,7 @@ namespace WinHtmlEditor
 
         //To handle the fact that setting SelectedIndex property calls SelectedIndexChanged event
         //We set this value to true whenever SelectedIndex is set. 
-        private bool m_InternalCall;
+        private bool _internalCall;
         private void SetupComboFontSize()
         {
             tscbFontSize.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -786,7 +755,7 @@ namespace WinHtmlEditor
 
         void tsComboFontSize_Click(object sender, EventArgs e)
         {
-            m_InternalCall = false;
+            _internalCall = false;
         }
 
         void tsComboFontSize_SelectedIndexChanged(object sender, EventArgs e)
@@ -794,7 +763,7 @@ namespace WinHtmlEditor
             try
             {
                 //Fontsize changed 1 to 7
-                if ((tscbFontSize.SelectedIndex > -1) && (!m_InternalCall))
+                if ((tscbFontSize.SelectedIndex > -1) && (!_internalCall))
                 {
                     if (updatingFontSize) return;
                     int obj = tscbFontSize.SelectedIndex + 1;
@@ -827,7 +796,7 @@ namespace WinHtmlEditor
                     }
                     wb.Focus();
                 }
-                m_InternalCall = false;
+                _internalCall = false;
             }
             catch
             {
@@ -895,7 +864,7 @@ namespace WinHtmlEditor
                 if (obj == null)
                     return;
                 //Could indicate a headingxxx, P, or BODY
-                m_InternalCall = true;
+                _internalCall = true;
                 if (obj.ToString().Length > 0)
                     tscbFontSize.SelectedIndex = Convert.ToInt32(obj) - 1; //x (x - 1)
                 else
@@ -923,7 +892,7 @@ namespace WinHtmlEditor
                 index = 0; //8pt
             else
                 return; //do nothing
-            m_InternalCall = true;
+            _internalCall = true;
             tscbFontSize.SelectedIndex = index;
         }
 

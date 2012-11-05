@@ -267,6 +267,8 @@ namespace WinHtmlEditor
             // 
             // tscbFont
             // 
+            this.tscbFont.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tscbFont.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.tscbFont.InternalCall = false;
             this.tscbFont.Name = "tscbFont";
             this.tscbFont.SelectedFontItem = null;
@@ -493,11 +495,11 @@ namespace WinHtmlEditor
             // tsbSetFont
             // 
             this.tsbSetFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbSetFont.Image = global::WinHtmlEditor.Properties.Resources.Font;
+            this.tsbSetFont.Image = global::WinHtmlEditor.Properties.Resources.StrikeThrough;
             this.tsbSetFont.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSetFont.Name = "tsbSetFont";
             this.tsbSetFont.Size = new System.Drawing.Size(23, 22);
-            this.tsbSetFont.Text = "设置字体";
+            this.tsbSetFont.Text = "删除线";
             this.tsbSetFont.Click += new System.EventHandler(this.tsbSetFont_Click);
             // 
             // toolStripSeparator3
