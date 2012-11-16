@@ -51,12 +51,20 @@ namespace WinHtmlEditor.Common
             {
                 if (t != null)
                 {
+#if VS2010
                     var tr = t.insertRow() as IHTMLTableRow;
+#else
+                    var tr = t.insertRow(-1) as IHTMLTableRow;
+#endif
                     for (int j = 0; j <= cells; j++)
                     {
                         if (tr != null)
                         {
+#if VS2010
                             var c = tr.insertCell() as IHTMLElement;
+#else
+                            var c = tr.insertCell(-1) as IHTMLElement;
+#endif
                             if (c != null)
                             {
                                 c.innerHTML = HtmlSpace;

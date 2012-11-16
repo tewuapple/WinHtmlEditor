@@ -516,7 +516,11 @@ namespace WinHtmlEditor
                 var range = domDocument.selection.createRange() as IHTMLTxtRange;
                 Debug.Assert(range != null, "range != null");
                 range.pasteHTML(!e.ShiftKeyPressed ? "<br>" : "<P>&nbsp;</P>");
+#if VS2010
                 range.collapse();
+#else
+                range.collapse(true);
+#endif
                 range.@select();
             }
             if (!e.ShiftKeyPressed)
@@ -621,7 +625,13 @@ namespace WinHtmlEditor
             spellCheck.SpellCheck();
         }
 
+#if VS2010
         public static string ClearWord(string sourceText, bool bIgnoreFont = true, bool bRemoveStyles = true, bool cleanWordKeepsStructure = true)
+        {
+            return ClearWordNoDefult(sourceText, bIgnoreFont, bRemoveStyles, cleanWordKeepsStructure);
+        }
+#endif
+        public static string ClearWordNoDefult(string sourceText, bool bIgnoreFont, bool bRemoveStyles, bool cleanWordKeepsStructure)
         {
             sourceText = Regex.Replace(sourceText, @"<o:p>\s*<\/o:p>", "");
             sourceText = Regex.Replace(sourceText, @"<o:p>.*?<\/o:p>", " ");
@@ -711,13 +721,18 @@ namespace WinHtmlEditor
             return sourceText;
         }
 
+
         private void tsbWordClean_Click(object sender, EventArgs e)
         {
             if (BodyInnerHTML != null)
             {
                 Debug.Assert(wb.Document != null, "wb.Document != null");
                 Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+#if VS2010
                 wb.Document.Body.InnerHtml = ClearWord(BodyInnerHTML);
+#else
+                wb.Document.Body.InnerHtml = ClearWordNoDefult(BodyInnerHTML, true, true, true);
+#endif
             }
         }
 
