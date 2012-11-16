@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
+#if VS2010
 using System.Linq;
+#endif
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -223,10 +225,25 @@ namespace WinHtmlEditor
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+#if VS2010
             return wb.Document.Body.InnerText == null
                        ? 0
                        : Regex.Split(wb.Document.Body.InnerText, @"\s").
                              Sum(si => Regex.Matches(si, @"[\u0000-\u00ff]+").Count + si.Count(c => (int) c > 0x00FF));
+#else
+            if (wb.Document.Body.InnerText == null)
+                return 0;
+            var sec = Regex.Split(wb.Document.Body.InnerText, @"\s");
+            int count = 0;
+            foreach (var si in sec)
+            {
+                int ci = Regex.Matches(si, @"[\u0000-\u00ff]+").Count;
+                foreach (var c in si)
+                    if ((int)c > 0x00FF) ci++;
+                count += ci;
+            }
+            return count;
+#endif
         }
 
         /// <summary>
