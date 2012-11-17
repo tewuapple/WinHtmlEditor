@@ -20,9 +20,9 @@ namespace WinHtmlEditor
     [Docking(DockingBehavior.Ask), ComVisible(true), ClassInterface(ClassInterfaceType.AutoDispatch), ToolboxBitmap(typeof(HtmlEditor), "Resources.HTML.bmp")]
     public partial class HtmlEditor : UserControl
     {
-        private IHTMLDocument2 doc;
-        private bool updatingFontName = false;
-        private bool updatingFontSize = false;
+        private IHTMLDocument2 _doc;
+        private bool _updatingFontName;
+        private bool _updatingFontSize;
 
         public delegate void TickDelegate();
         public event TickDelegate Tick;
@@ -239,7 +239,7 @@ namespace WinHtmlEditor
             {
                 int ci = Regex.Matches(si, @"[\u0000-\u00ff]+").Count;
                 foreach (var c in si)
-                    if ((int)c > 0x00FF) ci++;
+                    if (c > 0x00FF) ci++;
                 count += ci;
             }
             return count;
@@ -555,10 +555,10 @@ namespace WinHtmlEditor
             topToolBar.Dock = DockStyle.Top;
             wb.Navigate("about:blank");
             Debug.Assert(wb.Document != null, "wb.Document != null");
-            doc = wb.Document.DomDocument as IHTMLDocument2;
+            _doc = wb.Document.DomDocument as IHTMLDocument2;
             wb.IsWebBrowserContextMenuEnabled = false;
-            Debug.Assert(doc != null, "domDocument != null");
-            doc.designMode = "on";
+            Debug.Assert(_doc != null, "domDocument != null");
+            _doc.designMode = "on";
             SelectAllMenu.Click += SelectAllMenu_Click;
             DeleteMenu.Click += tsbDelete_Click;
             FindMenu.Click += tsbFind_Click;
@@ -567,7 +567,7 @@ namespace WinHtmlEditor
             PasteMenu.Click += tsbPaste_Click;
             SaveToFileMenu.Click += tsbSave_Click;
             RemoveFormatMenu.Click += tsbClearFormat_Click;
-            HTMLEditHelper.DOMDocument = doc;
+            HTMLEditHelper.DOMDocument = _doc;
         }
 
         private void SelectAll()
@@ -797,7 +797,7 @@ namespace WinHtmlEditor
                 //Fontsize changed 1 to 7
                 if ((tscbFontSize.SelectedIndex > -1) && (!_internalCall))
                 {
-                    if (updatingFontSize) return;
+                    if (_updatingFontSize) return;
                     int obj = tscbFontSize.SelectedIndex + 1;
                     switch (obj)
                     {
@@ -844,7 +844,7 @@ namespace WinHtmlEditor
         /// <param name="e">EventArgs</param>
         private void tscbFont_Leave(object sender, EventArgs e)
         {
-            if (updatingFontName) return;
+            if (_updatingFontName) return;
             FontFamily ff;
             try
             {
@@ -852,9 +852,9 @@ namespace WinHtmlEditor
             }
             catch (Exception)
             {
-                updatingFontName = true;
+                _updatingFontName = true;
                 tscbFont.Text = FontName.GetName(0);
-                updatingFontName = false;
+                _updatingFontName = false;
                 return;
             }
             FontName = ff;
@@ -868,7 +868,7 @@ namespace WinHtmlEditor
                 if ((tscbFont.SelectedIndex > -1) &&
                     (!tscbFont.InternalCall))
                 {
-                    if (updatingFontName) return;
+                    if (_updatingFontName) return;
                     Font f = tscbFont.SelectedFontItem;
                     FontName = f.FontFamily;
                 }
@@ -886,13 +886,13 @@ namespace WinHtmlEditor
         {
             //Times Roman New
             string fontname = string.Empty;
-            if (doc != null)
+            if (_doc != null)
             {
-                object obj = doc.queryCommandValue("FontName");
+                object obj = _doc.queryCommandValue("FontName");
                 if (obj == null)
                     return;
                 fontname = obj.ToString();
-                obj = doc.queryCommandValue("FontSize");
+                obj = _doc.queryCommandValue("FontSize");
                 if (obj == null)
                     return;
                 //Could indicate a headingxxx, P, or BODY
@@ -945,7 +945,7 @@ namespace WinHtmlEditor
         {
             get
             {
-                switch (doc.readyState.ToLower())
+                switch (_doc.readyState.ToLower())
                 {
                     case "uninitialized":
                         return ReadyState.Uninitialized;
@@ -1022,7 +1022,7 @@ namespace WinHtmlEditor
         /// <returns>true if left justified, otherwise false</returns>
         public bool IsJustifyLeft()
         {
-            return doc.queryCommandState("JustifyLeft");
+            return _doc.queryCommandState("JustifyLeft");
         }
 
         /// <summary>
@@ -1031,7 +1031,7 @@ namespace WinHtmlEditor
         /// <returns>true if right justified, otherwise false</returns>
         public bool IsJustifyRight()
         {
-            return doc.queryCommandState("JustifyRight");
+            return _doc.queryCommandState("JustifyRight");
         }
 
         /// <summary>
@@ -1040,7 +1040,7 @@ namespace WinHtmlEditor
         /// <returns>true if center justified, false otherwise</returns>
         public bool IsJustifyCenter()
         {
-            return doc.queryCommandState("JustifyCenter");
+            return _doc.queryCommandState("JustifyCenter");
         }
 
         /// <summary>
@@ -1049,7 +1049,7 @@ namespace WinHtmlEditor
         /// <returns>true if full justified, false otherwise</returns>
         public bool IsJustifyFull()
         {
-            return doc.queryCommandState("JustifyFull");
+            return _doc.queryCommandState("JustifyFull");
         }
 
         /// <summary>
@@ -1058,7 +1058,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is Bold</returns>
         public bool IsBold()
         {
-            return doc.queryCommandState("Bold");
+            return _doc.queryCommandState("Bold");
         }
 
         /// <summary>
@@ -1067,7 +1067,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is Italicized</returns>
         public bool IsItalic()
         {
-            return doc.queryCommandState("Italic");
+            return _doc.queryCommandState("Italic");
         }
 
         /// <summary>
@@ -1076,7 +1076,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is Underlined</returns>
         public bool IsUnderline()
         {
-            return doc.queryCommandState("Underline");
+            return _doc.queryCommandState("Underline");
         }
 
         /// <summary>
@@ -1085,7 +1085,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is StrikeThrough</returns>
         public bool IsStrikeThrough()
         {
-            return doc.queryCommandState("StrikeThrough");
+            return _doc.queryCommandState("StrikeThrough");
         }
 
         /// <summary>
@@ -1094,7 +1094,7 @@ namespace WinHtmlEditor
         /// <returns>true if current paragraph is ordered, false otherwise</returns>
         public bool IsOrderedList()
         {
-            return doc.queryCommandState("InsertOrderedList");
+            return _doc.queryCommandState("InsertOrderedList");
         }
 
         /// <summary>
@@ -1103,7 +1103,7 @@ namespace WinHtmlEditor
         /// <returns>true if current paragraph is ordered, false otherwise</returns>
         public bool IsUnorderedList()
         {
-            return doc.queryCommandState("InsertUnorderedList");
+            return _doc.queryCommandState("InsertUnorderedList");
         }
 
         /// <summary>
@@ -1149,9 +1149,9 @@ namespace WinHtmlEditor
                 //string fontsize = Convert.ToString(foo);
                 if (foo != tscbFontSize.SelectedIndex)
                 {
-                    updatingFontSize = true;
+                    _updatingFontSize = true;
                     tscbFontSize.SelectedIndex = foo;
-                    updatingFontSize = false;
+                    _updatingFontSize = false;
                 }
             }
         }
@@ -1171,9 +1171,9 @@ namespace WinHtmlEditor
                     string fontname = fam.Name;
                     if (fontname != tscbFont.Text)
                     {
-                        updatingFontName = true;
+                        _updatingFontName = true;
                         tscbFont.Text = fontname;
-                        updatingFontName = false;
+                        _updatingFontName = false;
                     }
                 }
             }
@@ -1189,7 +1189,7 @@ namespace WinHtmlEditor
             {
                 if (ReadyState != ReadyState.Complete)
                     return FontSize.NA;
-                switch (doc.queryCommandValue("FontSize").ToString())
+                switch (_doc.queryCommandValue("FontSize").ToString())
                 {
                     case "1":
                         return FontSize.One;
@@ -1253,7 +1253,7 @@ namespace WinHtmlEditor
             {
                 if (ReadyState != ReadyState.Complete)
                     return null;
-                var name = doc.queryCommandValue("FontName") as string;
+                var name = _doc.queryCommandValue("FontName") as string;
                 if (name == null) return null;
                 return new FontFamily(name);
             }
