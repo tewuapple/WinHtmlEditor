@@ -12,5 +12,5 @@ WinHtmlEditor
 Licenses
 --------
 
-- Kivy is licensed under the terms of the Apache 2.0 License. The license can be found at
+- WinHtmlEditor is licensed under the terms of the Apache 2.0 License. The license can be found at
   http://www.apache.org/licenses/LICENSE-2.0
