@@ -261,7 +261,7 @@ namespace WinHtmlEditor
             this.topToolBar.Location = new System.Drawing.Point(3, 0);
             this.topToolBar.Name = "topToolBar";
             this.topToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.topToolBar.Size = new System.Drawing.Size(1217, 25);
+            this.topToolBar.Size = new System.Drawing.Size(1186, 25);
             this.topToolBar.TabIndex = 0;
             this.topToolBar.Text = "topToolBar";
             // 

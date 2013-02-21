@@ -945,6 +945,8 @@ namespace WinHtmlEditor
         {
             get
             {
+                if (_doc == null)
+                    return ReadyState.Uninitialized;
                 switch (_doc.readyState.ToLower())
                 {
                     case "uninitialized":
