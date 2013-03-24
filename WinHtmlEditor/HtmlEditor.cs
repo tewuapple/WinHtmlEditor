@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Drawing;
 using System.Globalization;
 #if VS2010
@@ -126,11 +128,11 @@ namespace WinHtmlEditor
         {
             get
             {
-                return topToolBar.Visible;
+                return ts_TopToolBar.Visible;
             }
             set
             {
-                topToolBar.Visible = value;
+                ts_TopToolBar.Visible = value;
             }
         }
 
@@ -169,7 +171,7 @@ namespace WinHtmlEditor
         public bool AddToobarButtom(ToolStripButton buttom)
         {
             buttom.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            return (topToolBar.Items.Add(buttom) > 0);
+            return (ts_TopToolBar.Items.Add(buttom) > 0);
         }
 
         /// <summary>
@@ -182,7 +184,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    topToolBar.Items.RemoveAt(index + 0x20);
+                    ts_TopToolBar.Items.RemoveAt(index + 0x20);
                 }
                 catch
                 {
@@ -252,9 +254,9 @@ namespace WinHtmlEditor
         public void ShowHTML()
         {
             bool visible = wb.Visible;
-            for (int i = 0; i < topToolBar.Items.Count; i++)
+            for (int i = 0; i < ts_TopToolBar.Items.Count; i++)
             {
-                topToolBar.Items[i].Enabled = !visible;
+                ts_TopToolBar.Items[i].Enabled = !visible;
             }
             if (visible)
             {
@@ -547,26 +549,73 @@ namespace WinHtmlEditor
             e.ReturnValue = true;
         }
 
+        /// <summary>
+        /// 初始化工具栏和邮件菜单
+        /// </summary>
+        private void InitUi()
+        {
+            string removeButton = ConfigurationManager.AppSettings["removeButtons"];
+            if (!string.IsNullOrEmpty(removeButton))
+            {
+                var removeButtons = removeButton.Split(',');
+                foreach (var item in ts_TopToolBar.Items)
+                {
+                    if (item is ToolStripButton)
+                    {
+                        var tsb = item as ToolStripButton;
+                        foreach (var button in removeButtons)
+                        {
+                            if (String.CompareOrdinal(tsb.Tag.ToString(), button) == 0)
+                            {
+                                tsb.Visible = false;
+                            }
+                        }
+
+                    }
+                }
+            }
+            string removeMenu = ConfigurationManager.AppSettings["removeMenus"];
+            if (!string.IsNullOrEmpty(removeMenu))
+            {
+                var removeMenus = removeMenu.Split(',');
+                foreach (var item in cms_Html.Items)
+                {
+                    if (item is ToolStripMenuItem)
+                    {
+                        var tsmi = item as ToolStripMenuItem;
+                        foreach (var menu in removeMenus)
+                        {
+                            if (String.CompareOrdinal(tsmi.Tag.ToString(), menu) == 0)
+                            {
+                                tsmi.Visible = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void HtmlEditor_Load(object sender, EventArgs e)
         {
             SynchFont(string.Empty);
             SetupTimer();
             SetupComboFontSize();
-            topToolBar.Dock = DockStyle.Top;
+            ts_TopToolBar.Dock = DockStyle.Top;
             wb.Navigate("about:blank");
             Debug.Assert(wb.Document != null, "wb.Document != null");
             _doc = wb.Document.DomDocument as IHTMLDocument2;
             wb.IsWebBrowserContextMenuEnabled = false;
             Debug.Assert(_doc != null, "domDocument != null");
             _doc.designMode = "on";
-            SelectAllMenu.Click += SelectAllMenu_Click;
-            DeleteMenu.Click += tsbDelete_Click;
-            FindMenu.Click += tsbFind_Click;
-            CopyMenu.Click += tsbCopy_Click;
-            CutMenu.Click += tsbCut_Click;
-            PasteMenu.Click += tsbPaste_Click;
-            SaveToFileMenu.Click += tsbSave_Click;
-            RemoveFormatMenu.Click += tsbRemoveFormat_Click;
+            tsmi_SelectAll.Click += tsmi_SelectAll_Click;
+            tsmi_Delete.Click += tsbDelete_Click;
+            tsmi_Find.Click += tsbFind_Click;
+            tsmi_Copy.Click += tsbCopy_Click;
+            tsmi_Cut.Click += tsbCut_Click;
+            tsmi_Paste.Click += tsbPaste_Click;
+            tsmi_Save.Click += tsbSave_Click;
+            tsmi_RemoveFormat.Click += tsbRemoveFormat_Click;
+            InitUi();
             HTMLEditHelper.DOMDocument = _doc;
         }
 
@@ -576,7 +625,7 @@ namespace WinHtmlEditor
             wb.Document.ExecCommand("SelectAll", false, null);
         }
 
-        private void SelectAllMenu_Click(object sender, EventArgs e)
+        private void tsmi_SelectAll_Click(object sender, EventArgs e)
         {
             SelectAll();
         }

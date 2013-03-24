@@ -33,17 +33,17 @@ namespace WinHtmlEditor
             this.components = new System.ComponentModel.Container();
             this.tscMain = new System.Windows.Forms.ToolStripContainer();
             this.wb = new System.Windows.Forms.WebBrowser();
-            this.contextMenuWeb = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.SelectAllMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.CopyMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.CutMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.PasteMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.DeleteMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.FindMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.RemoveFormatMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.cms_Html = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmi_SelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Copy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Cut = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Paste = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Find = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_RemoveFormat = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.SaveToFileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.topToolBar = new System.Windows.Forms.ToolStrip();
+            this.tsmi_Save = new System.Windows.Forms.ToolStripMenuItem();
+            this.ts_TopToolBar = new System.Windows.Forms.ToolStrip();
             this.tscbFont = new WinHtmlEditor.Common.ToolStripFontComboBox();
             this.tscbFontSize = new System.Windows.Forms.ToolStripComboBox();
             this.tsbNew = new System.Windows.Forms.ToolStripButton();
@@ -95,8 +95,8 @@ namespace WinHtmlEditor
             this.tscMain.ContentPanel.SuspendLayout();
             this.tscMain.TopToolStripPanel.SuspendLayout();
             this.tscMain.SuspendLayout();
-            this.contextMenuWeb.SuspendLayout();
-            this.topToolBar.SuspendLayout();
+            this.cms_Html.SuspendLayout();
+            this.ts_TopToolBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // tscMain
@@ -120,11 +120,11 @@ namespace WinHtmlEditor
             // 
             // tscMain.TopToolStripPanel
             // 
-            this.tscMain.TopToolStripPanel.Controls.Add(this.topToolBar);
+            this.tscMain.TopToolStripPanel.Controls.Add(this.ts_TopToolBar);
             // 
             // wb
             // 
-            this.wb.ContextMenuStrip = this.contextMenuWeb;
+            this.wb.ContextMenuStrip = this.cms_Html;
             this.wb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
@@ -133,86 +133,94 @@ namespace WinHtmlEditor
             this.wb.TabIndex = 0;
             this.wb.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.wb_Navigated);
             // 
-            // contextMenuWeb
+            // cms_Html
             // 
-            this.contextMenuWeb.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SelectAllMenu,
-            this.CopyMenu,
-            this.CutMenu,
-            this.PasteMenu,
-            this.DeleteMenu,
-            this.FindMenu,
-            this.RemoveFormatMenu,
+            this.cms_Html.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_SelectAll,
+            this.tsmi_Copy,
+            this.tsmi_Cut,
+            this.tsmi_Paste,
+            this.tsmi_Delete,
+            this.tsmi_Find,
+            this.tsmi_RemoveFormat,
             this.toolStripSeparator5,
-            this.SaveToFileMenu});
-            this.contextMenuWeb.Name = "contextMenuWeb";
-            this.contextMenuWeb.Size = new System.Drawing.Size(125, 186);
+            this.tsmi_Save});
+            this.cms_Html.Name = "contextMenuWeb";
+            this.cms_Html.Size = new System.Drawing.Size(125, 186);
             // 
-            // SelectAllMenu
+            // tsmi_SelectAll
             // 
-            this.SelectAllMenu.Name = "SelectAllMenu";
-            this.SelectAllMenu.Size = new System.Drawing.Size(124, 22);
-            this.SelectAllMenu.Text = "全选";
+            this.tsmi_SelectAll.Name = "tsmi_SelectAll";
+            this.tsmi_SelectAll.Size = new System.Drawing.Size(124, 22);
+            this.tsmi_SelectAll.Tag = "SelectAll";
+            this.tsmi_SelectAll.Text = "全选";
             // 
-            // CopyMenu
+            // tsmi_Copy
             // 
-            this.CopyMenu.Image = global::WinHtmlEditor.Properties.Resources.Copy;
-            this.CopyMenu.Name = "CopyMenu";
-            this.CopyMenu.Size = new System.Drawing.Size(124, 22);
-            this.CopyMenu.Text = "复制";
+            this.tsmi_Copy.Image = global::WinHtmlEditor.Properties.Resources.Copy;
+            this.tsmi_Copy.Name = "tsmi_Copy";
+            this.tsmi_Copy.Size = new System.Drawing.Size(124, 22);
+            this.tsmi_Copy.Tag = "Copy";
+            this.tsmi_Copy.Text = "复制";
             // 
-            // CutMenu
+            // tsmi_Cut
             // 
-            this.CutMenu.Image = global::WinHtmlEditor.Properties.Resources.Cut;
-            this.CutMenu.Name = "CutMenu";
-            this.CutMenu.Size = new System.Drawing.Size(124, 22);
-            this.CutMenu.Text = "剪切";
+            this.tsmi_Cut.Image = global::WinHtmlEditor.Properties.Resources.Cut;
+            this.tsmi_Cut.Name = "tsmi_Cut";
+            this.tsmi_Cut.Size = new System.Drawing.Size(124, 22);
+            this.tsmi_Cut.Tag = "Cut";
+            this.tsmi_Cut.Text = "剪切";
             // 
-            // PasteMenu
+            // tsmi_Paste
             // 
-            this.PasteMenu.Image = global::WinHtmlEditor.Properties.Resources.Paste;
-            this.PasteMenu.Name = "PasteMenu";
-            this.PasteMenu.Size = new System.Drawing.Size(124, 22);
-            this.PasteMenu.Text = "粘贴";
+            this.tsmi_Paste.Image = global::WinHtmlEditor.Properties.Resources.Paste;
+            this.tsmi_Paste.Name = "tsmi_Paste";
+            this.tsmi_Paste.Size = new System.Drawing.Size(124, 22);
+            this.tsmi_Paste.Tag = "Paste";
+            this.tsmi_Paste.Text = "粘贴";
             // 
-            // DeleteMenu
+            // tsmi_Delete
             // 
-            this.DeleteMenu.Image = global::WinHtmlEditor.Properties.Resources.Delete;
-            this.DeleteMenu.Name = "DeleteMenu";
-            this.DeleteMenu.Size = new System.Drawing.Size(124, 22);
-            this.DeleteMenu.Text = "删除";
+            this.tsmi_Delete.Image = global::WinHtmlEditor.Properties.Resources.Delete;
+            this.tsmi_Delete.Name = "tsmi_Delete";
+            this.tsmi_Delete.Size = new System.Drawing.Size(124, 22);
+            this.tsmi_Delete.Tag = "Delete";
+            this.tsmi_Delete.Text = "删除";
             // 
-            // FindMenu
+            // tsmi_Find
             // 
-            this.FindMenu.Image = global::WinHtmlEditor.Properties.Resources.Find;
-            this.FindMenu.Name = "FindMenu";
-            this.FindMenu.Size = new System.Drawing.Size(124, 22);
-            this.FindMenu.Text = "查找";
+            this.tsmi_Find.Image = global::WinHtmlEditor.Properties.Resources.Find;
+            this.tsmi_Find.Name = "tsmi_Find";
+            this.tsmi_Find.Size = new System.Drawing.Size(124, 22);
+            this.tsmi_Find.Tag = "Find";
+            this.tsmi_Find.Text = "查找";
             // 
-            // RemoveFormatMenu
+            // tsmi_RemoveFormat
             // 
-            this.RemoveFormatMenu.Image = global::WinHtmlEditor.Properties.Resources.RemoveFormat;
-            this.RemoveFormatMenu.Name = "RemoveFormatMenu";
-            this.RemoveFormatMenu.Size = new System.Drawing.Size(124, 22);
-            this.RemoveFormatMenu.Text = "清除格式";
+            this.tsmi_RemoveFormat.Image = global::WinHtmlEditor.Properties.Resources.RemoveFormat;
+            this.tsmi_RemoveFormat.Name = "tsmi_RemoveFormat";
+            this.tsmi_RemoveFormat.Size = new System.Drawing.Size(124, 22);
+            this.tsmi_RemoveFormat.Tag = "RemoveFormat";
+            this.tsmi_RemoveFormat.Text = "清除格式";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(121, 6);
             // 
-            // SaveToFileMenu
+            // tsmi_Save
             // 
-            this.SaveToFileMenu.Image = global::WinHtmlEditor.Properties.Resources.Save;
-            this.SaveToFileMenu.Name = "SaveToFileMenu";
-            this.SaveToFileMenu.Size = new System.Drawing.Size(124, 22);
-            this.SaveToFileMenu.Text = "保存";
+            this.tsmi_Save.Image = global::WinHtmlEditor.Properties.Resources.Save;
+            this.tsmi_Save.Name = "tsmi_Save";
+            this.tsmi_Save.Size = new System.Drawing.Size(124, 22);
+            this.tsmi_Save.Tag = "Save";
+            this.tsmi_Save.Text = "保存";
             // 
-            // topToolBar
+            // ts_TopToolBar
             // 
-            this.topToolBar.Dock = System.Windows.Forms.DockStyle.None;
-            this.topToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.topToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ts_TopToolBar.Dock = System.Windows.Forms.DockStyle.None;
+            this.ts_TopToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.ts_TopToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tscbFont,
             this.tscbFontSize,
             this.tsbNew,
@@ -258,12 +266,12 @@ namespace WinHtmlEditor
             this.tsbSpellCheck,
             this.toolStripSeparator6,
             this.tsbAbout});
-            this.topToolBar.Location = new System.Drawing.Point(3, 0);
-            this.topToolBar.Name = "topToolBar";
-            this.topToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.topToolBar.Size = new System.Drawing.Size(1217, 25);
-            this.topToolBar.TabIndex = 0;
-            this.topToolBar.Text = "topToolBar";
+            this.ts_TopToolBar.Location = new System.Drawing.Point(3, 0);
+            this.ts_TopToolBar.Name = "ts_TopToolBar";
+            this.ts_TopToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.ts_TopToolBar.Size = new System.Drawing.Size(1217, 25);
+            this.ts_TopToolBar.TabIndex = 0;
+            this.ts_TopToolBar.Text = "topToolBar";
             // 
             // tscbFont
             // 
@@ -752,9 +760,9 @@ namespace WinHtmlEditor
             this.tscMain.TopToolStripPanel.PerformLayout();
             this.tscMain.ResumeLayout(false);
             this.tscMain.PerformLayout();
-            this.contextMenuWeb.ResumeLayout(false);
-            this.topToolBar.ResumeLayout(false);
-            this.topToolBar.PerformLayout();
+            this.cms_Html.ResumeLayout(false);
+            this.ts_TopToolBar.ResumeLayout(false);
+            this.ts_TopToolBar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -762,7 +770,7 @@ namespace WinHtmlEditor
         #endregion
 
         private System.Windows.Forms.ToolStripContainer tscMain;
-        private System.Windows.Forms.ToolStrip topToolBar;
+        private System.Windows.Forms.ToolStrip ts_TopToolBar;
         private System.Windows.Forms.ToolStripButton tsbNew;
         private System.Windows.Forms.ToolStripButton tsbOpen;
         private System.Windows.Forms.ToolStripButton tsbSave;
@@ -795,16 +803,16 @@ namespace WinHtmlEditor
         private System.Windows.Forms.ToolStripButton tsbInsertUnorderedList;
         private System.Windows.Forms.ToolStripButton tsbInsertOrderedList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ContextMenuStrip contextMenuWeb;
-        private System.Windows.Forms.ToolStripMenuItem SelectAllMenu;
-        private System.Windows.Forms.ToolStripMenuItem CopyMenu;
-        private System.Windows.Forms.ToolStripMenuItem CutMenu;
-        private System.Windows.Forms.ToolStripMenuItem PasteMenu;
-        private System.Windows.Forms.ToolStripMenuItem DeleteMenu;
-        private System.Windows.Forms.ToolStripMenuItem FindMenu;
-        private System.Windows.Forms.ToolStripMenuItem RemoveFormatMenu;
+        private System.Windows.Forms.ContextMenuStrip cms_Html;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_SelectAll;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Copy;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Cut;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Paste;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Delete;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Find;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_RemoveFormat;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem SaveToFileMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Save;
         private System.Windows.Forms.ToolStripButton tsbInsertTable;
         private System.Windows.Forms.ToolStripButton tsbWordCount;
         private System.Windows.Forms.ToolStripButton tsbSuperscript;
