@@ -373,25 +373,25 @@ namespace WinHtmlEditor
             SendKeys.SendWait("^f");
         }
 
-        private void tsbClearFormat_Click(object sender, EventArgs e)
+        private void tsbRemoveFormat_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("RemoveFormat", false, null);
         }
 
-        private void tsbCenter_Click(object sender, EventArgs e)
+        private void tsbJustifyCenter_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("JustifyCenter", false, null);
         }
 
-        private void tsbLeft_Click(object sender, EventArgs e)
+        private void tsbJustifyLeft_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("JustifyLeft", false, null);
         }
 
-        private void tsbRight_Click(object sender, EventArgs e)
+        private void tsbJustifyRight_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("JustifyRight", false, null);
@@ -415,7 +415,7 @@ namespace WinHtmlEditor
             wb.Document.ExecCommand("Bold", false, null);
         }
 
-        private void tsbBgcolor_Click(object sender, EventArgs e)
+        private void tsbBackColor_Click(object sender, EventArgs e)
         {
             using (var dialog = new ColorDialog())
             {
@@ -428,7 +428,7 @@ namespace WinHtmlEditor
             }
         }
 
-        private void tsbFontColor_Click(object sender, EventArgs e)
+        private void tsbForeColor_Click(object sender, EventArgs e)
         {
             using (var dialog = new ColorDialog())
             {
@@ -441,13 +441,13 @@ namespace WinHtmlEditor
             }
         }
 
-        private void tsbSetFont_Click(object sender, EventArgs e)
+        private void tsbStrikeThrough_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("StrikeThrough", false, null);
         }
 
-        private void tsbLink_Click(object sender, EventArgs e)
+        private void tsbCreateLink_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("CreateLink", true, null);
@@ -459,7 +459,7 @@ namespace WinHtmlEditor
             wb.Document.ExecCommand("Unlink", false, null);
         }
 
-        private void tsbImg_Click(object sender, EventArgs e)
+        private void tsbInsertImage_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("InsertImage", true, null);
@@ -483,13 +483,13 @@ namespace WinHtmlEditor
             wb.Document.ExecCommand("Indent", false, null);
         }
 
-        private void tsbUL_Click(object sender, EventArgs e)
+        private void tsbInsertUnorderedList_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("InsertUnorderedList", false, null);
         }
 
-        private void tsbOL_Click(object sender, EventArgs e)
+        private void tsbInsertOrderedList_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("InsertOrderedList", false, null);
@@ -499,7 +499,7 @@ namespace WinHtmlEditor
         {
             if (MessageBox.Show(Resources.AboutInfo, Resources.AboutText, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
             {
-                Process.Start("https://github.com/tewuapple/WinHtmlEditor");
+                Process.Start("http://tewuapple.github.com/WinHtmlEditor/");
             }
         }
 
@@ -566,7 +566,7 @@ namespace WinHtmlEditor
             CutMenu.Click += tsbCut_Click;
             PasteMenu.Click += tsbPaste_Click;
             SaveToFileMenu.Click += tsbSave_Click;
-            RemoveFormatMenu.Click += tsbClearFormat_Click;
+            RemoveFormatMenu.Click += tsbRemoveFormat_Click;
             HTMLEditHelper.DOMDocument = _doc;
         }
 
@@ -581,7 +581,7 @@ namespace WinHtmlEditor
             SelectAll();
         }
 
-        private void tsbFull_Click(object sender, EventArgs e)
+        private void tsbJustifyFull_Click(object sender, EventArgs e)
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("JustifyFull", false, null);
@@ -739,7 +739,7 @@ namespace WinHtmlEditor
         }
 
 
-        private void tsbWordClean_Click(object sender, EventArgs e)
+        private void tsbClearWord_Click(object sender, EventArgs e)
         {
             if (BodyInnerHTML != null)
             {
@@ -981,17 +981,20 @@ namespace WinHtmlEditor
             // don't process until browser is in ready state.
             if (ReadyState != ReadyState.Complete)
                 return;
+            // don't process until bowser is create.
+            if (wb.IsHandleCreated == false)
+                return;
             SetupKeyListener();
             tsbBold.Checked = IsBold();
             tsbItalic.Checked = IsItalic();
             tsbUnderline.Checked = IsUnderline();
-            tsbSetFont.Checked = IsStrikeThrough();
-            tsbOL.Checked = IsOrderedList();
-            tsbUL.Checked = IsUnorderedList();
-            tsbLeft.Checked = IsJustifyLeft();
-            tsbCenter.Checked = IsJustifyCenter();
-            tsbRight.Checked = IsJustifyRight();
-            tsbFull.Checked = IsJustifyFull();
+            tsbStrikeThrough.Checked = IsStrikeThrough();
+            tsbInsertOrderedList.Checked = IsOrderedList();
+            tsbInsertUnorderedList.Checked = IsUnorderedList();
+            tsbJustifyLeft.Checked = IsJustifyLeft();
+            tsbJustifyCenter.Checked = IsJustifyCenter();
+            tsbJustifyRight.Checked = IsJustifyRight();
+            tsbJustifyFull.Checked = IsJustifyFull();
             UpdateFontComboBox();
             UpdateFontSizeComboBox();
 

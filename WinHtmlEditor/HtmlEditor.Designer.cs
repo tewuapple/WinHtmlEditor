@@ -57,35 +57,35 @@ namespace WinHtmlEditor
             this.tsbPaste = new System.Windows.Forms.ToolStripButton();
             this.tsbDelete = new System.Windows.Forms.ToolStripButton();
             this.tsbFind = new System.Windows.Forms.ToolStripButton();
-            this.tsbClearFormat = new System.Windows.Forms.ToolStripButton();
+            this.tsbRemoveFormat = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbCenter = new System.Windows.Forms.ToolStripButton();
-            this.tsbFull = new System.Windows.Forms.ToolStripButton();
-            this.tsbLeft = new System.Windows.Forms.ToolStripButton();
-            this.tsbRight = new System.Windows.Forms.ToolStripButton();
+            this.tsbJustifyCenter = new System.Windows.Forms.ToolStripButton();
+            this.tsbJustifyFull = new System.Windows.Forms.ToolStripButton();
+            this.tsbJustifyLeft = new System.Windows.Forms.ToolStripButton();
+            this.tsbJustifyRight = new System.Windows.Forms.ToolStripButton();
             this.tsbUnderline = new System.Windows.Forms.ToolStripButton();
             this.tsbItalic = new System.Windows.Forms.ToolStripButton();
             this.tsbBold = new System.Windows.Forms.ToolStripButton();
-            this.tsbBgcolor = new System.Windows.Forms.ToolStripButton();
-            this.tsbFontColor = new System.Windows.Forms.ToolStripButton();
-            this.tsbSetFont = new System.Windows.Forms.ToolStripButton();
+            this.tsbBackColor = new System.Windows.Forms.ToolStripButton();
+            this.tsbForeColor = new System.Windows.Forms.ToolStripButton();
+            this.tsbStrikeThrough = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbLink = new System.Windows.Forms.ToolStripButton();
+            this.tsbCreateLink = new System.Windows.Forms.ToolStripButton();
             this.tsbUnlink = new System.Windows.Forms.ToolStripButton();
             this.tsbInsertTable = new System.Windows.Forms.ToolStripButton();
-            this.tsbImg = new System.Windows.Forms.ToolStripButton();
+            this.tsbInsertImage = new System.Windows.Forms.ToolStripButton();
             this.tsbInsertHorizontalRule = new System.Windows.Forms.ToolStripButton();
             this.tsbOutdent = new System.Windows.Forms.ToolStripButton();
             this.tsbIndent = new System.Windows.Forms.ToolStripButton();
-            this.tsbUL = new System.Windows.Forms.ToolStripButton();
-            this.tsbOL = new System.Windows.Forms.ToolStripButton();
+            this.tsbInsertUnorderedList = new System.Windows.Forms.ToolStripButton();
+            this.tsbInsertOrderedList = new System.Windows.Forms.ToolStripButton();
             this.tsbSuperscript = new System.Windows.Forms.ToolStripButton();
             this.tsbSubscript = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbWordCount = new System.Windows.Forms.ToolStripButton();
             this.tsbDate = new System.Windows.Forms.ToolStripButton();
             this.tsbTime = new System.Windows.Forms.ToolStripButton();
-            this.tsbWordClean = new System.Windows.Forms.ToolStripButton();
+            this.tsbClearWord = new System.Windows.Forms.ToolStripButton();
             this.tsbSpellCheck = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
@@ -226,42 +226,42 @@ namespace WinHtmlEditor
             this.tsbPaste,
             this.tsbDelete,
             this.tsbFind,
-            this.tsbClearFormat,
+            this.tsbRemoveFormat,
             this.toolStripSeparator2,
-            this.tsbCenter,
-            this.tsbFull,
-            this.tsbLeft,
-            this.tsbRight,
+            this.tsbJustifyCenter,
+            this.tsbJustifyFull,
+            this.tsbJustifyLeft,
+            this.tsbJustifyRight,
             this.tsbUnderline,
             this.tsbItalic,
             this.tsbBold,
-            this.tsbBgcolor,
-            this.tsbFontColor,
-            this.tsbSetFont,
+            this.tsbBackColor,
+            this.tsbForeColor,
+            this.tsbStrikeThrough,
             this.toolStripSeparator3,
-            this.tsbLink,
+            this.tsbCreateLink,
             this.tsbUnlink,
             this.tsbInsertTable,
-            this.tsbImg,
+            this.tsbInsertImage,
             this.tsbInsertHorizontalRule,
             this.tsbOutdent,
             this.tsbIndent,
-            this.tsbUL,
-            this.tsbOL,
+            this.tsbInsertUnorderedList,
+            this.tsbInsertOrderedList,
             this.tsbSuperscript,
             this.tsbSubscript,
             this.toolStripSeparator4,
             this.tsbWordCount,
             this.tsbDate,
             this.tsbTime,
-            this.tsbWordClean,
+            this.tsbClearWord,
             this.tsbSpellCheck,
             this.toolStripSeparator6,
             this.tsbAbout});
             this.topToolBar.Location = new System.Drawing.Point(3, 0);
             this.topToolBar.Name = "topToolBar";
             this.topToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.topToolBar.Size = new System.Drawing.Size(1186, 25);
+            this.topToolBar.Size = new System.Drawing.Size(1217, 25);
             this.topToolBar.TabIndex = 0;
             this.topToolBar.Text = "topToolBar";
             // 
@@ -274,6 +274,7 @@ namespace WinHtmlEditor
             this.tscbFont.SelectedFontItem = null;
             this.tscbFont.SelectedFontNameItem = "";
             this.tscbFont.Size = new System.Drawing.Size(200, 25);
+            this.tscbFont.Tag = "Font";
             this.tscbFont.SelectedIndexChanged += new System.EventHandler(this.tscbFont_SelectedIndexChanged);
             this.tscbFont.Leave += new System.EventHandler(this.tscbFont_Leave);
             // 
@@ -281,6 +282,7 @@ namespace WinHtmlEditor
             // 
             this.tscbFontSize.Name = "tscbFontSize";
             this.tscbFontSize.Size = new System.Drawing.Size(75, 25);
+            this.tscbFontSize.Tag = "FontSize";
             // 
             // tsbNew
             // 
@@ -289,6 +291,7 @@ namespace WinHtmlEditor
             this.tsbNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNew.Name = "tsbNew";
             this.tsbNew.Size = new System.Drawing.Size(23, 22);
+            this.tsbNew.Tag = "New";
             this.tsbNew.Text = "新建";
             this.tsbNew.Click += new System.EventHandler(this.tsbNew_Click);
             // 
@@ -299,6 +302,7 @@ namespace WinHtmlEditor
             this.tsbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOpen.Name = "tsbOpen";
             this.tsbOpen.Size = new System.Drawing.Size(23, 22);
+            this.tsbOpen.Tag = "Open";
             this.tsbOpen.Text = "打开文件";
             this.tsbOpen.Click += new System.EventHandler(this.tsbOpen_Click);
             // 
@@ -309,6 +313,7 @@ namespace WinHtmlEditor
             this.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPrint.Name = "tsbPrint";
             this.tsbPrint.Size = new System.Drawing.Size(23, 22);
+            this.tsbPrint.Tag = "Print";
             this.tsbPrint.Text = "打印";
             this.tsbPrint.Click += new System.EventHandler(this.tsbPrint_Click);
             // 
@@ -319,6 +324,7 @@ namespace WinHtmlEditor
             this.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSave.Name = "tsbSave";
             this.tsbSave.Size = new System.Drawing.Size(23, 22);
+            this.tsbSave.Tag = "Save";
             this.tsbSave.Text = "保存为文件";
             this.tsbSave.Click += new System.EventHandler(this.tsbSave_Click);
             // 
@@ -329,6 +335,7 @@ namespace WinHtmlEditor
             this.tsbShowHTML.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbShowHTML.Name = "tsbShowHTML";
             this.tsbShowHTML.Size = new System.Drawing.Size(23, 22);
+            this.tsbShowHTML.Tag = "ShowHTML";
             this.tsbShowHTML.Text = "查看HTML代码";
             this.tsbShowHTML.Click += new System.EventHandler(this.tsbShowHTML_Click);
             // 
@@ -344,6 +351,7 @@ namespace WinHtmlEditor
             this.tsbCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCopy.Name = "tsbCopy";
             this.tsbCopy.Size = new System.Drawing.Size(23, 22);
+            this.tsbCopy.Tag = "Copy";
             this.tsbCopy.Text = "复制";
             this.tsbCopy.Click += new System.EventHandler(this.tsbCopy_Click);
             // 
@@ -354,6 +362,7 @@ namespace WinHtmlEditor
             this.tsbCut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCut.Name = "tsbCut";
             this.tsbCut.Size = new System.Drawing.Size(23, 22);
+            this.tsbCut.Tag = "Cut";
             this.tsbCut.Text = "剪切";
             this.tsbCut.Click += new System.EventHandler(this.tsbCut_Click);
             // 
@@ -364,6 +373,7 @@ namespace WinHtmlEditor
             this.tsbPaste.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPaste.Name = "tsbPaste";
             this.tsbPaste.Size = new System.Drawing.Size(23, 22);
+            this.tsbPaste.Tag = "Paste";
             this.tsbPaste.Text = "粘贴";
             this.tsbPaste.Click += new System.EventHandler(this.tsbPaste_Click);
             // 
@@ -374,6 +384,7 @@ namespace WinHtmlEditor
             this.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDelete.Name = "tsbDelete";
             this.tsbDelete.Size = new System.Drawing.Size(23, 22);
+            this.tsbDelete.Tag = "Delete";
             this.tsbDelete.Text = "删除";
             this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
             // 
@@ -384,63 +395,69 @@ namespace WinHtmlEditor
             this.tsbFind.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbFind.Name = "tsbFind";
             this.tsbFind.Size = new System.Drawing.Size(23, 22);
+            this.tsbFind.Tag = "Find";
             this.tsbFind.Text = "查找";
             this.tsbFind.Click += new System.EventHandler(this.tsbFind_Click);
             // 
-            // tsbClearFormat
+            // tsbRemoveFormat
             // 
-            this.tsbClearFormat.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbClearFormat.Image = global::WinHtmlEditor.Properties.Resources.RemoveFormat;
-            this.tsbClearFormat.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbClearFormat.Name = "tsbClearFormat";
-            this.tsbClearFormat.Size = new System.Drawing.Size(23, 22);
-            this.tsbClearFormat.Text = "清除格式";
-            this.tsbClearFormat.Click += new System.EventHandler(this.tsbClearFormat_Click);
+            this.tsbRemoveFormat.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbRemoveFormat.Image = global::WinHtmlEditor.Properties.Resources.RemoveFormat;
+            this.tsbRemoveFormat.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbRemoveFormat.Name = "tsbRemoveFormat";
+            this.tsbRemoveFormat.Size = new System.Drawing.Size(23, 22);
+            this.tsbRemoveFormat.Tag = "RemoveFormat";
+            this.tsbRemoveFormat.Text = "清除格式";
+            this.tsbRemoveFormat.Click += new System.EventHandler(this.tsbRemoveFormat_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // tsbCenter
+            // tsbJustifyCenter
             // 
-            this.tsbCenter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbCenter.Image = global::WinHtmlEditor.Properties.Resources.JustifyCenter;
-            this.tsbCenter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbCenter.Name = "tsbCenter";
-            this.tsbCenter.Size = new System.Drawing.Size(23, 22);
-            this.tsbCenter.Text = "居中对齐0";
-            this.tsbCenter.Click += new System.EventHandler(this.tsbCenter_Click);
+            this.tsbJustifyCenter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbJustifyCenter.Image = global::WinHtmlEditor.Properties.Resources.JustifyCenter;
+            this.tsbJustifyCenter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbJustifyCenter.Name = "tsbJustifyCenter";
+            this.tsbJustifyCenter.Size = new System.Drawing.Size(23, 22);
+            this.tsbJustifyCenter.Tag = "JustifyCenter";
+            this.tsbJustifyCenter.Text = "居中对齐0";
+            this.tsbJustifyCenter.Click += new System.EventHandler(this.tsbJustifyCenter_Click);
             // 
-            // tsbFull
+            // tsbJustifyFull
             // 
-            this.tsbFull.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbFull.Image = global::WinHtmlEditor.Properties.Resources.JustifyFull;
-            this.tsbFull.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbFull.Name = "tsbFull";
-            this.tsbFull.Size = new System.Drawing.Size(23, 22);
-            this.tsbFull.Text = "两端对齐";
-            this.tsbFull.Click += new System.EventHandler(this.tsbFull_Click);
+            this.tsbJustifyFull.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbJustifyFull.Image = global::WinHtmlEditor.Properties.Resources.JustifyFull;
+            this.tsbJustifyFull.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbJustifyFull.Name = "tsbJustifyFull";
+            this.tsbJustifyFull.Size = new System.Drawing.Size(23, 22);
+            this.tsbJustifyFull.Tag = "JustifyFull";
+            this.tsbJustifyFull.Text = "两端对齐";
+            this.tsbJustifyFull.Click += new System.EventHandler(this.tsbJustifyFull_Click);
             // 
-            // tsbLeft
+            // tsbJustifyLeft
             // 
-            this.tsbLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbLeft.Image = global::WinHtmlEditor.Properties.Resources.JustifyLeft;
-            this.tsbLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbLeft.Name = "tsbLeft";
-            this.tsbLeft.Size = new System.Drawing.Size(23, 22);
-            this.tsbLeft.Text = "左对齐";
-            this.tsbLeft.Click += new System.EventHandler(this.tsbLeft_Click);
+            this.tsbJustifyLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbJustifyLeft.Image = global::WinHtmlEditor.Properties.Resources.JustifyLeft;
+            this.tsbJustifyLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbJustifyLeft.Name = "tsbJustifyLeft";
+            this.tsbJustifyLeft.Size = new System.Drawing.Size(23, 22);
+            this.tsbJustifyLeft.Tag = "JustifyLeft";
+            this.tsbJustifyLeft.Text = "左对齐";
+            this.tsbJustifyLeft.Click += new System.EventHandler(this.tsbJustifyLeft_Click);
             // 
-            // tsbRight
+            // tsbJustifyRight
             // 
-            this.tsbRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbRight.Image = global::WinHtmlEditor.Properties.Resources.JustifyRight;
-            this.tsbRight.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbRight.Name = "tsbRight";
-            this.tsbRight.Size = new System.Drawing.Size(23, 22);
-            this.tsbRight.Text = "右对齐";
-            this.tsbRight.Click += new System.EventHandler(this.tsbRight_Click);
+            this.tsbJustifyRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbJustifyRight.Image = global::WinHtmlEditor.Properties.Resources.JustifyRight;
+            this.tsbJustifyRight.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbJustifyRight.Name = "tsbJustifyRight";
+            this.tsbJustifyRight.Size = new System.Drawing.Size(23, 22);
+            this.tsbJustifyRight.Tag = "JustifyRight";
+            this.tsbJustifyRight.Text = "右对齐";
+            this.tsbJustifyRight.Click += new System.EventHandler(this.tsbJustifyRight_Click);
             // 
             // tsbUnderline
             // 
@@ -449,6 +466,7 @@ namespace WinHtmlEditor
             this.tsbUnderline.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbUnderline.Name = "tsbUnderline";
             this.tsbUnderline.Size = new System.Drawing.Size(23, 22);
+            this.tsbUnderline.Tag = "Underline";
             this.tsbUnderline.Text = "下划线";
             this.tsbUnderline.Click += new System.EventHandler(this.tsbUnderline_Click);
             // 
@@ -459,6 +477,7 @@ namespace WinHtmlEditor
             this.tsbItalic.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbItalic.Name = "tsbItalic";
             this.tsbItalic.Size = new System.Drawing.Size(23, 22);
+            this.tsbItalic.Tag = "Italic";
             this.tsbItalic.Text = "斜体";
             this.tsbItalic.Click += new System.EventHandler(this.tsbItalic_Click);
             // 
@@ -469,53 +488,58 @@ namespace WinHtmlEditor
             this.tsbBold.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBold.Name = "tsbBold";
             this.tsbBold.Size = new System.Drawing.Size(23, 22);
+            this.tsbBold.Tag = "Bold";
             this.tsbBold.Text = "粗体";
             this.tsbBold.Click += new System.EventHandler(this.tsbBold_Click);
             // 
-            // tsbBgcolor
+            // tsbBackColor
             // 
-            this.tsbBgcolor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbBgcolor.Image = global::WinHtmlEditor.Properties.Resources.BackColor;
-            this.tsbBgcolor.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbBgcolor.Name = "tsbBgcolor";
-            this.tsbBgcolor.Size = new System.Drawing.Size(23, 22);
-            this.tsbBgcolor.Text = "背景色";
-            this.tsbBgcolor.Click += new System.EventHandler(this.tsbBgcolor_Click);
+            this.tsbBackColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbBackColor.Image = global::WinHtmlEditor.Properties.Resources.BackColor;
+            this.tsbBackColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbBackColor.Name = "tsbBackColor";
+            this.tsbBackColor.Size = new System.Drawing.Size(23, 22);
+            this.tsbBackColor.Tag = "BackColor";
+            this.tsbBackColor.Text = "背景色";
+            this.tsbBackColor.Click += new System.EventHandler(this.tsbBackColor_Click);
             // 
-            // tsbFontColor
+            // tsbForeColor
             // 
-            this.tsbFontColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbFontColor.Image = global::WinHtmlEditor.Properties.Resources.ForeColor;
-            this.tsbFontColor.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbFontColor.Name = "tsbFontColor";
-            this.tsbFontColor.Size = new System.Drawing.Size(23, 22);
-            this.tsbFontColor.Text = "前景色";
-            this.tsbFontColor.Click += new System.EventHandler(this.tsbFontColor_Click);
+            this.tsbForeColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbForeColor.Image = global::WinHtmlEditor.Properties.Resources.ForeColor;
+            this.tsbForeColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbForeColor.Name = "tsbForeColor";
+            this.tsbForeColor.Size = new System.Drawing.Size(23, 22);
+            this.tsbForeColor.Tag = "ForeColor";
+            this.tsbForeColor.Text = "前景色";
+            this.tsbForeColor.Click += new System.EventHandler(this.tsbForeColor_Click);
             // 
-            // tsbSetFont
+            // tsbStrikeThrough
             // 
-            this.tsbSetFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbSetFont.Image = global::WinHtmlEditor.Properties.Resources.StrikeThrough;
-            this.tsbSetFont.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbSetFont.Name = "tsbSetFont";
-            this.tsbSetFont.Size = new System.Drawing.Size(23, 22);
-            this.tsbSetFont.Text = "删除线";
-            this.tsbSetFont.Click += new System.EventHandler(this.tsbSetFont_Click);
+            this.tsbStrikeThrough.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbStrikeThrough.Image = global::WinHtmlEditor.Properties.Resources.StrikeThrough;
+            this.tsbStrikeThrough.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbStrikeThrough.Name = "tsbStrikeThrough";
+            this.tsbStrikeThrough.Size = new System.Drawing.Size(23, 22);
+            this.tsbStrikeThrough.Tag = "StrikeThrough";
+            this.tsbStrikeThrough.Text = "删除线";
+            this.tsbStrikeThrough.Click += new System.EventHandler(this.tsbStrikeThrough_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
-            // tsbLink
+            // tsbCreateLink
             // 
-            this.tsbLink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbLink.Image = global::WinHtmlEditor.Properties.Resources.CreateLink;
-            this.tsbLink.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbLink.Name = "tsbLink";
-            this.tsbLink.Size = new System.Drawing.Size(23, 22);
-            this.tsbLink.Text = "超链接";
-            this.tsbLink.Click += new System.EventHandler(this.tsbLink_Click);
+            this.tsbCreateLink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbCreateLink.Image = global::WinHtmlEditor.Properties.Resources.CreateLink;
+            this.tsbCreateLink.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbCreateLink.Name = "tsbCreateLink";
+            this.tsbCreateLink.Size = new System.Drawing.Size(23, 22);
+            this.tsbCreateLink.Tag = "CreateLink";
+            this.tsbCreateLink.Text = "超链接";
+            this.tsbCreateLink.Click += new System.EventHandler(this.tsbCreateLink_Click);
             // 
             // tsbUnlink
             // 
@@ -524,6 +548,7 @@ namespace WinHtmlEditor
             this.tsbUnlink.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbUnlink.Name = "tsbUnlink";
             this.tsbUnlink.Size = new System.Drawing.Size(23, 22);
+            this.tsbUnlink.Tag = "Unlink";
             this.tsbUnlink.Text = "取消超链接";
             this.tsbUnlink.Click += new System.EventHandler(this.tsbUnlink_Click);
             // 
@@ -534,18 +559,20 @@ namespace WinHtmlEditor
             this.tsbInsertTable.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbInsertTable.Name = "tsbInsertTable";
             this.tsbInsertTable.Size = new System.Drawing.Size(23, 22);
+            this.tsbInsertTable.Tag = "InsertTable";
             this.tsbInsertTable.Text = "插入表格";
             this.tsbInsertTable.Click += new System.EventHandler(this.tsbInsertTable_Click);
             // 
-            // tsbImg
+            // tsbInsertImage
             // 
-            this.tsbImg.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbImg.Image = global::WinHtmlEditor.Properties.Resources.InsertImage;
-            this.tsbImg.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbImg.Name = "tsbImg";
-            this.tsbImg.Size = new System.Drawing.Size(23, 22);
-            this.tsbImg.Text = "插入图片";
-            this.tsbImg.Click += new System.EventHandler(this.tsbImg_Click);
+            this.tsbInsertImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbInsertImage.Image = global::WinHtmlEditor.Properties.Resources.InsertImage;
+            this.tsbInsertImage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbInsertImage.Name = "tsbInsertImage";
+            this.tsbInsertImage.Size = new System.Drawing.Size(23, 22);
+            this.tsbInsertImage.Tag = "InsertImage";
+            this.tsbInsertImage.Text = "插入图片";
+            this.tsbInsertImage.Click += new System.EventHandler(this.tsbInsertImage_Click);
             // 
             // tsbInsertHorizontalRule
             // 
@@ -554,6 +581,7 @@ namespace WinHtmlEditor
             this.tsbInsertHorizontalRule.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbInsertHorizontalRule.Name = "tsbInsertHorizontalRule";
             this.tsbInsertHorizontalRule.Size = new System.Drawing.Size(23, 22);
+            this.tsbInsertHorizontalRule.Tag = "InsertHorizontalRule";
             this.tsbInsertHorizontalRule.Text = "插入水平线";
             this.tsbInsertHorizontalRule.Click += new System.EventHandler(this.tsbInsertHorizontalRule_Click);
             // 
@@ -564,6 +592,7 @@ namespace WinHtmlEditor
             this.tsbOutdent.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOutdent.Name = "tsbOutdent";
             this.tsbOutdent.Size = new System.Drawing.Size(23, 22);
+            this.tsbOutdent.Tag = "Outdent";
             this.tsbOutdent.Text = "减少缩进";
             this.tsbOutdent.Click += new System.EventHandler(this.tsbOutdent_Click);
             // 
@@ -574,28 +603,31 @@ namespace WinHtmlEditor
             this.tsbIndent.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbIndent.Name = "tsbIndent";
             this.tsbIndent.Size = new System.Drawing.Size(23, 22);
+            this.tsbIndent.Tag = "Indent";
             this.tsbIndent.Text = "增加缩进";
             this.tsbIndent.Click += new System.EventHandler(this.tsbIndent_Click);
             // 
-            // tsbUL
+            // tsbInsertUnorderedList
             // 
-            this.tsbUL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbUL.Image = global::WinHtmlEditor.Properties.Resources.InsertUnorderedList;
-            this.tsbUL.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbUL.Name = "tsbUL";
-            this.tsbUL.Size = new System.Drawing.Size(23, 22);
-            this.tsbUL.Text = "插入无序列表";
-            this.tsbUL.Click += new System.EventHandler(this.tsbUL_Click);
+            this.tsbInsertUnorderedList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbInsertUnorderedList.Image = global::WinHtmlEditor.Properties.Resources.InsertUnorderedList;
+            this.tsbInsertUnorderedList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbInsertUnorderedList.Name = "tsbInsertUnorderedList";
+            this.tsbInsertUnorderedList.Size = new System.Drawing.Size(23, 22);
+            this.tsbInsertUnorderedList.Tag = "InsertUnorderedList";
+            this.tsbInsertUnorderedList.Text = "插入无序列表";
+            this.tsbInsertUnorderedList.Click += new System.EventHandler(this.tsbInsertUnorderedList_Click);
             // 
-            // tsbOL
+            // tsbInsertOrderedList
             // 
-            this.tsbOL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbOL.Image = global::WinHtmlEditor.Properties.Resources.InsertOrderedList;
-            this.tsbOL.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbOL.Name = "tsbOL";
-            this.tsbOL.Size = new System.Drawing.Size(23, 22);
-            this.tsbOL.Text = "插入有序列表";
-            this.tsbOL.Click += new System.EventHandler(this.tsbOL_Click);
+            this.tsbInsertOrderedList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbInsertOrderedList.Image = global::WinHtmlEditor.Properties.Resources.InsertOrderedList;
+            this.tsbInsertOrderedList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbInsertOrderedList.Name = "tsbInsertOrderedList";
+            this.tsbInsertOrderedList.Size = new System.Drawing.Size(23, 22);
+            this.tsbInsertOrderedList.Tag = "InsertOrderedList";
+            this.tsbInsertOrderedList.Text = "插入有序列表";
+            this.tsbInsertOrderedList.Click += new System.EventHandler(this.tsbInsertOrderedList_Click);
             // 
             // tsbSuperscript
             // 
@@ -604,6 +636,7 @@ namespace WinHtmlEditor
             this.tsbSuperscript.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSuperscript.Name = "tsbSuperscript";
             this.tsbSuperscript.Size = new System.Drawing.Size(23, 22);
+            this.tsbSuperscript.Tag = "Superscript";
             this.tsbSuperscript.Text = "上标";
             this.tsbSuperscript.Click += new System.EventHandler(this.tsbSuperscript_Click);
             // 
@@ -614,6 +647,7 @@ namespace WinHtmlEditor
             this.tsbSubscript.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSubscript.Name = "tsbSubscript";
             this.tsbSubscript.Size = new System.Drawing.Size(23, 22);
+            this.tsbSubscript.Tag = "Subscript";
             this.tsbSubscript.Text = "下标";
             this.tsbSubscript.Click += new System.EventHandler(this.tsbSubscript_Click);
             // 
@@ -629,6 +663,7 @@ namespace WinHtmlEditor
             this.tsbWordCount.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbWordCount.Name = "tsbWordCount";
             this.tsbWordCount.Size = new System.Drawing.Size(23, 22);
+            this.tsbWordCount.Tag = "WordCount";
             this.tsbWordCount.Text = "字数统计";
             this.tsbWordCount.Click += new System.EventHandler(this.tsbWordCount_Click);
             // 
@@ -639,6 +674,7 @@ namespace WinHtmlEditor
             this.tsbDate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDate.Name = "tsbDate";
             this.tsbDate.Size = new System.Drawing.Size(23, 22);
+            this.tsbDate.Tag = "Date";
             this.tsbDate.Text = "日期";
             this.tsbDate.Click += new System.EventHandler(this.tsbDate_Click);
             // 
@@ -649,18 +685,20 @@ namespace WinHtmlEditor
             this.tsbTime.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbTime.Name = "tsbTime";
             this.tsbTime.Size = new System.Drawing.Size(23, 22);
+            this.tsbTime.Tag = "Time";
             this.tsbTime.Text = "时间";
             this.tsbTime.Click += new System.EventHandler(this.tsbTime_Click);
             // 
-            // tsbWordClean
+            // tsbClearWord
             // 
-            this.tsbWordClean.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbWordClean.Image = global::WinHtmlEditor.Properties.Resources.Wordclean;
-            this.tsbWordClean.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbWordClean.Name = "tsbWordClean";
-            this.tsbWordClean.Size = new System.Drawing.Size(23, 22);
-            this.tsbWordClean.Text = "清除Word格式";
-            this.tsbWordClean.Click += new System.EventHandler(this.tsbWordClean_Click);
+            this.tsbClearWord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbClearWord.Image = global::WinHtmlEditor.Properties.Resources.Wordclean;
+            this.tsbClearWord.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbClearWord.Name = "tsbClearWord";
+            this.tsbClearWord.Size = new System.Drawing.Size(23, 22);
+            this.tsbClearWord.Tag = "ClearWord";
+            this.tsbClearWord.Text = "清除Word格式";
+            this.tsbClearWord.Click += new System.EventHandler(this.tsbClearWord_Click);
             // 
             // tsbSpellCheck
             // 
@@ -669,6 +707,7 @@ namespace WinHtmlEditor
             this.tsbSpellCheck.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSpellCheck.Name = "tsbSpellCheck";
             this.tsbSpellCheck.Size = new System.Drawing.Size(23, 22);
+            this.tsbSpellCheck.Tag = "SpellCheck";
             this.tsbSpellCheck.Text = "拼写检查";
             this.tsbSpellCheck.Click += new System.EventHandler(this.tsbSpellCheck_Click);
             // 
@@ -684,6 +723,7 @@ namespace WinHtmlEditor
             this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAbout.Name = "tsbAbout";
             this.tsbAbout.Size = new System.Drawing.Size(23, 22);
+            this.tsbAbout.Tag = "About";
             this.tsbAbout.Text = "关于";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
             // 
@@ -733,27 +773,27 @@ namespace WinHtmlEditor
         private System.Windows.Forms.ToolStripButton tsbPaste;
         private System.Windows.Forms.ToolStripButton tsbDelete;
         private System.Windows.Forms.ToolStripButton tsbFind;
-        private System.Windows.Forms.ToolStripButton tsbClearFormat;
+        private System.Windows.Forms.ToolStripButton tsbRemoveFormat;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton tsbCenter;
-        private System.Windows.Forms.ToolStripButton tsbFull;
-        private System.Windows.Forms.ToolStripButton tsbLeft;
-        private System.Windows.Forms.ToolStripButton tsbRight;
+        private System.Windows.Forms.ToolStripButton tsbJustifyCenter;
+        private System.Windows.Forms.ToolStripButton tsbJustifyFull;
+        private System.Windows.Forms.ToolStripButton tsbJustifyLeft;
+        private System.Windows.Forms.ToolStripButton tsbJustifyRight;
         private System.Windows.Forms.ToolStripButton tsbUnderline;
         private System.Windows.Forms.ToolStripButton tsbItalic;
         private System.Windows.Forms.ToolStripButton tsbBold;
-        private System.Windows.Forms.ToolStripButton tsbBgcolor;
-        private System.Windows.Forms.ToolStripButton tsbFontColor;
-        private System.Windows.Forms.ToolStripButton tsbSetFont;
+        private System.Windows.Forms.ToolStripButton tsbBackColor;
+        private System.Windows.Forms.ToolStripButton tsbForeColor;
+        private System.Windows.Forms.ToolStripButton tsbStrikeThrough;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton tsbLink;
+        private System.Windows.Forms.ToolStripButton tsbCreateLink;
         private System.Windows.Forms.ToolStripButton tsbUnlink;
-        private System.Windows.Forms.ToolStripButton tsbImg;
+        private System.Windows.Forms.ToolStripButton tsbInsertImage;
         private System.Windows.Forms.ToolStripButton tsbInsertHorizontalRule;
         private System.Windows.Forms.ToolStripButton tsbOutdent;
         private System.Windows.Forms.ToolStripButton tsbIndent;
-        private System.Windows.Forms.ToolStripButton tsbUL;
-        private System.Windows.Forms.ToolStripButton tsbOL;
+        private System.Windows.Forms.ToolStripButton tsbInsertUnorderedList;
+        private System.Windows.Forms.ToolStripButton tsbInsertOrderedList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ContextMenuStrip contextMenuWeb;
         private System.Windows.Forms.ToolStripMenuItem SelectAllMenu;
@@ -776,7 +816,7 @@ namespace WinHtmlEditor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton tsbAbout;
         internal System.Windows.Forms.WebBrowser wb;
-        private System.Windows.Forms.ToolStripButton tsbWordClean;
+        private System.Windows.Forms.ToolStripButton tsbClearWord;
         private NetSpell.SpellChecker.Dictionary.WordDictionary wordDictionary;
         private NetSpell.SpellChecker.Spelling spellCheck;
         private ToolStripFontComboBox tscbFont;

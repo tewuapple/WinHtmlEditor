@@ -237,8 +237,7 @@
   </data>
   <data name="AboutInfo" xml:space="preserve">
     <value>这是一个免费的HTML控件，你可以自由使用。
-如有任何问题或建议请加入QQ群：217478320，开源项目请访问：github.com/tewuapple/WinHtmlEditor,是否现在就访问？
-</value>
+如有任何问题或建议请加入QQ群：217478320，开源项目请访问：http://tewuapple.github.com/WinHtmlEditor/,是否现在就访问？</value>
   </data>
   <data name="AboutText" xml:space="preserve">
     <value>关于</value>
@@ -255,7 +254,6 @@
   <data name="OpenTitle" xml:space="preserve">
     <value>请选择文件</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="StrikeThrough" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StrikeThrough.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
