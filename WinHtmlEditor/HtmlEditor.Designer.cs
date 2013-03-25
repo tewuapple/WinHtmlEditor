@@ -58,6 +58,8 @@ namespace WinHtmlEditor
             this.tsbCut = new System.Windows.Forms.ToolStripButton();
             this.tsbPaste = new System.Windows.Forms.ToolStripButton();
             this.tsbDelete = new System.Windows.Forms.ToolStripButton();
+            this.tsbUndo = new System.Windows.Forms.ToolStripButton();
+            this.tsbRedo = new System.Windows.Forms.ToolStripButton();
             this.tsbFind = new System.Windows.Forms.ToolStripButton();
             this.tsbRemoveFormat = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -238,6 +240,8 @@ namespace WinHtmlEditor
             this.tsbCut,
             this.tsbPaste,
             this.tsbDelete,
+            this.tsbUndo,
+            this.tsbRedo,
             this.tsbFind,
             this.tsbRemoveFormat,
             this.toolStripSeparator2,
@@ -275,7 +279,7 @@ namespace WinHtmlEditor
             this.tsTopToolBar.Location = new System.Drawing.Point(3, 0);
             this.tsTopToolBar.Name = "tsTopToolBar";
             this.tsTopToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsTopToolBar.Size = new System.Drawing.Size(1263, 25);
+            this.tsTopToolBar.Size = new System.Drawing.Size(1293, 25);
             this.tsTopToolBar.TabIndex = 0;
             this.tsTopToolBar.Text = "topToolBar";
             // 
@@ -412,6 +416,28 @@ namespace WinHtmlEditor
             this.tsbDelete.Tag = "Delete";
             this.tsbDelete.Text = "删除";
             this.tsbDelete.Click += new System.EventHandler(this.tsbDelete_Click);
+            // 
+            // tsbUndo
+            // 
+            this.tsbUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbUndo.Image = ((System.Drawing.Image)(resources.GetObject("tsbUndo.Image")));
+            this.tsbUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbUndo.Name = "tsbUndo";
+            this.tsbUndo.Size = new System.Drawing.Size(23, 22);
+            this.tsbUndo.Tag = "Undo";
+            this.tsbUndo.Text = "撤销";
+            this.tsbUndo.Click += new System.EventHandler(this.tsbUndo_Click);
+            // 
+            // tsbRedo
+            // 
+            this.tsbRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbRedo.Image = ((System.Drawing.Image)(resources.GetObject("tsbRedo.Image")));
+            this.tsbRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbRedo.Name = "tsbRedo";
+            this.tsbRedo.Size = new System.Drawing.Size(23, 22);
+            this.tsbRedo.Tag = "Redo";
+            this.tsbRedo.Text = "重做";
+            this.tsbRedo.Click += new System.EventHandler(this.tsbRedo_Click);
             // 
             // tsbFind
             // 
@@ -860,5 +886,7 @@ namespace WinHtmlEditor
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripButton tsbPreview;
         private System.Windows.Forms.ToolStripButton tsbAutoLayout;
+        private System.Windows.Forms.ToolStripButton tsbUndo;
+        private System.Windows.Forms.ToolStripButton tsbRedo;
     }
 }

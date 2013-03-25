@@ -1358,7 +1358,21 @@ namespace WinHtmlEditor
 
         private void tsbAutoLayout_Click(object sender, EventArgs e)
         {
-            BodyInnerHTML = Regex.Replace(BodyInnerHTML, "(<P class=Para>)[\\s]*(&nbsp;){0,}[\\s]*", "$1　　", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            if (!string.IsNullOrEmpty(BodyInnerHTML))
+                BodyInnerHTML = Regex.Replace(BodyInnerHTML, "(<P class=Para>)[\\s]*(&nbsp;){0,}[\\s]*", "$1　　",
+                                              RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        }
+
+        private void tsbUndo_Click(object sender, EventArgs e)
+        {
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Undo", false, null);
+        }
+
+        private void tsbRedo_Click(object sender, EventArgs e)
+        {
+            Debug.Assert(wb.Document != null, "wb.Document != null");
+            wb.Document.ExecCommand("Redo", false, null);
         }
 
     }
