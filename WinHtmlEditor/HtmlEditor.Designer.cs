@@ -92,6 +92,7 @@ namespace WinHtmlEditor
             this.tsbClearWord = new System.Windows.Forms.ToolStripButton();
             this.tsbAutoLayout = new System.Windows.Forms.ToolStripButton();
             this.tsbSpellCheck = new System.Windows.Forms.ToolStripButton();
+            this.tsddbInsertTable = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.wordDictionary = new NetSpell.SpellChecker.Dictionary.WordDictionary(this.components);
@@ -274,6 +275,7 @@ namespace WinHtmlEditor
             this.tsbClearWord,
             this.tsbAutoLayout,
             this.tsbSpellCheck,
+            this.tsddbInsertTable,
             this.toolStripSeparator6,
             this.tsbAbout});
             this.tsTopToolBar.Location = new System.Drawing.Point(3, 0);
@@ -773,6 +775,16 @@ namespace WinHtmlEditor
             this.tsbSpellCheck.Text = "拼写检查";
             this.tsbSpellCheck.Click += new System.EventHandler(this.tsbSpellCheck_Click);
             // 
+            // tsddbInsertTable
+            // 
+            this.tsddbInsertTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsddbInsertTable.Image = global::WinHtmlEditor.Properties.Resources.InsertTable;
+            this.tsddbInsertTable.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbInsertTable.Name = "tsddbInsertTable";
+            this.tsddbInsertTable.Size = new System.Drawing.Size(29, 22);
+            this.tsddbInsertTable.Tag = "InsertTableByDropDown";
+            this.tsddbInsertTable.Text = "插入表格";
+            // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
@@ -784,7 +796,7 @@ namespace WinHtmlEditor
             this.tsbAbout.Image = global::WinHtmlEditor.Properties.Resources.About;
             this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAbout.Name = "tsbAbout";
-            this.tsbAbout.Size = new System.Drawing.Size(23, 22);
+            this.tsbAbout.Size = new System.Drawing.Size(23, 20);
             this.tsbAbout.Tag = "About";
             this.tsbAbout.Text = "关于";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
@@ -888,5 +900,6 @@ namespace WinHtmlEditor
         private System.Windows.Forms.ToolStripButton tsbAutoLayout;
         private System.Windows.Forms.ToolStripButton tsbUndo;
         private System.Windows.Forms.ToolStripButton tsbRedo;
+        private System.Windows.Forms.ToolStripDropDownButton tsddbInsertTable;
     }
 }

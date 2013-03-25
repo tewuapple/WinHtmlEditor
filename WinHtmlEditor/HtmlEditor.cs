@@ -579,11 +579,31 @@ namespace WinHtmlEditor
             e.ReturnValue = true;
         }
 
+        private static void Selector_TableSizeSelected(object sender, TableSizeEventArgs e)
+        {
+            HTMLEditHelper.AppendTable(e.SelectedSize.Width, e.SelectedSize.Height, 1, "", 0, 0, "", 0);
+        }
+
+        private void DropDown_Opening(object sender, CancelEventArgs e)
+        {
+            var c = tsddbInsertTable.DropDown as ToolStripTableSizeSelector;
+            if (c != null)
+            {
+                c.Selector.SelectedSize = new Size(0, 0);
+                c.Selector.VisibleRange = new Size(10, 10);
+            }
+        }
+
         /// <summary>
         /// 初始化工具栏和邮件菜单
         /// </summary>
         private void InitUi()
         {
+            var dropDown = new ToolStripTableSizeSelector();
+            dropDown.Opening += DropDown_Opening;
+            dropDown.Selector.TableSizeSelected += Selector_TableSizeSelected;
+            tsddbInsertTable.DropDown = dropDown;
+
             string removeButton = ConfigurationManager.AppSettings["removeButtons"];
             if (!string.IsNullOrEmpty(removeButton))
             {

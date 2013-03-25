@@ -90,7 +90,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\TableSizeControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Common\ToolStripFontComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\ToolStripTableSizeSelector.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FrmTable.cs">
