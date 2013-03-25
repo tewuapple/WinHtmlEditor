@@ -733,7 +733,7 @@ namespace WinHtmlEditor
             this.tsbAutoLayout.Name = "tsbAutoLayout";
             this.tsbAutoLayout.Size = new System.Drawing.Size(23, 22);
             this.tsbAutoLayout.Tag = "AutoLayout";
-            this.tsbAutoLayout.Text = "一键排版";
+            this.tsbAutoLayout.Text = "自动排版";
             this.tsbAutoLayout.Click += new System.EventHandler(this.tsbAutoLayout_Click);
             // 
             // tsbSpellCheck
