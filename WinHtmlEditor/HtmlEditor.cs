@@ -860,16 +860,16 @@ namespace WinHtmlEditor
             tscbFontSize.Items.Add("5 (18 pt)");
             tscbFontSize.Items.Add("6 (24 pt)");
             tscbFontSize.Items.Add("7 (36 pt)");
-            tscbFontSize.Click += tsComboFontSize_Click;
-            tscbFontSize.SelectedIndexChanged += tsComboFontSize_SelectedIndexChanged;
+            tscbFontSize.Click += tscbFontSize_Click;
+            tscbFontSize.SelectedIndexChanged += tscbFontSize_SelectedIndexChanged;
         }
 
-        void tsComboFontSize_Click(object sender, EventArgs e)
+        private void tscbFontSize_Click(object sender, EventArgs e)
         {
             _internalCall = false;
         }
 
-        void tsComboFontSize_SelectedIndexChanged(object sender, EventArgs e)
+        private void tscbFontSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -921,18 +921,18 @@ namespace WinHtmlEditor
         /// </summary>
         /// <param name="sender">the sender</param>
         /// <param name="e">EventArgs</param>
-        private void tscbFont_Leave(object sender, EventArgs e)
+        private void tsfcbFontName_Leave(object sender, EventArgs e)
         {
             if (_updatingFontName) return;
             FontFamily ff;
             try
             {
-                ff = new FontFamily(tsfcbFont.Text);
+                ff = new FontFamily(tsfcbFontName.Text);
             }
             catch (Exception)
             {
                 _updatingFontName = true;
-                tsfcbFont.Text = FontName.GetName(0);
+                tsfcbFontName.Text = FontName.GetName(0);
                 _updatingFontName = false;
                 return;
             }
@@ -940,15 +940,15 @@ namespace WinHtmlEditor
         }
 
 
-        private void tscbFont_SelectedIndexChanged(object sender, EventArgs e)
+        private void tsfcbFontName_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                if ((tsfcbFont.SelectedIndex > -1) &&
-                    (!tsfcbFont.InternalCall))
+                if ((tsfcbFontName.SelectedIndex > -1) &&
+                    (!tsfcbFontName.InternalCall))
                 {
                     if (_updatingFontName) return;
-                    Font f = tsfcbFont.SelectedFontItem;
+                    Font f = tsfcbFontName.SelectedFontItem;
                     FontName = f.FontFamily;
                 }
             }
@@ -981,7 +981,7 @@ namespace WinHtmlEditor
                 else
                     AdjustForHeading(sTagName);
             }
-            tsfcbFont.SelectedFontNameItem = fontname;
+            tsfcbFontName.SelectedFontNameItem = fontname;
         }
 
         private void AdjustForHeading(string sTag)
@@ -1074,6 +1074,8 @@ namespace WinHtmlEditor
             tsbJustifyCenter.Checked = IsJustifyCenter();
             tsbJustifyRight.Checked = IsJustifyRight();
             tsbJustifyFull.Checked = IsJustifyFull();
+            tsbUndo.Enabled = IsUndo();
+            tsbRedo.Enabled = IsRedo();
             UpdateFontComboBox();
             UpdateFontSizeComboBox();
 
@@ -1191,6 +1193,24 @@ namespace WinHtmlEditor
         }
 
         /// <summary>
+        /// Determine whether the current block can undo.
+        /// </summary>
+        /// <returns>true if current block can undo, false otherwise</returns>
+        public bool IsUndo()
+        {
+            return _doc.queryCommandEnabled("Undo");
+        }
+
+        /// <summary>
+        /// Determine whether the current block can redo.
+        /// </summary>
+        /// <returns>true if current block can redo, false otherwise</returns>
+        public bool IsRedo()
+        {
+            return _doc.queryCommandEnabled("Redo");
+        }
+
+        /// <summary>
         /// Update the font size combo box.
         /// Sets a flag to indicate that the combo box is updating, and should 
         /// not update the editor's selection.
@@ -1247,16 +1267,16 @@ namespace WinHtmlEditor
         /// </summary>
         private void UpdateFontComboBox()
         {
-            if (!tsfcbFont.Focused)
+            if (!tsfcbFontName.Focused)
             {
                 FontFamily fam = FontName;
                 if (fam != null)
                 {
                     string fontname = fam.Name;
-                    if (fontname != tsfcbFont.Text)
+                    if (fontname != tsfcbFontName.Text)
                     {
                         _updatingFontName = true;
-                        tsfcbFont.Text = fontname;
+                        tsfcbFontName.Text = fontname;
                         _updatingFontName = false;
                     }
                 }

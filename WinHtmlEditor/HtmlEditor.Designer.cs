@@ -45,7 +45,7 @@ namespace WinHtmlEditor
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTopToolBar = new System.Windows.Forms.ToolStrip();
-            this.tsfcbFont = new WinHtmlEditor.Common.ToolStripFontComboBox();
+            this.tsfcbFontName = new WinHtmlEditor.Common.ToolStripFontComboBox();
             this.tscbFontSize = new System.Windows.Forms.ToolStripComboBox();
             this.tsbNew = new System.Windows.Forms.ToolStripButton();
             this.tsbOpen = new System.Windows.Forms.ToolStripButton();
@@ -227,7 +227,7 @@ namespace WinHtmlEditor
             this.tsTopToolBar.Dock = System.Windows.Forms.DockStyle.None;
             this.tsTopToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsTopToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsfcbFont,
+            this.tsfcbFontName,
             this.tscbFontSize,
             this.tsbNew,
             this.tsbOpen,
@@ -283,18 +283,18 @@ namespace WinHtmlEditor
             this.tsTopToolBar.TabIndex = 0;
             this.tsTopToolBar.Text = "topToolBar";
             // 
-            // tsfcbFont
+            // tsfcbFontName
             // 
-            this.tsfcbFont.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.tsfcbFont.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.tsfcbFont.InternalCall = false;
-            this.tsfcbFont.Name = "tsfcbFont";
-            this.tsfcbFont.SelectedFontItem = null;
-            this.tsfcbFont.SelectedFontNameItem = "";
-            this.tsfcbFont.Size = new System.Drawing.Size(200, 25);
-            this.tsfcbFont.Tag = "Font";
-            this.tsfcbFont.SelectedIndexChanged += new System.EventHandler(this.tscbFont_SelectedIndexChanged);
-            this.tsfcbFont.Leave += new System.EventHandler(this.tscbFont_Leave);
+            this.tsfcbFontName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tsfcbFontName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.tsfcbFontName.InternalCall = false;
+            this.tsfcbFontName.Name = "tsfcbFontName";
+            this.tsfcbFontName.SelectedFontItem = null;
+            this.tsfcbFontName.SelectedFontNameItem = "";
+            this.tsfcbFontName.Size = new System.Drawing.Size(200, 25);
+            this.tsfcbFontName.Tag = "FontName";
+            this.tsfcbFontName.SelectedIndexChanged += new System.EventHandler(this.tsfcbFontName_SelectedIndexChanged);
+            this.tsfcbFontName.Leave += new System.EventHandler(this.tsfcbFontName_Leave);
             // 
             // tscbFontSize
             // 
@@ -881,7 +881,7 @@ namespace WinHtmlEditor
         private System.Windows.Forms.ToolStripButton tsbClearWord;
         private NetSpell.SpellChecker.Dictionary.WordDictionary wordDictionary;
         private NetSpell.SpellChecker.Spelling spellCheck;
-        private ToolStripFontComboBox tsfcbFont;
+        private ToolStripFontComboBox tsfcbFontName;
         private System.Windows.Forms.ToolStripComboBox tscbFontSize;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripButton tsbPreview;
