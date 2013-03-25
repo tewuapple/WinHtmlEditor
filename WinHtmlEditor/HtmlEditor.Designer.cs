@@ -76,6 +76,7 @@ namespace WinHtmlEditor
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbCreateLink = new System.Windows.Forms.ToolStripButton();
             this.tsbUnlink = new System.Windows.Forms.ToolStripButton();
+            this.tsddbInsertTable = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsbInsertTable = new System.Windows.Forms.ToolStripButton();
             this.tsbInsertImage = new System.Windows.Forms.ToolStripButton();
             this.tsbInsertHorizontalRule = new System.Windows.Forms.ToolStripButton();
@@ -92,7 +93,6 @@ namespace WinHtmlEditor
             this.tsbClearWord = new System.Windows.Forms.ToolStripButton();
             this.tsbAutoLayout = new System.Windows.Forms.ToolStripButton();
             this.tsbSpellCheck = new System.Windows.Forms.ToolStripButton();
-            this.tsddbInsertTable = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.wordDictionary = new NetSpell.SpellChecker.Dictionary.WordDictionary(this.components);
@@ -259,6 +259,7 @@ namespace WinHtmlEditor
             this.toolStripSeparator3,
             this.tsbCreateLink,
             this.tsbUnlink,
+            this.tsddbInsertTable,
             this.tsbInsertTable,
             this.tsbInsertImage,
             this.tsbInsertHorizontalRule,
@@ -275,7 +276,6 @@ namespace WinHtmlEditor
             this.tsbClearWord,
             this.tsbAutoLayout,
             this.tsbSpellCheck,
-            this.tsddbInsertTable,
             this.toolStripSeparator6,
             this.tsbAbout});
             this.tsTopToolBar.Location = new System.Drawing.Point(3, 0);
@@ -605,6 +605,16 @@ namespace WinHtmlEditor
             this.tsbUnlink.Text = "取消超链接";
             this.tsbUnlink.Click += new System.EventHandler(this.tsbUnlink_Click);
             // 
+            // tsddbInsertTable
+            // 
+            this.tsddbInsertTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsddbInsertTable.Image = global::WinHtmlEditor.Properties.Resources.InsertTable;
+            this.tsddbInsertTable.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbInsertTable.Name = "tsddbInsertTable";
+            this.tsddbInsertTable.Size = new System.Drawing.Size(29, 22);
+            this.tsddbInsertTable.Tag = "InsertTableByDropDown";
+            this.tsddbInsertTable.Text = "插入表格";
+            // 
             // tsbInsertTable
             // 
             this.tsbInsertTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -774,16 +784,6 @@ namespace WinHtmlEditor
             this.tsbSpellCheck.Tag = "SpellCheck";
             this.tsbSpellCheck.Text = "拼写检查";
             this.tsbSpellCheck.Click += new System.EventHandler(this.tsbSpellCheck_Click);
-            // 
-            // tsddbInsertTable
-            // 
-            this.tsddbInsertTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsddbInsertTable.Image = global::WinHtmlEditor.Properties.Resources.InsertTable;
-            this.tsddbInsertTable.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsddbInsertTable.Name = "tsddbInsertTable";
-            this.tsddbInsertTable.Size = new System.Drawing.Size(29, 22);
-            this.tsddbInsertTable.Tag = "InsertTableByDropDown";
-            this.tsddbInsertTable.Text = "插入表格";
             // 
             // toolStripSeparator6
             // 
