@@ -128,11 +128,11 @@ namespace WinHtmlEditor
         {
             get
             {
-                return ts_TopToolBar.Visible;
+                return tsTopToolBar.Visible;
             }
             set
             {
-                ts_TopToolBar.Visible = value;
+                tsTopToolBar.Visible = value;
             }
         }
 
@@ -171,7 +171,7 @@ namespace WinHtmlEditor
         public bool AddToobarButtom(ToolStripButton buttom)
         {
             buttom.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            return (ts_TopToolBar.Items.Add(buttom) > 0);
+            return (tsTopToolBar.Items.Add(buttom) > 0);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace WinHtmlEditor
             {
                 try
                 {
-                    ts_TopToolBar.Items.RemoveAt(index + 0x20);
+                    tsTopToolBar.Items.RemoveAt(index + 0x20);
                 }
                 catch
                 {
@@ -254,9 +254,9 @@ namespace WinHtmlEditor
         public void ShowHTML()
         {
             bool visible = wb.Visible;
-            for (int i = 0; i < ts_TopToolBar.Items.Count; i++)
+            for (int i = 0; i < tsTopToolBar.Items.Count; i++)
             {
-                ts_TopToolBar.Items[i].Enabled = !visible;
+                tsTopToolBar.Items[i].Enabled = !visible;
             }
             if (visible)
             {
@@ -286,6 +286,31 @@ namespace WinHtmlEditor
                     box2.Dispose();
                 }
                 wb.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// 预览
+        /// </summary>
+        public void Preview()
+        {
+            bool isPreview = (_doc.designMode == "On");
+            for (int i = 0; i < tsTopToolBar.Items.Count; i++)
+            {
+                tsTopToolBar.Items[i].Enabled = !isPreview;
+            }
+            if(isPreview)
+            {
+                _doc.designMode = "Off";
+                timer.Stop();
+                cmsHtml.Enabled = false;
+                tsbPreview.Enabled = true;
+            }
+            else
+            {
+                timer.Start();
+                cmsHtml.Enabled = true;
+                _doc.designMode = "On";
             }
         }
 
@@ -330,6 +355,11 @@ namespace WinHtmlEditor
                     writer.Close();
                 }
             }
+        }
+
+        private void tsbPreview_Click(object sender, EventArgs e)
+        {
+            Preview();
         }
 
         private void tsbShowHTML_Click(object sender, EventArgs e)
@@ -558,7 +588,7 @@ namespace WinHtmlEditor
             if (!string.IsNullOrEmpty(removeButton))
             {
                 var removeButtons = removeButton.Split(',');
-                foreach (var item in ts_TopToolBar.Items)
+                foreach (var item in tsTopToolBar.Items)
                 {
                     if (item is ToolStripButton)
                     {
@@ -578,7 +608,7 @@ namespace WinHtmlEditor
             if (!string.IsNullOrEmpty(removeMenu))
             {
                 var removeMenus = removeMenu.Split(',');
-                foreach (var item in cms_Html.Items)
+                foreach (var item in cmsHtml.Items)
                 {
                     if (item is ToolStripMenuItem)
                     {
@@ -600,21 +630,21 @@ namespace WinHtmlEditor
             SynchFont(string.Empty);
             SetupTimer();
             SetupComboFontSize();
-            ts_TopToolBar.Dock = DockStyle.Top;
+            tsTopToolBar.Dock = DockStyle.Top;
             wb.Navigate("about:blank");
             Debug.Assert(wb.Document != null, "wb.Document != null");
             _doc = wb.Document.DomDocument as IHTMLDocument2;
             wb.IsWebBrowserContextMenuEnabled = false;
             Debug.Assert(_doc != null, "domDocument != null");
-            _doc.designMode = "on";
-            tsmi_SelectAll.Click += tsmi_SelectAll_Click;
-            tsmi_Delete.Click += tsbDelete_Click;
-            tsmi_Find.Click += tsbFind_Click;
-            tsmi_Copy.Click += tsbCopy_Click;
-            tsmi_Cut.Click += tsbCut_Click;
-            tsmi_Paste.Click += tsbPaste_Click;
-            tsmi_Save.Click += tsbSave_Click;
-            tsmi_RemoveFormat.Click += tsbRemoveFormat_Click;
+            _doc.designMode = "On";
+            tsmiSelectAll.Click += tsmi_SelectAll_Click;
+            tsmiDelete.Click += tsbDelete_Click;
+            tsmiFind.Click += tsbFind_Click;
+            tsmiCopy.Click += tsbCopy_Click;
+            tsmiCut.Click += tsbCut_Click;
+            tsmiPaste.Click += tsbPaste_Click;
+            tsmiSave.Click += tsbSave_Click;
+            tsmiRemoveFormat.Click += tsbRemoveFormat_Click;
             InitUi();
             HTMLEditHelper.DOMDocument = _doc;
         }
@@ -897,12 +927,12 @@ namespace WinHtmlEditor
             FontFamily ff;
             try
             {
-                ff = new FontFamily(tscbFont.Text);
+                ff = new FontFamily(tsfcbFont.Text);
             }
             catch (Exception)
             {
                 _updatingFontName = true;
-                tscbFont.Text = FontName.GetName(0);
+                tsfcbFont.Text = FontName.GetName(0);
                 _updatingFontName = false;
                 return;
             }
@@ -914,11 +944,11 @@ namespace WinHtmlEditor
         {
             try
             {
-                if ((tscbFont.SelectedIndex > -1) &&
-                    (!tscbFont.InternalCall))
+                if ((tsfcbFont.SelectedIndex > -1) &&
+                    (!tsfcbFont.InternalCall))
                 {
                     if (_updatingFontName) return;
-                    Font f = tscbFont.SelectedFontItem;
+                    Font f = tsfcbFont.SelectedFontItem;
                     FontName = f.FontFamily;
                 }
             }
@@ -951,7 +981,7 @@ namespace WinHtmlEditor
                 else
                     AdjustForHeading(sTagName);
             }
-            tscbFont.SelectedFontNameItem = fontname;
+            tsfcbFont.SelectedFontNameItem = fontname;
         }
 
         private void AdjustForHeading(string sTag)
@@ -1217,16 +1247,16 @@ namespace WinHtmlEditor
         /// </summary>
         private void UpdateFontComboBox()
         {
-            if (!tscbFont.Focused)
+            if (!tsfcbFont.Focused)
             {
                 FontFamily fam = FontName;
                 if (fam != null)
                 {
                     string fontname = fam.Name;
-                    if (fontname != tscbFont.Text)
+                    if (fontname != tsfcbFont.Text)
                     {
                         _updatingFontName = true;
-                        tscbFont.Text = fontname;
+                        tsfcbFont.Text = fontname;
                         _updatingFontName = false;
                     }
                 }
@@ -1319,6 +1349,18 @@ namespace WinHtmlEditor
         }
 
         #endregion
+
+        private void wb_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            if (_doc.designMode == "Off")
+                e.Cancel = true;
+        }
+
+        private void tsbAutoLayout_Click(object sender, EventArgs e)
+        {
+            BodyInnerHTML = Regex.Replace(BodyInnerHTML, "(<P class=Para>)[\\s]*(&nbsp;){0,}[\\s]*", "$1　　", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        }
+
     }
 
     /// <summary>
