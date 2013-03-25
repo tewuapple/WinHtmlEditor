@@ -599,10 +599,20 @@ namespace WinHtmlEditor
         /// </summary>
         private void InitUi()
         {
+            //初始化插入表格部分
             var dropDown = new ToolStripTableSizeSelector();
             dropDown.Opening += DropDown_Opening;
             dropDown.Selector.TableSizeSelected += Selector_TableSizeSelected;
             tsddbInsertTable.DropDown = dropDown;
+            var tsmiInsertTable = new ToolStripMenuItem
+                {
+                    Image = Resources.InsertTable,
+                    Name = "tsmiInsertTable",
+                    Size = new Size(152, 22),
+                    Text = Resources.strInsertTable
+                };
+            tsmiInsertTable.Click += tsmiInsertTable_Click;
+            tsddbInsertTable.DropDownItems.Add(tsmiInsertTable);
 
             string removeButton = ConfigurationManager.AppSettings["removeButtons"];
             if (!string.IsNullOrEmpty(removeButton))
@@ -620,7 +630,17 @@ namespace WinHtmlEditor
                                 tsb.Visible = false;
                             }
                         }
-
+                    }
+                    else if (item is ToolStripDropDownButton)
+                    {
+                        var tsddb = item as ToolStripDropDownButton;
+                        foreach (var button in removeButtons)
+                        {
+                            if (String.CompareOrdinal(tsddb.Tag.ToString(), button) == 0)
+                            {
+                                tsddb.Visible = false;
+                            }
+                        }
                     }
                 }
             }
@@ -657,7 +677,7 @@ namespace WinHtmlEditor
             wb.IsWebBrowserContextMenuEnabled = false;
             Debug.Assert(_doc != null, "domDocument != null");
             _doc.designMode = "On";
-            tsmiSelectAll.Click += tsmi_SelectAll_Click;
+            tsmiSelectAll.Click += tsmiSelectAll_Click;
             tsmiDelete.Click += tsbDelete_Click;
             tsmiFind.Click += tsbFind_Click;
             tsmiCopy.Click += tsbCopy_Click;
@@ -675,7 +695,7 @@ namespace WinHtmlEditor
             wb.Document.ExecCommand("SelectAll", false, null);
         }
 
-        private void tsmi_SelectAll_Click(object sender, EventArgs e)
+        private void tsmiSelectAll_Click(object sender, EventArgs e)
         {
             SelectAll();
         }
@@ -686,7 +706,7 @@ namespace WinHtmlEditor
             wb.Document.ExecCommand("JustifyFull", false, null);
         }
 
-        private void tsbInsertTable_Click(object sender, EventArgs e)
+        private void tsmiInsertTable_Click(object sender, EventArgs e)
         {
             var mFrmTable = new FrmTable();
             mFrmTable.ShowDialog(this);

@@ -77,7 +77,6 @@ namespace WinHtmlEditor
             this.tsbCreateLink = new System.Windows.Forms.ToolStripButton();
             this.tsbUnlink = new System.Windows.Forms.ToolStripButton();
             this.tsddbInsertTable = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tsbInsertTable = new System.Windows.Forms.ToolStripButton();
             this.tsbInsertImage = new System.Windows.Forms.ToolStripButton();
             this.tsbInsertHorizontalRule = new System.Windows.Forms.ToolStripButton();
             this.tsbOutdent = new System.Windows.Forms.ToolStripButton();
@@ -153,12 +152,12 @@ namespace WinHtmlEditor
             this.toolStripSeparator5,
             this.tsmiSave});
             this.cmsHtml.Name = "contextMenuWeb";
-            this.cmsHtml.Size = new System.Drawing.Size(153, 208);
+            this.cmsHtml.Size = new System.Drawing.Size(125, 186);
             // 
             // tsmiSelectAll
             // 
             this.tsmiSelectAll.Name = "tsmiSelectAll";
-            this.tsmiSelectAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSelectAll.Size = new System.Drawing.Size(124, 22);
             this.tsmiSelectAll.Tag = "SelectAll";
             this.tsmiSelectAll.Text = "全选";
             // 
@@ -166,7 +165,7 @@ namespace WinHtmlEditor
             // 
             this.tsmiCopy.Image = global::WinHtmlEditor.Properties.Resources.Copy;
             this.tsmiCopy.Name = "tsmiCopy";
-            this.tsmiCopy.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCopy.Size = new System.Drawing.Size(124, 22);
             this.tsmiCopy.Tag = "Copy";
             this.tsmiCopy.Text = "复制";
             // 
@@ -174,7 +173,7 @@ namespace WinHtmlEditor
             // 
             this.tsmiCut.Image = global::WinHtmlEditor.Properties.Resources.Cut;
             this.tsmiCut.Name = "tsmiCut";
-            this.tsmiCut.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCut.Size = new System.Drawing.Size(124, 22);
             this.tsmiCut.Tag = "Cut";
             this.tsmiCut.Text = "剪切";
             // 
@@ -182,7 +181,7 @@ namespace WinHtmlEditor
             // 
             this.tsmiPaste.Image = global::WinHtmlEditor.Properties.Resources.Paste;
             this.tsmiPaste.Name = "tsmiPaste";
-            this.tsmiPaste.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPaste.Size = new System.Drawing.Size(124, 22);
             this.tsmiPaste.Tag = "Paste";
             this.tsmiPaste.Text = "粘贴";
             // 
@@ -190,7 +189,7 @@ namespace WinHtmlEditor
             // 
             this.tsmiDelete.Image = global::WinHtmlEditor.Properties.Resources.Delete;
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDelete.Size = new System.Drawing.Size(124, 22);
             this.tsmiDelete.Tag = "Delete";
             this.tsmiDelete.Text = "删除";
             // 
@@ -198,7 +197,7 @@ namespace WinHtmlEditor
             // 
             this.tsmiFind.Image = global::WinHtmlEditor.Properties.Resources.Find;
             this.tsmiFind.Name = "tsmiFind";
-            this.tsmiFind.Size = new System.Drawing.Size(152, 22);
+            this.tsmiFind.Size = new System.Drawing.Size(124, 22);
             this.tsmiFind.Tag = "Find";
             this.tsmiFind.Text = "查找";
             // 
@@ -206,20 +205,20 @@ namespace WinHtmlEditor
             // 
             this.tsmiRemoveFormat.Image = global::WinHtmlEditor.Properties.Resources.RemoveFormat;
             this.tsmiRemoveFormat.Name = "tsmiRemoveFormat";
-            this.tsmiRemoveFormat.Size = new System.Drawing.Size(152, 22);
+            this.tsmiRemoveFormat.Size = new System.Drawing.Size(124, 22);
             this.tsmiRemoveFormat.Tag = "RemoveFormat";
             this.tsmiRemoveFormat.Text = "清除格式";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(121, 6);
             // 
             // tsmiSave
             // 
             this.tsmiSave.Image = global::WinHtmlEditor.Properties.Resources.Save;
             this.tsmiSave.Name = "tsmiSave";
-            this.tsmiSave.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSave.Size = new System.Drawing.Size(124, 22);
             this.tsmiSave.Tag = "Save";
             this.tsmiSave.Text = "保存";
             // 
@@ -260,7 +259,6 @@ namespace WinHtmlEditor
             this.tsbCreateLink,
             this.tsbUnlink,
             this.tsddbInsertTable,
-            this.tsbInsertTable,
             this.tsbInsertImage,
             this.tsbInsertHorizontalRule,
             this.tsbOutdent,
@@ -281,7 +279,7 @@ namespace WinHtmlEditor
             this.tsTopToolBar.Location = new System.Drawing.Point(3, 0);
             this.tsTopToolBar.Name = "tsTopToolBar";
             this.tsTopToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsTopToolBar.Size = new System.Drawing.Size(1293, 25);
+            this.tsTopToolBar.Size = new System.Drawing.Size(1284, 25);
             this.tsTopToolBar.TabIndex = 0;
             this.tsTopToolBar.Text = "topToolBar";
             // 
@@ -351,7 +349,7 @@ namespace WinHtmlEditor
             // tsbPreview
             // 
             this.tsbPreview.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbPreview.Image = ((System.Drawing.Image)(resources.GetObject("tsbPreview.Image")));
+            this.tsbPreview.Image = global::WinHtmlEditor.Properties.Resources.Preview;
             this.tsbPreview.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPreview.Name = "tsbPreview";
             this.tsbPreview.Size = new System.Drawing.Size(23, 22);
@@ -422,7 +420,7 @@ namespace WinHtmlEditor
             // tsbUndo
             // 
             this.tsbUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbUndo.Image = ((System.Drawing.Image)(resources.GetObject("tsbUndo.Image")));
+            this.tsbUndo.Image = global::WinHtmlEditor.Properties.Resources.Undo;
             this.tsbUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbUndo.Name = "tsbUndo";
             this.tsbUndo.Size = new System.Drawing.Size(23, 22);
@@ -433,7 +431,7 @@ namespace WinHtmlEditor
             // tsbRedo
             // 
             this.tsbRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbRedo.Image = ((System.Drawing.Image)(resources.GetObject("tsbRedo.Image")));
+            this.tsbRedo.Image = global::WinHtmlEditor.Properties.Resources.Redo;
             this.tsbRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbRedo.Name = "tsbRedo";
             this.tsbRedo.Size = new System.Drawing.Size(23, 22);
@@ -612,19 +610,8 @@ namespace WinHtmlEditor
             this.tsddbInsertTable.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbInsertTable.Name = "tsddbInsertTable";
             this.tsddbInsertTable.Size = new System.Drawing.Size(29, 22);
-            this.tsddbInsertTable.Tag = "InsertTableByDropDown";
+            this.tsddbInsertTable.Tag = "InsertTable";
             this.tsddbInsertTable.Text = "插入表格";
-            // 
-            // tsbInsertTable
-            // 
-            this.tsbInsertTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbInsertTable.Image = global::WinHtmlEditor.Properties.Resources.InsertTable;
-            this.tsbInsertTable.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbInsertTable.Name = "tsbInsertTable";
-            this.tsbInsertTable.Size = new System.Drawing.Size(23, 22);
-            this.tsbInsertTable.Tag = "InsertTable";
-            this.tsbInsertTable.Text = "插入表格";
-            this.tsbInsertTable.Click += new System.EventHandler(this.tsbInsertTable_Click);
             // 
             // tsbInsertImage
             // 
@@ -766,7 +753,7 @@ namespace WinHtmlEditor
             // tsbAutoLayout
             // 
             this.tsbAutoLayout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAutoLayout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAutoLayout.Image")));
+            this.tsbAutoLayout.Image = global::WinHtmlEditor.Properties.Resources.AutoLayout;
             this.tsbAutoLayout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAutoLayout.Name = "tsbAutoLayout";
             this.tsbAutoLayout.Size = new System.Drawing.Size(23, 22);
@@ -793,10 +780,10 @@ namespace WinHtmlEditor
             // tsbAbout
             // 
             this.tsbAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAbout.Image = global::WinHtmlEditor.Properties.Resources.About;
+            this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
             this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAbout.Name = "tsbAbout";
-            this.tsbAbout.Size = new System.Drawing.Size(23, 20);
+            this.tsbAbout.Size = new System.Drawing.Size(23, 22);
             this.tsbAbout.Tag = "About";
             this.tsbAbout.Text = "关于";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
@@ -879,7 +866,6 @@ namespace WinHtmlEditor
         private System.Windows.Forms.ToolStripMenuItem tsmiRemoveFormat;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem tsmiSave;
-        private System.Windows.Forms.ToolStripButton tsbInsertTable;
         private System.Windows.Forms.ToolStripButton tsbWordCount;
         private System.Windows.Forms.ToolStripButton tsbSuperscript;
         private System.Windows.Forms.ToolStripButton tsbSubscript;

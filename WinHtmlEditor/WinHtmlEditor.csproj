@@ -157,9 +157,6 @@
     <EmbeddedResource Include="Resources\Find.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Font.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\ForeColor.png" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +232,10 @@
     <None Include="Resources\Print.png" />
     <None Include="Resources\Date.png" />
     <None Include="Resources\StrikeThrough.png" />
+    <Content Include="Resources\AutoLayout.png" />
+    <Content Include="Resources\Preview.png" />
+    <Content Include="Resources\Undo.png" />
+    <Content Include="Resources\Redo.png" />
     <Content Include="Resources\Subscript .png" />
     <Content Include="Resources\Superscript .png" />
   </ItemGroup>
