@@ -1114,8 +1114,11 @@ namespace WinHtmlEditor
             tsbJustifyCenter.Checked = IsJustifyCenter();
             tsbJustifyRight.Checked = IsJustifyRight();
             tsbJustifyFull.Checked = IsJustifyFull();
+            tsbSubscript.Checked = IsSubscript();
+            tsbSuperscript.Checked = IsSuperscript();
             tsbUndo.Enabled = IsUndo();
             tsbRedo.Enabled = IsRedo();
+            tsbUnlink.Enabled = IsUnlink();
             UpdateFontComboBox();
             UpdateFontSizeComboBox();
 
@@ -1215,6 +1218,24 @@ namespace WinHtmlEditor
         }
 
         /// <summary>
+        /// Determine whether the current selection is in Subscript mode.
+        /// </summary>
+        /// <returns>whether or not the current selection is Subscript</returns>
+        public bool IsSubscript()
+        {
+            return _doc.queryCommandState("Subscript");
+        }
+
+        /// <summary>
+        /// Determine whether the current selection is in Superscript mode.
+        /// </summary>
+        /// <returns>whether or not the current selection is Superscript</returns>
+        public bool IsSuperscript()
+        {
+            return _doc.queryCommandState("Superscript");
+        }
+
+        /// <summary>
         /// Determine whether the current paragraph is an ordered list.
         /// </summary>
         /// <returns>true if current paragraph is ordered, false otherwise</returns>
@@ -1248,6 +1269,15 @@ namespace WinHtmlEditor
         public bool IsRedo()
         {
             return _doc.queryCommandEnabled("Redo");
+        }
+
+        /// <summary>
+        /// Determine whether the current block can unlink.
+        /// </summary>
+        /// <returns>true if current block can unlink, false otherwise</returns>
+        public bool IsUnlink()
+        {
+            return _doc.queryCommandEnabled("Unlink");
         }
 
         /// <summary>
@@ -1412,7 +1442,7 @@ namespace WinHtmlEditor
 
         private void wb_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
-            if (_doc.designMode == "Off")
+            if (_doc != null && _doc.designMode == "Off")
                 e.Cancel = true;
         }
 

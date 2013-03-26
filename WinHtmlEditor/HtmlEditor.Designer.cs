@@ -279,7 +279,7 @@ namespace WinHtmlEditor
             this.tsTopToolBar.Location = new System.Drawing.Point(3, 0);
             this.tsTopToolBar.Name = "tsTopToolBar";
             this.tsTopToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsTopToolBar.Size = new System.Drawing.Size(1284, 25);
+            this.tsTopToolBar.Size = new System.Drawing.Size(1293, 25);
             this.tsTopToolBar.TabIndex = 0;
             this.tsTopToolBar.Text = "topToolBar";
             // 
@@ -783,7 +783,7 @@ namespace WinHtmlEditor
             this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
             this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAbout.Name = "tsbAbout";
-            this.tsbAbout.Size = new System.Drawing.Size(23, 22);
+            this.tsbAbout.Size = new System.Drawing.Size(23, 20);
             this.tsbAbout.Tag = "About";
             this.tsbAbout.Text = "关于";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
