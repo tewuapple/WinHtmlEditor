@@ -1458,7 +1458,7 @@ namespace WinHtmlEditor
         private void tsbAutoLayout_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(BodyInnerHTML))
-                BodyInnerHTML = Regex.Replace(BodyInnerHTML, "(<P class=Para>)[\\s]*(&nbsp;){0,}[\\s]*", "$1　　",
+                BodyInnerHTML = Regex.Replace(BodyInnerHTML, "(<P.*?>)[\\s]*(&nbsp;){0,}[\\s]*", "$1　　",
                                               RegexOptions.IgnoreCase | RegexOptions.Multiline);
         }
 
