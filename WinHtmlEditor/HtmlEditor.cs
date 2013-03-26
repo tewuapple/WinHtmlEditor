@@ -618,27 +618,35 @@ namespace WinHtmlEditor
             if (!string.IsNullOrEmpty(removeButton))
             {
                 var removeButtons = removeButton.Split(',');
-                foreach (var item in tsTopToolBar.Items)
+                foreach (var button in removeButtons)
                 {
-                    if (item is ToolStripButton)
+                    foreach (var item in tsTopToolBar.Items)
                     {
-                        var tsb = item as ToolStripButton;
-                        foreach (var button in removeButtons)
+                        if (item is ToolStripButton)
                         {
+                            var tsb = item as ToolStripButton;
                             if (String.CompareOrdinal(tsb.Tag.ToString(), button) == 0)
                             {
                                 tsb.Visible = false;
+                                break;
                             }
                         }
-                    }
-                    else if (item is ToolStripDropDownButton)
-                    {
-                        var tsddb = item as ToolStripDropDownButton;
-                        foreach (var button in removeButtons)
+                        else if (item is ToolStripDropDownButton)
                         {
+                            var tsddb = item as ToolStripDropDownButton;
                             if (String.CompareOrdinal(tsddb.Tag.ToString(), button) == 0)
                             {
                                 tsddb.Visible = false;
+                                break;
+                            }
+                        }
+                        else if (item is ToolStripFontComboBox)
+                        {
+                            var tsfcb = item as ToolStripFontComboBox;
+                            if (String.CompareOrdinal(tsfcb.Tag.ToString(), button) == 0)
+                            {
+                                tsfcb.Visible = false;
+                                break;
                             }
                         }
                     }
@@ -648,16 +656,17 @@ namespace WinHtmlEditor
             if (!string.IsNullOrEmpty(removeMenu))
             {
                 var removeMenus = removeMenu.Split(',');
-                foreach (var item in cmsHtml.Items)
+                foreach (var menu in removeMenus)
                 {
-                    if (item is ToolStripMenuItem)
+                    foreach (var item in cmsHtml.Items)
                     {
-                        var tsmi = item as ToolStripMenuItem;
-                        foreach (var menu in removeMenus)
+                        if (item is ToolStripMenuItem)
                         {
+                            var tsmi = item as ToolStripMenuItem;
                             if (String.CompareOrdinal(tsmi.Tag.ToString(), menu) == 0)
                             {
                                 tsmi.Visible = false;
+                                break;
                             }
                         }
                     }
@@ -1464,7 +1473,6 @@ namespace WinHtmlEditor
             Debug.Assert(wb.Document != null, "wb.Document != null");
             wb.Document.ExecCommand("Redo", false, null);
         }
-
     }
 
     /// <summary>
