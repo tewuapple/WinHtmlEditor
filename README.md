@@ -8,10 +8,8 @@ WinHtmlEditor
 <br>if you install .net3.5 or above,please choose the Debug_VS2010 or Release_VS2010 compiler configuration.</br>
 <br>others just default compiler configuration</br>
 <br>.net 2.0 or above runtime support</br>
-
-for more information,Please see here :
-[http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html](http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html "blog")
-
+<br>for more information,Please see here :
+[http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html](http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html "blog")</br>
 <br>y can contact me by g talk.</br>
 <br>g talk:tewuapple@gmail.com</br>
 
