@@ -10,7 +10,7 @@ WinHtmlEditor
 <br>.net 2.0 or above runtime support</br>
 <br>for more information,Please see here :
 [http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html](http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html "blog")</br>
-<br>y can contact me by g talk.</br>
+<br>u can contact me by g talk.</br>
 <br>g talk:tewuapple@gmail.com</br>
 
 Licenses
