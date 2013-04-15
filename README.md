@@ -18,3 +18,6 @@ Licenses
 
 - WinHtmlEditor is licensed under the terms of the Apache 2.0 License. The license can be found at
   http://www.apache.org/licenses/LICENSE-2.0
+
+
+ <a href='http://me.alipay.com/tewuapple'> <img src='https://img.alipay.com/sys/personalprod/style/mc/btn-index.png' /> </a>
