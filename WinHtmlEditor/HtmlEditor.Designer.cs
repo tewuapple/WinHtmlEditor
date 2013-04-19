@@ -1,8 +1,6 @@
-﻿using WinHtmlEditor.Common;
-
-namespace WinHtmlEditor
+﻿namespace WinHtmlEditor
 {
-    partial class HtmlEditor
+    sealed partial class HtmlEditor
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -33,8 +31,14 @@ namespace WinHtmlEditor
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HtmlEditor));
             this.tscMain = new System.Windows.Forms.ToolStripContainer();
+            this.ssHtml = new System.Windows.Forms.StatusStrip();
+            this.tsslWordCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.wb = new System.Windows.Forms.WebBrowser();
             this.cmsHtml = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiTable = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTableModify = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTableInsertRow = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTableDeleteRow = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCut = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,7 +49,7 @@ namespace WinHtmlEditor
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTopToolBar = new System.Windows.Forms.ToolStrip();
-            this.tsfcbFontName = new WinHtmlEditor.Common.ToolStripFontComboBox();
+            this.tsfcbFontName = new WinHtmlEditor.ToolStripFontComboBox();
             this.tscbFontSize = new System.Windows.Forms.ToolStripComboBox();
             this.tsbNew = new System.Windows.Forms.ToolStripButton();
             this.tsbOpen = new System.Windows.Forms.ToolStripButton();
@@ -96,10 +100,10 @@ namespace WinHtmlEditor
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.wordDictionary = new NetSpell.SpellChecker.Dictionary.WordDictionary(this.components);
             this.spellCheck = new NetSpell.SpellChecker.Spelling(this.components);
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.tscMain.ContentPanel.SuspendLayout();
             this.tscMain.TopToolStripPanel.SuspendLayout();
             this.tscMain.SuspendLayout();
+            this.ssHtml.SuspendLayout();
             this.cmsHtml.SuspendLayout();
             this.tsTopToolBar.SuspendLayout();
             this.SuspendLayout();
@@ -111,6 +115,7 @@ namespace WinHtmlEditor
             // tscMain.ContentPanel
             // 
             this.tscMain.ContentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tscMain.ContentPanel.Controls.Add(this.ssHtml);
             this.tscMain.ContentPanel.Controls.Add(this.wb);
             this.tscMain.ContentPanel.Size = new System.Drawing.Size(1296, 446);
             this.tscMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -127,6 +132,22 @@ namespace WinHtmlEditor
             // 
             this.tscMain.TopToolStripPanel.Controls.Add(this.tsTopToolBar);
             // 
+            // ssHtml
+            // 
+            this.ssHtml.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslWordCount});
+            this.ssHtml.Location = new System.Drawing.Point(0, 420);
+            this.ssHtml.Name = "ssHtml";
+            this.ssHtml.Size = new System.Drawing.Size(1292, 22);
+            this.ssHtml.TabIndex = 1;
+            this.ssHtml.Text = "statusStrip1";
+            // 
+            // tsslWordCount
+            // 
+            this.tsslWordCount.Name = "tsslWordCount";
+            this.tsslWordCount.Size = new System.Drawing.Size(56, 17);
+            this.tsslWordCount.Text = "字数统计";
+            // 
             // wb
             // 
             this.wb.ContextMenuStrip = this.cmsHtml;
@@ -136,12 +157,14 @@ namespace WinHtmlEditor
             this.wb.Name = "wb";
             this.wb.Size = new System.Drawing.Size(1292, 442);
             this.wb.TabIndex = 0;
-            this.wb.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.wb_Navigated);
+            this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
             this.wb.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.wb_Navigating);
             // 
             // cmsHtml
             // 
+            this.cmsHtml.AllowDrop = true;
             this.cmsHtml.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiTable,
             this.tsmiSelectAll,
             this.tsmiCopy,
             this.tsmiCut,
@@ -152,7 +175,42 @@ namespace WinHtmlEditor
             this.toolStripSeparator5,
             this.tsmiSave});
             this.cmsHtml.Name = "contextMenuWeb";
-            this.cmsHtml.Size = new System.Drawing.Size(125, 186);
+            this.cmsHtml.Size = new System.Drawing.Size(153, 230);
+            // 
+            // tsmiTable
+            // 
+            this.tsmiTable.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiTableModify,
+            this.tsmiTableInsertRow,
+            this.tsmiTableDeleteRow});
+            this.tsmiTable.Name = "tsmiTable";
+            this.tsmiTable.Size = new System.Drawing.Size(124, 22);
+            this.tsmiTable.Text = "表格";
+            // 
+            // tsmiTableModify
+            // 
+            this.tsmiTableModify.Image = global::WinHtmlEditor.Properties.Resources.InsertTable;
+            this.tsmiTableModify.Name = "tsmiTableModify";
+            this.tsmiTableModify.Size = new System.Drawing.Size(148, 22);
+            this.tsmiTableModify.Tag = "TableModify";
+            this.tsmiTableModify.Text = "编辑表格属性";
+            this.tsmiTableModify.Click += new System.EventHandler(this.ContextEditorClick);
+            // 
+            // tsmiTableInsertRow
+            // 
+            this.tsmiTableInsertRow.Name = "tsmiTableInsertRow";
+            this.tsmiTableInsertRow.Size = new System.Drawing.Size(148, 22);
+            this.tsmiTableInsertRow.Tag = "TableInsertRow";
+            this.tsmiTableInsertRow.Text = "插入行";
+            this.tsmiTableInsertRow.Click += new System.EventHandler(this.ContextEditorClick);
+            // 
+            // tsmiTableDeleteRow
+            // 
+            this.tsmiTableDeleteRow.Name = "tsmiTableDeleteRow";
+            this.tsmiTableDeleteRow.Size = new System.Drawing.Size(148, 22);
+            this.tsmiTableDeleteRow.Tag = "TableDeleteRow";
+            this.tsmiTableDeleteRow.Text = "删除行";
+            this.tsmiTableDeleteRow.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // tsmiSelectAll
             // 
@@ -160,6 +218,7 @@ namespace WinHtmlEditor
             this.tsmiSelectAll.Size = new System.Drawing.Size(124, 22);
             this.tsmiSelectAll.Tag = "SelectAll";
             this.tsmiSelectAll.Text = "全选";
+            this.tsmiSelectAll.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // tsmiCopy
             // 
@@ -168,6 +227,7 @@ namespace WinHtmlEditor
             this.tsmiCopy.Size = new System.Drawing.Size(124, 22);
             this.tsmiCopy.Tag = "Copy";
             this.tsmiCopy.Text = "复制";
+            this.tsmiCopy.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // tsmiCut
             // 
@@ -176,6 +236,7 @@ namespace WinHtmlEditor
             this.tsmiCut.Size = new System.Drawing.Size(124, 22);
             this.tsmiCut.Tag = "Cut";
             this.tsmiCut.Text = "剪切";
+            this.tsmiCut.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // tsmiPaste
             // 
@@ -184,6 +245,7 @@ namespace WinHtmlEditor
             this.tsmiPaste.Size = new System.Drawing.Size(124, 22);
             this.tsmiPaste.Tag = "Paste";
             this.tsmiPaste.Text = "粘贴";
+            this.tsmiPaste.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // tsmiDelete
             // 
@@ -192,35 +254,39 @@ namespace WinHtmlEditor
             this.tsmiDelete.Size = new System.Drawing.Size(124, 22);
             this.tsmiDelete.Tag = "Delete";
             this.tsmiDelete.Text = "删除";
+            this.tsmiDelete.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // tsmiFind
             // 
             this.tsmiFind.Image = global::WinHtmlEditor.Properties.Resources.Find;
             this.tsmiFind.Name = "tsmiFind";
-            this.tsmiFind.Size = new System.Drawing.Size(124, 22);
+            this.tsmiFind.Size = new System.Drawing.Size(152, 22);
             this.tsmiFind.Tag = "Find";
             this.tsmiFind.Text = "查找";
+            this.tsmiFind.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // tsmiRemoveFormat
             // 
             this.tsmiRemoveFormat.Image = global::WinHtmlEditor.Properties.Resources.RemoveFormat;
             this.tsmiRemoveFormat.Name = "tsmiRemoveFormat";
-            this.tsmiRemoveFormat.Size = new System.Drawing.Size(124, 22);
+            this.tsmiRemoveFormat.Size = new System.Drawing.Size(152, 22);
             this.tsmiRemoveFormat.Tag = "RemoveFormat";
             this.tsmiRemoveFormat.Text = "清除格式";
+            this.tsmiRemoveFormat.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiSave
             // 
             this.tsmiSave.Image = global::WinHtmlEditor.Properties.Resources.Save;
             this.tsmiSave.Name = "tsmiSave";
-            this.tsmiSave.Size = new System.Drawing.Size(124, 22);
+            this.tsmiSave.Size = new System.Drawing.Size(152, 22);
             this.tsmiSave.Tag = "Save";
             this.tsmiSave.Text = "保存";
+            this.tsmiSave.Click += new System.EventHandler(this.ContextEditorClick);
             // 
             // tsTopToolBar
             // 
@@ -279,7 +345,7 @@ namespace WinHtmlEditor
             this.tsTopToolBar.Location = new System.Drawing.Point(3, 0);
             this.tsTopToolBar.Name = "tsTopToolBar";
             this.tsTopToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsTopToolBar.Size = new System.Drawing.Size(1293, 25);
+            this.tsTopToolBar.Size = new System.Drawing.Size(1284, 25);
             this.tsTopToolBar.TabIndex = 0;
             this.tsTopToolBar.Text = "topToolBar";
             // 
@@ -294,13 +360,13 @@ namespace WinHtmlEditor
             this.tsfcbFontName.Size = new System.Drawing.Size(200, 25);
             this.tsfcbFontName.Tag = "FontName";
             this.tsfcbFontName.SelectedIndexChanged += new System.EventHandler(this.tsfcbFontName_SelectedIndexChanged);
-            this.tsfcbFontName.Leave += new System.EventHandler(this.tsfcbFontName_Leave);
             // 
             // tscbFontSize
             // 
             this.tscbFontSize.Name = "tscbFontSize";
             this.tscbFontSize.Size = new System.Drawing.Size(75, 25);
             this.tscbFontSize.Tag = "FontSize";
+            this.tscbFontSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tscbFontSize_KeyPress);
             // 
             // tsbNew
             // 
@@ -724,7 +790,7 @@ namespace WinHtmlEditor
             this.tsbDate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDate.Name = "tsbDate";
             this.tsbDate.Size = new System.Drawing.Size(23, 22);
-            this.tsbDate.Tag = "Date";
+            this.tsbDate.Tag = "InsertDate";
             this.tsbDate.Text = "日期";
             this.tsbDate.Click += new System.EventHandler(this.tsbDate_Click);
             // 
@@ -735,7 +801,7 @@ namespace WinHtmlEditor
             this.tsbTime.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbTime.Name = "tsbTime";
             this.tsbTime.Size = new System.Drawing.Size(23, 22);
-            this.tsbTime.Tag = "Time";
+            this.tsbTime.Tag = "InsertTime";
             this.tsbTime.Text = "时间";
             this.tsbTime.Click += new System.EventHandler(this.tsbTime_Click);
             // 
@@ -783,7 +849,7 @@ namespace WinHtmlEditor
             this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
             this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAbout.Name = "tsbAbout";
-            this.tsbAbout.Size = new System.Drawing.Size(23, 20);
+            this.tsbAbout.Size = new System.Drawing.Size(23, 22);
             this.tsbAbout.Tag = "About";
             this.tsbAbout.Text = "关于";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
@@ -809,10 +875,13 @@ namespace WinHtmlEditor
             this.Size = new System.Drawing.Size(1296, 471);
             this.Load += new System.EventHandler(this.HtmlEditor_Load);
             this.tscMain.ContentPanel.ResumeLayout(false);
+            this.tscMain.ContentPanel.PerformLayout();
             this.tscMain.TopToolStripPanel.ResumeLayout(false);
             this.tscMain.TopToolStripPanel.PerformLayout();
             this.tscMain.ResumeLayout(false);
             this.tscMain.PerformLayout();
+            this.ssHtml.ResumeLayout(false);
+            this.ssHtml.PerformLayout();
             this.cmsHtml.ResumeLayout(false);
             this.tsTopToolBar.ResumeLayout(false);
             this.tsTopToolBar.PerformLayout();
@@ -881,11 +950,16 @@ namespace WinHtmlEditor
         private NetSpell.SpellChecker.Spelling spellCheck;
         private ToolStripFontComboBox tsfcbFontName;
         private System.Windows.Forms.ToolStripComboBox tscbFontSize;
-        private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripButton tsbPreview;
         private System.Windows.Forms.ToolStripButton tsbAutoLayout;
         private System.Windows.Forms.ToolStripButton tsbUndo;
         private System.Windows.Forms.ToolStripButton tsbRedo;
         private System.Windows.Forms.ToolStripDropDownButton tsddbInsertTable;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTable;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTableModify;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTableInsertRow;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTableDeleteRow;
+        private System.Windows.Forms.StatusStrip ssHtml;
+        private System.Windows.Forms.ToolStripStatusLabel tsslWordCount;
     }
 }

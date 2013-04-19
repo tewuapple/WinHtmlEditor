@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Windows.Forms;
 
-namespace WinHtmlEditor.Common
+namespace WinHtmlEditor
 {
     public class ToolStripFontComboBox : ToolStripComboBox
     {
@@ -25,7 +25,7 @@ namespace WinHtmlEditor.Common
             _fontCache = new Dictionary<string, Font>();
 
             DrawMode = DrawMode.OwnerDrawVariable;
-            if (ComboBox != null)
+            if (!ComboBox.IsNull())
             {
                 ComboBox.DrawItem += OnDrawItem;
                 ComboBox.MeasureItem += OnMeasureItem;
@@ -51,7 +51,7 @@ namespace WinHtmlEditor.Common
         {
             ClearFontCache();
 
-            if (_stringFormat != null)
+            if (!_stringFormat.IsNull())
                 _stringFormat.Dispose();
 
             base.Dispose(disposing);
@@ -152,10 +152,10 @@ namespace WinHtmlEditor.Common
         {
             get
             {
-                if (ComboBox != null) return ComboBox.DrawMode;
+                if (!ComboBox.IsNull()) return ComboBox.DrawMode;
                 return DrawMode.Normal;
             }
-            set { if (ComboBox != null) ComboBox.DrawMode = value; }
+            set { if (!ComboBox.IsNull()) ComboBox.DrawMode = value; }
         }
 
         [Category("Appearance"), DefaultValue(12)]
@@ -269,7 +269,7 @@ namespace WinHtmlEditor.Common
 
             if (control.RightToLeft == RightToLeft.Yes)
                 result = true;
-            else if (control.RightToLeft == RightToLeft.Inherit && control.Parent != null)
+            else if (control.RightToLeft == RightToLeft.Inherit && !control.Parent.IsNull())
                 result = IsUsingRTL(control.Parent);
             else
                 result = false;
@@ -283,7 +283,7 @@ namespace WinHtmlEditor.Common
 
         private void ClearFontCache()
         {
-            if (_fontCache != null)
+            if (!_fontCache.IsNull())
             {
                 foreach (string key in _fontCache.Keys)
                     _fontCache[key].Dispose();
@@ -293,7 +293,7 @@ namespace WinHtmlEditor.Common
 
         private void CreateStringFormat()
         {
-            if (_stringFormat != null)
+            if (!_stringFormat.IsNull())
                 _stringFormat.Dispose();
 
             _stringFormat = new StringFormat(StringFormatFlags.NoWrap)
@@ -345,7 +345,7 @@ namespace WinHtmlEditor.Common
 
         private void OnPreviewFontSizeChanged(EventArgs e)
         {
-            if (PreviewFontSizeChanged != null)
+            if (!PreviewFontSizeChanged.IsNull())
                 PreviewFontSizeChanged(this, e);
 
             CalculateLayout();

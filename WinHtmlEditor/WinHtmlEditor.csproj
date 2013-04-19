@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinHtmlEditor</RootNamespace>
     <AssemblyName>WinHtmlEditor</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -69,6 +69,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -90,6 +91,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ExtensionAttribute.cs" />
+    <Compile Include="Common\GeneralUtil.cs" />
+    <Compile Include="Common\HtmlEditorEvents.cs" />
+    <Compile Include="Common\HtmlEnumerations.cs" />
+    <Compile Include="Common\HtmlFontProperty.cs" />
+    <Compile Include="Common\HtmlTableProperty.cs" />
+    <Compile Include="Common\IOleCommandTarget.cs" />
     <Compile Include="Common\TableSizeControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -98,6 +106,18 @@
     </Compile>
     <Compile Include="Common\ToolStripTableSizeSelector.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EditHtmlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditHtmlForm.designer.cs">
+      <DependentUpon>EditHtmlForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindReplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindReplaceForm.designer.cs">
+      <DependentUpon>FindReplaceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmTable.cs">
       <SubType>Form</SubType>
@@ -118,9 +138,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TablePropertyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TablePropertyForm.designer.cs">
+      <DependentUpon>TablePropertyForm.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EditHtmlForm.resx">
+      <DependentUpon>EditHtmlForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindReplaceForm.resx">
+      <DependentUpon>FindReplaceForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmTable.resx">
       <DependentUpon>FrmTable.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +162,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TablePropertyForm.resx">
+      <DependentUpon>TablePropertyForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace WinHtmlEditor.Common
+namespace WinHtmlEditor
 {
     class ToolStripTableSizeSelector : ToolStripDropDown
     {
@@ -34,7 +34,7 @@ namespace WinHtmlEditor.Common
 
             ToolStripProfessionalRenderer renderer = Renderer as ToolStripProfessionalRenderer;
 
-            if (renderer != null)
+            if (!renderer.IsNull())
                 control.BackColor = renderer.ColorTable.ToolStripDropDownBackground;
 
             //control.SelectedSize = new Size(0, 0);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-namespace WinHtmlEditor.Common
+namespace WinHtmlEditor
 {
     public class TableSizeEventArgs : EventArgs
     {
@@ -173,13 +173,13 @@ namespace WinHtmlEditor.Common
 
         protected virtual void OnSelectionCancelled(EventArgs e)
         {
-            if (SelectionCancelled != null)
+            if (!SelectionCancelled.IsNull())
                 SelectionCancelled(this, e);
         }
 
         protected virtual void OnTableSizeSelected(TableSizeEventArgs e)
         {
-            if (TableSizeSelected != null)
+            if (!TableSizeSelected.IsNull())
                 TableSizeSelected(this, e);
         }
 

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Globalization;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using mshtml;
 
-namespace WinHtmlEditor.Common
+namespace WinHtmlEditor
 {
     #region HTMLEditHelper class
     public static class HTMLEditHelper
@@ -16,90 +14,7 @@ namespace WinHtmlEditor.Common
             set { _mPDoc2 = value; }
         }
 
-        public static string HtmlSpace = "&nbsp;";  // space
-
         #region Table specific
-
-        //bordersize 2 or "2"
-        public static bool AppendTable(int colnum, int rownum, int bordersize, string alignment, int cellpadding, int cellspacing, string widthpercentage, int widthpixel)
-        {
-            if (_mPDoc2 == null)
-                return false;
-            var t = _mPDoc2.createElement("table") as IHTMLTable;
-            //set the cols
-            if (t != null)
-            {
-                t.cols = colnum;
-                t.border = bordersize;
-
-                if (!string.IsNullOrEmpty(alignment))
-                    t.align = alignment; //"center"
-                t.cellPadding = cellpadding; //1
-                t.cellSpacing = cellspacing; //2
-
-                if (!string.IsNullOrEmpty(widthpercentage))
-                    t.width = widthpercentage; //"50%"; 
-                else if (widthpixel > 0)
-                    t.width = widthpixel; //80;
-            }
-            //Insert rows and fill them with space
-            int cells = colnum - 1;
-            int rows = rownum - 1;
-
-            CalculateCellWidths(colnum);
-            for (int i = 0; i <= rows; i++)
-            {
-                if (t != null)
-                {
-#if VS2010
-                    var tr = t.insertRow() as IHTMLTableRow;
-#else
-                    var tr = t.insertRow(-1) as IHTMLTableRow;
-#endif
-                    for (int j = 0; j <= cells; j++)
-                    {
-                        if (tr != null)
-                        {
-#if VS2010
-                            var c = tr.insertCell() as IHTMLElement;
-#else
-                            var c = tr.insertCell(-1) as IHTMLElement;
-#endif
-                            if (c != null)
-                            {
-                                c.innerHTML = HtmlSpace;
-                                var tcell = c as IHTMLTableCell;
-                                if (tcell != null)
-                                {
-                                    //set width so as user enters text
-                                    //the cell width would not adjust
-                                    tcell.width = j == cells ? _mLastcellwidth : _mCellwidth;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            //Append to body DOM collection
-            var htmlElement = t as IHTMLElement;
-            return htmlElement != null && PasteIntoSelection(htmlElement.outerHTML);
-        }
-
-        private static string _mCellwidth = string.Empty;
-        private static string _mLastcellwidth = string.Empty;
-
-        private static void CalculateCellWidths(int numberofcols)
-        {
-            //Even numbers. for 2 cols; 50%, 50%
-            //Odd numbers.  for 3 cols; 33%, 33%, 34%
-            var cellwidth = 100 / numberofcols;
-            _mCellwidth = cellwidth.ToString(CultureInfo.InvariantCulture) + "%";
-            //modulus operator (%).
-            //http://msdn2.microsoft.com/en-us/library/0w4e0fzs.aspx
-            //http://msdn2.microsoft.com/en-us/library/6a71f45d.aspx
-            cellwidth += 100 % numberofcols;
-            _mLastcellwidth = cellwidth.ToString(CultureInfo.InvariantCulture) + "%";
-        }
 
         /// <summary>
         /// The currently selected text/controls will be replaced by the given HTML code.
@@ -109,29 +24,29 @@ namespace WinHtmlEditor.Common
         /// <returns></returns>
         public static bool PasteIntoSelection(string sHtml)
         {
-            if (_mPDoc2 == null)
+            if (_mPDoc2.IsNull())
                 return false;
             var sel = _mPDoc2.selection as IHTMLSelectionObject;
-            if (sel == null)
+            if (sel.IsNull())
                 return false;
             var range = sel.createRange() as IHTMLTxtRange;
-            if (range == null)
+            if (range.IsNull())
                 return false;
             //none
             //text
             //control
-            if ((!String.IsNullOrEmpty(sel.EventType)) &&
+            if ((!sel.EventType.IsNullOrEmpty()) &&
                 (sel.EventType == "control"))
             {
                 var ctlrange = range as IHTMLControlRange;
-                if (ctlrange != null) //Control(s) selected
+                if (!ctlrange.IsNull()) //Control(s) selected
                 {
                     int ctls = ctlrange.length;
                     for (int i = 0; i < ctls; i++)
                     {
                         //Remove all selected controls
                         IHTMLElement elem = ctlrange.item(i);
-                        if (elem != null)
+                        if (!elem.IsNull())
                         {
                             RemoveNode(elem, true);
                         }
@@ -141,7 +56,7 @@ namespace WinHtmlEditor.Common
                 }
             }
 
-            if (range != null)
+            if (!range.IsNull())
             {
                 // range will be valid if nothing is selected or if text is selected
                 // or if multiple elements are seleted
@@ -163,7 +78,7 @@ namespace WinHtmlEditor.Common
         public static IHTMLDOMNode RemoveNode(IHTMLElement elem, bool removeAllChildren)
         {
             var node = elem as IHTMLDOMNode;
-            if (node != null)
+            if (!node.IsNull())
                 return node.removeNode(removeAllChildren);
             return null;
         }
