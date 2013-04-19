@@ -2,15 +2,24 @@ WinHtmlEditor
 --------
 
 one html editor for winform(.net)
+
 qq group:217478320
+
 welcome to WinHtmlEditor Group
+
 if u want develop,please choose the develop branch
+
 if u install .net3.5 or above,please choose the Debug_VS2010 or Release_VS2010 compiler configuration.
+
 others just default compiler configuration
+
 .net 2.0 or above runtime support
+
 for more information,Please see here :
 [http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html](http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html "blog")
+
 u can contact me by g talk.
+
 g talk:tewuapple@gmail.com
 
 Licenses
