@@ -20,4 +20,4 @@ Licenses
   http://www.apache.org/licenses/LICENSE-2.0
 
 
- <a href='http://me.alipay.com/tewuapple'> <img src='https://img.alipay.com/sys/personalprod/style/mc/btn-index.png' /> </a>
+ <a href='http://me.alipay.com/tewuapple'> <img src='http://images.cnblogs.com/cnblogs_com/tewuapple/472134/o_o_donate-with-alipay.png' /> </a>
