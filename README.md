@@ -1,5 +1,5 @@
 WinHtmlEditor
-=============
+--------
 
 <br>one html editor for winform(.net)</br>
 <br>qq group:217478320</br>
