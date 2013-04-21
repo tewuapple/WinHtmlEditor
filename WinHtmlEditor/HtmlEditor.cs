@@ -61,7 +61,9 @@ namespace WinHtmlEditor
         private const string SELECT_TYPE_NONE = "none";
 
         // define commands for mshtml execution execution
-        private const string HTML_COMMAND_PRINT = "Print";
+        private const string HTML_COMMAND_FONTNAME = "FontName";
+        private const string HTML_COMMAND_FONTSIZE = "FontSize";
+        private const string HTML_COMMAND_PRINT = "Print"; 
         private const string HTML_COMMAND_COPY = "Copy";
         private const string HTML_COMMAND_PASTE = "Paste";
         private const string HTML_COMMAND_CUT = "Cut";
@@ -222,6 +224,9 @@ namespace WinHtmlEditor
             // after load ensure document marked as editable
             ReadOnly = _readOnly;
             ScrollBars = _scrollBars;
+
+            SetupComboFontSize();
+            SynchFont(string.Empty);
         }
 
         /// <summary>
@@ -248,7 +253,7 @@ namespace WinHtmlEditor
 
         } //BrowserCodeNavigate
 
-        [Description("设置或获取有格式的内容"), Category("Appearance")]
+        [Description("The Inner HTML of the contents"), Category("Textual")]
         public string BodyInnerHTML
         {
             get
@@ -2416,8 +2421,6 @@ namespace WinHtmlEditor
 
         private void HtmlEditor_Load(object sender, EventArgs e)
         {
-            SetupComboFontSize();
-            SynchFont(string.Empty);
             tsTopToolBar.Dock = DockStyle.Top;
             InitUi();
             HTMLEditHelper.DOMDocument = _doc;
@@ -2641,11 +2644,11 @@ namespace WinHtmlEditor
         private void SynchFont(string sTagName)
         {
             //Times Roman New
-            object obj = QueryCommandRange("FontName");
+            object obj = QueryCommandRange(HTML_COMMAND_FONTNAME);
             if (obj.IsNull())
                 return;
             string fontname = obj.ToString();
-            obj = QueryCommandRange("FontSize");
+            obj = QueryCommandRange(HTML_COMMAND_FONTSIZE);
             if (obj.IsNull())
                 return;
             //Could indicate a headingxxx, P, or BODY
@@ -2705,7 +2708,7 @@ namespace WinHtmlEditor
         /// <returns>true if left justified, otherwise false</returns>
         public bool IsJustifyLeft()
         {
-            return ExecuteCommandQuery("JustifyLeft");
+            return ExecuteCommandQuery(HTML_COMMAND_JUSTIFY_LEFT);
         }
 
         /// <summary>
@@ -2714,7 +2717,7 @@ namespace WinHtmlEditor
         /// <returns>true if right justified, otherwise false</returns>
         public bool IsJustifyRight()
         {
-            return ExecuteCommandQuery("JustifyRight");
+            return ExecuteCommandQuery(HTML_COMMAND_JUSTIFY_RIGHT);
         }
 
         /// <summary>
@@ -2723,7 +2726,7 @@ namespace WinHtmlEditor
         /// <returns>true if center justified, false otherwise</returns>
         public bool IsJustifyCenter()
         {
-            return ExecuteCommandQuery("JustifyCenter");
+            return ExecuteCommandQuery(HTML_COMMAND_JUSTIFY_CENTER);
         }
 
         /// <summary>
@@ -2732,7 +2735,7 @@ namespace WinHtmlEditor
         /// <returns>true if full justified, false otherwise</returns>
         public bool IsJustifyFull()
         {
-            return ExecuteCommandQuery("JustifyFull");
+            return ExecuteCommandQuery(HTML_COMMAND_JUSTIFY_FULL);
         }
 
         /// <summary>
@@ -2741,7 +2744,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is Bold</returns>
         public bool IsBold()
         {
-            return ExecuteCommandQuery("Bold");
+            return ExecuteCommandQuery(HTML_COMMAND_BOLD);
         }
 
         /// <summary>
@@ -2750,7 +2753,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is Italicized</returns>
         public bool IsItalic()
         {
-            return ExecuteCommandQuery("Italic");
+            return ExecuteCommandQuery(HTML_COMMAND_ITALIC);
         }
 
         /// <summary>
@@ -2759,7 +2762,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is Underlined</returns>
         public bool IsUnderline()
         {
-            return ExecuteCommandQuery("Underline");
+            return ExecuteCommandQuery(HTML_COMMAND_UNDERLINE);
         }
 
         /// <summary>
@@ -2768,7 +2771,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is StrikeThrough</returns>
         public bool IsStrikeThrough()
         {
-            return ExecuteCommandQuery("StrikeThrough");
+            return ExecuteCommandQuery(HTML_COMMAND_STRIKE_THROUGH);
         }
 
         /// <summary>
@@ -2777,7 +2780,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is Subscript</returns>
         public bool IsSubscript()
         {
-            return ExecuteCommandQuery("Subscript");
+            return ExecuteCommandQuery(HTML_COMMAND_SUBSCRIPT);
         }
 
         /// <summary>
@@ -2786,7 +2789,7 @@ namespace WinHtmlEditor
         /// <returns>whether or not the current selection is Superscript</returns>
         public bool IsSuperscript()
         {
-            return ExecuteCommandQuery("Superscript");
+            return ExecuteCommandQuery(HTML_COMMAND_SUPERSCRIPT);
         }
 
         /// <summary>
@@ -2795,7 +2798,7 @@ namespace WinHtmlEditor
         /// <returns>true if current paragraph is ordered, false otherwise</returns>
         public bool IsOrderedList()
         {
-            return ExecuteCommandQuery("InsertOrderedList");
+            return ExecuteCommandQuery(HTML_COMMAND_INSERT_ORDERED_LIST);
         }
 
         /// <summary>
@@ -2804,7 +2807,7 @@ namespace WinHtmlEditor
         /// <returns>true if current paragraph is ordered, false otherwise</returns>
         public bool IsUnorderedList()
         {
-            return ExecuteCommandQuery("InsertUnorderedList");
+            return ExecuteCommandQuery(HTML_COMMAND_INSERT_UNORDERED_LIST);
         }
 
         /// <summary>
@@ -2813,7 +2816,7 @@ namespace WinHtmlEditor
         /// <returns>true if current block can undo, false otherwise</returns>
         public bool IsUndo()
         {
-            return _doc.queryCommandEnabled("Undo");
+            return _doc.queryCommandEnabled(HTML_COMMAND_UNDO);
         }
 
         /// <summary>
@@ -2822,7 +2825,7 @@ namespace WinHtmlEditor
         /// <returns>true if current block can redo, false otherwise</returns>
         public bool IsRedo()
         {
-            return _doc.queryCommandEnabled("Redo");
+            return _doc.queryCommandEnabled(HTML_COMMAND_REDO);
         }
 
         /// <summary>
@@ -2831,7 +2834,7 @@ namespace WinHtmlEditor
         /// <returns>true if current block can unlink, false otherwise</returns>
         public bool IsUnlink()
         {
-            return ExecuteCommandQuery("Unlink", true);
+            return ExecuteCommandQuery(HTML_COMMAND_UNLINK, true);
         }
 
         /// <summary>
@@ -2915,9 +2918,9 @@ namespace WinHtmlEditor
         {
             get
             {
-                if (QueryCommandRange("FontSize").IsNull())
+                if (QueryCommandRange(HTML_COMMAND_FONTSIZE).IsNull())
                     return FontSize.NA;
-                switch (QueryCommandRange("FontSize").ToString())
+                switch (QueryCommandRange(HTML_COMMAND_FONTSIZE).ToString())
                 {
                     case "1":
                         return FontSize.One;
@@ -2968,7 +2971,7 @@ namespace WinHtmlEditor
                         break;
                 }
                 if (!wb.Document.IsNull())
-                    wb.Document.ExecCommand("FontSize", false, sz.ToString(CultureInfo.InvariantCulture));
+                    wb.Document.ExecCommand(HTML_COMMAND_FONTSIZE, false, sz.ToString(CultureInfo.InvariantCulture));
             }
         }
 
@@ -2982,7 +2985,7 @@ namespace WinHtmlEditor
             {
                 //if (ReadyState != ReadyState.Complete)
                 //    return null;
-                var name = QueryCommandRange("FontName") as string;
+                var name = QueryCommandRange(HTML_COMMAND_FONTNAME) as string;
                 if (name.IsNull()) return null;
                 return new FontFamily(name);
             }
@@ -2990,7 +2993,7 @@ namespace WinHtmlEditor
             {
                 if (!value.IsNull() && !wb.Document.IsNull())
                 {
-                    wb.Document.ExecCommand("FontName", false, value.Name);
+                    wb.Document.ExecCommand(HTML_COMMAND_FONTNAME, false, value.Name);
                 }
             }
         }
@@ -3421,12 +3424,10 @@ namespace WinHtmlEditor
                         break;
                     case INTERNAL_COMMAND_FORECOLOR:
                         // FORECOLOR style creation
-                        //FormatFontColorPrompt();
                         FormatFontColor(tscpForeColor.Color);
                         break;
                     case INTERNAL_COMMAND_BACKCOLOR:
                         // BACKCOLOR style creation
-                        //FormatBackColorPrompt();
                         FormatBackColor(tscpBackColor.Color);
                         break;
                     case INTERNAL_COMMAND_STRIKETHROUGH:
