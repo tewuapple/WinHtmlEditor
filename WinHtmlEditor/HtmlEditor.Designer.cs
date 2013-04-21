@@ -640,6 +640,7 @@
             this.tscpForeColor.Text = "前景色";
             this.tscpForeColor.ToolTipText = "前景色";
             this.tscpForeColor.SelectedColorChanged += new System.EventHandler(this.tscpForeColor_SelectedColorChanged);
+            this.tscpForeColor.ButtonClick += new System.EventHandler(this.tscpForeColor_SelectedColorChanged);
             // 
             // tsbStrikeThrough
             // 
