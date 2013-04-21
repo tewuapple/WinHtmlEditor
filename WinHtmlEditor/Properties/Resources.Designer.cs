@@ -61,16 +61,6 @@ namespace WinHtmlEditor.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap About {
-            get {
-                object obj = ResourceManager.GetObject("About", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 这是一个免费的HTML控件，你可以自由使用。
         ///如有任何问题或建议请加入QQ群：217478320，开源项目请访问：http://tewuapple.github.com/WinHtmlEditor/,是否现在就访问？
         ///WinHtmlEditor

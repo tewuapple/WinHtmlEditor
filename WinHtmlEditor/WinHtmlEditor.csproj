@@ -91,6 +91,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ContextMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ContextMenuForm.designer.cs">
+      <DependentUpon>ContextMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\CustomColors.cs" />
     <Compile Include="Common\ExtensionAttribute.cs" />
     <Compile Include="Common\GeneralUtil.cs" />
     <Compile Include="Common\HtmlEditorEvents.cs" />
@@ -98,7 +105,17 @@
     <Compile Include="Common\HtmlFontProperty.cs" />
     <Compile Include="Common\HtmlTableProperty.cs" />
     <Compile Include="Common\IOleCommandTarget.cs" />
+    <Compile Include="Common\OfficeColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\OfficeColorPicker.designer.cs">
+      <DependentUpon>OfficeColorPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SelectableColor.cs" />
     <Compile Include="Common\TableSizeControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\ToolStripColorPicker.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\ToolStripFontComboBox.cs">
@@ -107,16 +124,16 @@
     <Compile Include="Common\ToolStripTableSizeSelector.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="EditHtmlForm.cs">
+    <Compile Include="Form\EditHtmlForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditHtmlForm.designer.cs">
+    <Compile Include="Form\EditHtmlForm.designer.cs">
       <DependentUpon>EditHtmlForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FindReplaceForm.cs">
+    <Compile Include="Form\FindReplaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FindReplaceForm.designer.cs">
+    <Compile Include="Form\FindReplaceForm.designer.cs">
       <DependentUpon>FindReplaceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\HTMLEditHelper.cs" />
@@ -132,19 +149,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TablePropertyForm.cs">
+    <Compile Include="Form\TablePropertyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TablePropertyForm.designer.cs">
+    <Compile Include="Form\TablePropertyForm.designer.cs">
       <DependentUpon>TablePropertyForm.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EditHtmlForm.resx">
+    <EmbeddedResource Include="Common\ContextMenuForm.resx">
+      <DependentUpon>ContextMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\OfficeColorPicker.resx">
+      <DependentUpon>OfficeColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ToolStripColorPicker.resx">
+      <DependentUpon>ToolStripColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\EditHtmlForm.resx">
       <DependentUpon>EditHtmlForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FindReplaceForm.resx">
+    <EmbeddedResource Include="Form\FindReplaceForm.resx">
       <DependentUpon>FindReplaceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HtmlEditor.resx">
@@ -154,15 +180,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="TablePropertyForm.resx">
+    <EmbeddedResource Include="Form\TablePropertyForm.resx">
       <DependentUpon>TablePropertyForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\About.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\BackColor.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Bold.png" />
@@ -181,9 +204,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Find.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ForeColor.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\HTML.bmp" />
@@ -259,7 +279,9 @@
     <None Include="Resources\Date.png" />
     <None Include="Resources\StrikeThrough.png" />
     <Content Include="Resources\AutoLayout.png" />
+    <Content Include="Resources\BackColor.bmp" />
     <Content Include="Resources\Preview.png" />
+    <Content Include="Resources\ForeColor.bmp" />
     <Content Include="Resources\Undo.png" />
     <Content Include="Resources\Redo.png" />
     <Content Include="Resources\Subscript .png" />

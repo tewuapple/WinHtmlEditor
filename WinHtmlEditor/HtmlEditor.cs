@@ -2046,20 +2046,6 @@ namespace WinHtmlEditor
             ProcessCommand(command);
         }
 
-        private void tsbBackColor_Click(object sender, EventArgs e)
-        {
-            var button = (ToolStripButton)sender;
-            var command = (string)button.Tag;
-            ProcessCommand(command);
-        }
-
-        private void tsbForeColor_Click(object sender, EventArgs e)
-        {
-            var button = (ToolStripButton)sender;
-            var command = (string)button.Tag;
-            ProcessCommand(command);
-        }
-
         private void tsbStrikeThrough_Click(object sender, EventArgs e)
         {
             var button = (ToolStripButton)sender;
@@ -2668,7 +2654,7 @@ namespace WinHtmlEditor
                 tscbFontSize.SelectedIndex = Convert.ToInt32(obj) - 1; //x (x - 1)
             else
                 AdjustForHeading(sTagName);
-            tsfcbFontName.SelectedFontNameItem = fontname;
+            tsfcbFontName.Text = fontname;
         }
 
         private void AdjustForHeading(string sTag)
@@ -3435,11 +3421,13 @@ namespace WinHtmlEditor
                         break;
                     case INTERNAL_COMMAND_FORECOLOR:
                         // FORECOLOR style creation
-                        FormatFontColorPrompt();
+                        //FormatFontColorPrompt();
+                        FormatFontColor(tscpForeColor.Color);
                         break;
                     case INTERNAL_COMMAND_BACKCOLOR:
                         // BACKCOLOR style creation
-                        FormatBackColorPrompt();
+                        //FormatBackColorPrompt();
+                        FormatBackColor(tscpBackColor.Color);
                         break;
                     case INTERNAL_COMMAND_STRIKETHROUGH:
                         // Selection STRIKETHROUGH command
@@ -3673,8 +3661,21 @@ namespace WinHtmlEditor
             var menuItem = (ToolStripMenuItem)sender;
             var command = (string)menuItem.Tag;
             ProcessCommand(command);
-
         } //contextEditorClick
 
+        private void tscpBackColor_SelectedColorChanged(object sender, EventArgs e)
+        {
+            var tscp = (ToolStripColorPicker)sender;
+            var command = (string)tscp.Tag;
+            ProcessCommand(command);
+        }
+
+        private void tscpForeColor_SelectedColorChanged(object sender, EventArgs e)
+        {
+            var tscp = (ToolStripColorPicker)sender;
+            var command = (string)tscp.Tag;
+            ProcessCommand(command);
+        } 
+        
     }
 }
