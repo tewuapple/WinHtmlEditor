@@ -34,6 +34,7 @@ namespace WinHtmlEditor
 
             // ensure content is empty
             this.htmlText.Text = string.Empty;
+            this.htmlText.MaxLength = int.MaxValue;
             this.ReadOnly = true;
 
         } //EditHtmlForm

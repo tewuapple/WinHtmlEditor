@@ -2983,8 +2983,6 @@ namespace WinHtmlEditor
         {
             get
             {
-                //if (ReadyState != ReadyState.Complete)
-                //    return null;
                 var name = QueryCommandRange(HTML_COMMAND_FONTNAME) as string;
                 if (name.IsNull()) return null;
                 return new FontFamily(name);

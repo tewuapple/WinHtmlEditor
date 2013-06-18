@@ -39,22 +39,22 @@
             this.htmlEditor1.BodyInnerText = null;
             this.htmlEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.htmlEditor1.EnterToBR = false;
-            this.htmlEditor1.FontSize = WinHtmlEditor.FontSize.Three;
+            this.htmlEditor1.FontSize = WinHtmlEditor.FontSize.One;
             this.htmlEditor1.Location = new System.Drawing.Point(0, 0);
             this.htmlEditor1.Name = "htmlEditor1";
             this.htmlEditor1.ShowStatusBar = true;
             this.htmlEditor1.ShowToolBar = true;
             this.htmlEditor1.ShowWb = true;
-            this.htmlEditor1.Size = new System.Drawing.Size(1019, 554);
+            this.htmlEditor1.Size = new System.Drawing.Size(1019, 600);
             this.htmlEditor1.TabIndex = 0;
             this.htmlEditor1.WebBrowserShortcutsEnabled = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1019, 554);
+            this.ClientSize = new System.Drawing.Size(1019, 600);
             this.Controls.Add(this.htmlEditor1);
             this.Name = "Form1";
             this.Text = "Form1";

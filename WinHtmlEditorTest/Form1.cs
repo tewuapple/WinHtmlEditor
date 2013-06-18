@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WinHtmlEditor;
 
 namespace WinHtmlEditorTest
 {
@@ -14,6 +15,7 @@ namespace WinHtmlEditorTest
         public Form1()
         {
             InitializeComponent();
+
         }
     }
 }
