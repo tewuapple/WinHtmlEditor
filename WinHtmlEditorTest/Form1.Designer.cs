@@ -34,12 +34,12 @@
             // htmlEditor1
             // 
             this.htmlEditor1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.htmlEditor1.BodyFont = new WinHtmlEditor.HtmlFontProperty("宋体", WinHtmlEditor.HtmlFontSize.xxSmall, false, false, false, false, false, false);
+            this.htmlEditor1.BodyFont = new WinHtmlEditor.HtmlFontProperty("Microsoft Sans Serif", WinHtmlEditor.HtmlFontSize.xxSmall, false, false, false, false, false, false);
             this.htmlEditor1.BodyInnerHTML = null;
             this.htmlEditor1.BodyInnerText = null;
             this.htmlEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.htmlEditor1.EnterToBR = false;
-            this.htmlEditor1.FontSize = WinHtmlEditor.FontSize.One;
+            this.htmlEditor1.FontSize = WinHtmlEditor.FontSize.Three;
             this.htmlEditor1.Location = new System.Drawing.Point(0, 0);
             this.htmlEditor1.Name = "htmlEditor1";
             this.htmlEditor1.ShowStatusBar = true;
@@ -58,6 +58,7 @@
             this.Controls.Add(this.htmlEditor1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
@@ -65,6 +66,9 @@
         #endregion
 
         private WinHtmlEditor.HtmlEditor htmlEditor1;
+
+
+
     }
 }
 

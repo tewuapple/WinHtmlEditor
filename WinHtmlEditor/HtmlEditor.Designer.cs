@@ -117,14 +117,14 @@
             this.tscMain.ContentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tscMain.ContentPanel.Controls.Add(this.ssHtml);
             this.tscMain.ContentPanel.Controls.Add(this.wb);
-            this.tscMain.ContentPanel.Size = new System.Drawing.Size(1296, 445);
+            this.tscMain.ContentPanel.Size = new System.Drawing.Size(1296, 484);
             this.tscMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscMain.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tscMain.LeftToolStripPanelVisible = false;
             this.tscMain.Location = new System.Drawing.Point(0, 0);
             this.tscMain.Name = "tscMain";
             this.tscMain.RightToolStripPanelVisible = false;
-            this.tscMain.Size = new System.Drawing.Size(1296, 471);
+            this.tscMain.Size = new System.Drawing.Size(1296, 510);
             this.tscMain.TabIndex = 0;
             this.tscMain.Text = "toolStripContainer1";
             // 
@@ -136,7 +136,7 @@
             // 
             this.ssHtml.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslWordCount});
-            this.ssHtml.Location = new System.Drawing.Point(0, 419);
+            this.ssHtml.Location = new System.Drawing.Point(0, 458);
             this.ssHtml.Name = "ssHtml";
             this.ssHtml.Size = new System.Drawing.Size(1292, 22);
             this.ssHtml.TabIndex = 1;
@@ -145,7 +145,7 @@
             // tsslWordCount
             // 
             this.tsslWordCount.Name = "tsslWordCount";
-            this.tsslWordCount.Size = new System.Drawing.Size(56, 17);
+            this.tsslWordCount.Size = new System.Drawing.Size(55, 17);
             this.tsslWordCount.Text = "字数统计";
             // 
             // wb
@@ -153,9 +153,9 @@
             this.wb.ContextMenuStrip = this.cmsHtml;
             this.wb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wb.Location = new System.Drawing.Point(0, 0);
-            this.wb.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wb.MinimumSize = new System.Drawing.Size(20, 22);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(1292, 441);
+            this.wb.Size = new System.Drawing.Size(1292, 480);
             this.wb.TabIndex = 0;
             this.wb.Url = new System.Uri("http://-", System.UriKind.Absolute);
             this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
@@ -176,7 +176,7 @@
             this.toolStripSeparator5,
             this.tsmiSave});
             this.cmsHtml.Name = "contextMenuWeb";
-            this.cmsHtml.Size = new System.Drawing.Size(125, 208);
+            this.cmsHtml.Size = new System.Drawing.Size(153, 230);
             // 
             // tsmiTable
             // 
@@ -185,14 +185,15 @@
             this.tsmiTableInsertRow,
             this.tsmiTableDeleteRow});
             this.tsmiTable.Name = "tsmiTable";
-            this.tsmiTable.Size = new System.Drawing.Size(124, 22);
+            this.tsmiTable.Size = new System.Drawing.Size(152, 22);
+            this.tsmiTable.Tag = "Table";
             this.tsmiTable.Text = "表格";
             // 
             // tsmiTableModify
             // 
             this.tsmiTableModify.Image = global::WinHtmlEditor.Properties.Resources.InsertTable;
             this.tsmiTableModify.Name = "tsmiTableModify";
-            this.tsmiTableModify.Size = new System.Drawing.Size(148, 22);
+            this.tsmiTableModify.Size = new System.Drawing.Size(152, 22);
             this.tsmiTableModify.Tag = "TableModify";
             this.tsmiTableModify.Text = "编辑表格属性";
             this.tsmiTableModify.Click += new System.EventHandler(this.ContextEditorClick);
@@ -200,7 +201,7 @@
             // tsmiTableInsertRow
             // 
             this.tsmiTableInsertRow.Name = "tsmiTableInsertRow";
-            this.tsmiTableInsertRow.Size = new System.Drawing.Size(148, 22);
+            this.tsmiTableInsertRow.Size = new System.Drawing.Size(152, 22);
             this.tsmiTableInsertRow.Tag = "TableInsertRow";
             this.tsmiTableInsertRow.Text = "插入行";
             this.tsmiTableInsertRow.Click += new System.EventHandler(this.ContextEditorClick);
@@ -208,7 +209,7 @@
             // tsmiTableDeleteRow
             // 
             this.tsmiTableDeleteRow.Name = "tsmiTableDeleteRow";
-            this.tsmiTableDeleteRow.Size = new System.Drawing.Size(148, 22);
+            this.tsmiTableDeleteRow.Size = new System.Drawing.Size(152, 22);
             this.tsmiTableDeleteRow.Tag = "TableDeleteRow";
             this.tsmiTableDeleteRow.Text = "删除行";
             this.tsmiTableDeleteRow.Click += new System.EventHandler(this.ContextEditorClick);
@@ -216,7 +217,7 @@
             // tsmiSelectAll
             // 
             this.tsmiSelectAll.Name = "tsmiSelectAll";
-            this.tsmiSelectAll.Size = new System.Drawing.Size(124, 22);
+            this.tsmiSelectAll.Size = new System.Drawing.Size(152, 22);
             this.tsmiSelectAll.Tag = "SelectAll";
             this.tsmiSelectAll.Text = "全选";
             this.tsmiSelectAll.Click += new System.EventHandler(this.ContextEditorClick);
@@ -225,7 +226,7 @@
             // 
             this.tsmiCopy.Image = global::WinHtmlEditor.Properties.Resources.Copy;
             this.tsmiCopy.Name = "tsmiCopy";
-            this.tsmiCopy.Size = new System.Drawing.Size(124, 22);
+            this.tsmiCopy.Size = new System.Drawing.Size(152, 22);
             this.tsmiCopy.Tag = "Copy";
             this.tsmiCopy.Text = "复制";
             this.tsmiCopy.Click += new System.EventHandler(this.ContextEditorClick);
@@ -234,7 +235,7 @@
             // 
             this.tsmiCut.Image = global::WinHtmlEditor.Properties.Resources.Cut;
             this.tsmiCut.Name = "tsmiCut";
-            this.tsmiCut.Size = new System.Drawing.Size(124, 22);
+            this.tsmiCut.Size = new System.Drawing.Size(152, 22);
             this.tsmiCut.Tag = "Cut";
             this.tsmiCut.Text = "剪切";
             this.tsmiCut.Click += new System.EventHandler(this.ContextEditorClick);
@@ -243,7 +244,7 @@
             // 
             this.tsmiPaste.Image = global::WinHtmlEditor.Properties.Resources.Paste;
             this.tsmiPaste.Name = "tsmiPaste";
-            this.tsmiPaste.Size = new System.Drawing.Size(124, 22);
+            this.tsmiPaste.Size = new System.Drawing.Size(152, 22);
             this.tsmiPaste.Tag = "Paste";
             this.tsmiPaste.Text = "粘贴";
             this.tsmiPaste.Click += new System.EventHandler(this.ContextEditorClick);
@@ -252,7 +253,7 @@
             // 
             this.tsmiDelete.Image = global::WinHtmlEditor.Properties.Resources.Delete;
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(124, 22);
+            this.tsmiDelete.Size = new System.Drawing.Size(152, 22);
             this.tsmiDelete.Tag = "Delete";
             this.tsmiDelete.Text = "删除";
             this.tsmiDelete.Click += new System.EventHandler(this.ContextEditorClick);
@@ -261,7 +262,7 @@
             // 
             this.tsmiFind.Image = global::WinHtmlEditor.Properties.Resources.Find;
             this.tsmiFind.Name = "tsmiFind";
-            this.tsmiFind.Size = new System.Drawing.Size(124, 22);
+            this.tsmiFind.Size = new System.Drawing.Size(152, 22);
             this.tsmiFind.Tag = "Find";
             this.tsmiFind.Text = "查找";
             this.tsmiFind.Click += new System.EventHandler(this.ContextEditorClick);
@@ -270,7 +271,7 @@
             // 
             this.tsmiRemoveFormat.Image = global::WinHtmlEditor.Properties.Resources.RemoveFormat;
             this.tsmiRemoveFormat.Name = "tsmiRemoveFormat";
-            this.tsmiRemoveFormat.Size = new System.Drawing.Size(124, 22);
+            this.tsmiRemoveFormat.Size = new System.Drawing.Size(152, 22);
             this.tsmiRemoveFormat.Tag = "RemoveFormat";
             this.tsmiRemoveFormat.Text = "清除格式";
             this.tsmiRemoveFormat.Click += new System.EventHandler(this.ContextEditorClick);
@@ -278,13 +279,13 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmiSave
             // 
             this.tsmiSave.Image = global::WinHtmlEditor.Properties.Resources.Save;
             this.tsmiSave.Name = "tsmiSave";
-            this.tsmiSave.Size = new System.Drawing.Size(124, 22);
+            this.tsmiSave.Size = new System.Drawing.Size(152, 22);
             this.tsmiSave.Tag = "Save";
             this.tsmiSave.Text = "保存";
             this.tsmiSave.Click += new System.EventHandler(this.ContextEditorClick);
@@ -878,12 +879,12 @@
             // 
             // HtmlEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Controls.Add(this.tscMain);
             this.Name = "HtmlEditor";
-            this.Size = new System.Drawing.Size(1296, 471);
+            this.Size = new System.Drawing.Size(1296, 510);
             this.Load += new System.EventHandler(this.HtmlEditor_Load);
             this.tscMain.ContentPanel.ResumeLayout(false);
             this.tscMain.ContentPanel.PerformLayout();
