@@ -2394,6 +2394,15 @@ namespace WinHtmlEditor
                                 break;
                             }
                         }
+                        else if (item is ToolStripComboBox)
+                        {
+                            var tscb = item as ToolStripComboBox;
+                            if (String.CompareOrdinal(tscb.Tag.ToString(), button) == 0)
+                            {
+                                tscb.Visible = false;
+                                break;
+                            }
+                        }
                     }
                 }
             }
