@@ -314,7 +314,8 @@ namespace WinHtmlEditor
             foreach (ToolStripItem item in this.Parent.Items)
             {
                 if (item == this) break;
-                x += item.Width;
+                if (item.Visible) 
+                    x += item.Width;
             }
             return this.Owner.PointToScreen(new Point(x, -4));
         }
