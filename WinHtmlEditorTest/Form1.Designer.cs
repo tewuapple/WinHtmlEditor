@@ -34,7 +34,6 @@
             // htmlEditor1
             // 
             this.htmlEditor1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.htmlEditor1.BodyFont = new WinHtmlEditor.HtmlFontProperty("Microsoft Sans Serif", WinHtmlEditor.HtmlFontSize.xxSmall, false, false, false, false, false, false);
             this.htmlEditor1.BodyInnerHTML = null;
             this.htmlEditor1.BodyInnerText = null;
             this.htmlEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -66,6 +65,9 @@
         #endregion
 
         private WinHtmlEditor.HtmlEditor htmlEditor1;
+
+
+
 
 
 

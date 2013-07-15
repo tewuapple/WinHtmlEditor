@@ -173,6 +173,9 @@ namespace WinHtmlEditor
         private string _bodyText;
         private string _bodyHtml;
         private string _bodyUrl;
+        private bool _toolbarVisible;
+        private bool _statusbarVisible;
+        private bool _wbVisible;
 
         // document and body elements
         private mshtmlDocument document;
@@ -211,6 +214,9 @@ namespace WinHtmlEditor
             _navigateWindow = NavigateActionOption.Default;
             _scrollBars = DisplayScrollBarOption.Auto;
             _autoWordWrap = true;
+            _toolbarVisible = true;
+            _statusbarVisible = true;
+            _wbVisible = true;
             _bodyText = DEFAULT_HTML_TEXT;
             _bodyHtml = DEFAULT_HTML_TEXT;
 
@@ -590,16 +596,29 @@ namespace WinHtmlEditor
 
         } //BodyFont
 
+        public bool ShouldSerializeBodyFont()
+        {
+            return (HtmlFontProperty.IsNotEqual(_bodyFont, _defaultFont));
+
+        } //ShouldSerializeBodyFont
+
+        public void ResetBodyFont()
+        {
+            this.BodyFont = _defaultFont;
+
+        } //ResetBodyFont
+
         [Category("Appearance"), Description("Controls the visible of ToolBar"), DefaultValue("true")]
         public bool ShowToolBar
         {
             get
             {
-                return tsTopToolBar.Visible;
+                return _toolbarVisible;
             }
             set
             {
-                tsTopToolBar.Visible = value;
+                _toolbarVisible = value;
+                this.tsTopToolBar.Visible = _toolbarVisible;
             }
         }
 
@@ -608,11 +627,12 @@ namespace WinHtmlEditor
         {
             get
             {
-                return ssHtml.Visible;
+                return _statusbarVisible;
             }
             set
             {
-                ssHtml.Visible = value;
+                _statusbarVisible = value;
+                ssHtml.Visible = _statusbarVisible;
             }
         }
 
@@ -621,11 +641,12 @@ namespace WinHtmlEditor
         {
             get
             {
-                return wb.Visible;
+                return _wbVisible;
             }
             set
             {
-                wb.Visible = value;
+                _wbVisible = value;
+                wb.Visible = _wbVisible;
             }
         }
 
