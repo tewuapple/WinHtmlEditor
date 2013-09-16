@@ -82,7 +82,17 @@ namespace WinHtmlEditor
                 this.bCancel.Text = _readOnly?viewCommand:editCommand;
             }
 
-        } //ReadOnly
+        }//ReadOnly
+
+        private void htmlText_KeyDown(object sender, KeyEventArgs e)
+        {
+            var txtBox = sender as TextBox;
+            if (txtBox != null && txtBox.Multiline && e.Control && e.KeyCode == Keys.A)
+            {
+                txtBox.SelectAll();
+                e.SuppressKeyPress = true;
+            }
+        } 
 
     }
 }

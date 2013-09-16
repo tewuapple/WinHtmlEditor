@@ -32,6 +32,7 @@ using mshtmlTableCaption = mshtml.IHTMLTableCaption;
 using mshtmlTableRow = mshtml.IHTMLTableRow;
 using Pavonis.COM;
 using Pavonis.COM.IOleCommandTarget;
+using System.IO.Compression;
 
 namespace WinHtmlEditor
 {
@@ -2463,12 +2464,58 @@ namespace WinHtmlEditor
             return ClearWordNoDefult(sourceText, bIgnoreFont, bRemoveStyles, cleanWordKeepsStructure);
         }
 #endif
+
+        private static String DeCompressWMZOREMZFile(String wmzoremzFile)
+        {
+            MemoryStream decompressStream = new MemoryStream(File.ReadAllBytes(wmzoremzFile));
+            GZipStream gzipStream = new GZipStream(decompressStream, CompressionMode.Decompress);
+            MemoryStream outStream = new MemoryStream();
+            int readCount;
+            byte[] data = new byte[2048];
+            do
+            {
+                readCount = gzipStream.Read(data, 0, data.Length);
+                outStream.Write(data, 0, readCount);
+            } while (readCount == 2048);
+            String imgFile = Path.GetDirectoryName(wmzoremzFile) + "\\" + Path.GetFileNameWithoutExtension(wmzoremzFile) +
+                             (Path.GetExtension(wmzoremzFile) == "wmz"
+                                  ? ".wmf"
+                                  : ".emf");
+            File.WriteAllBytes(imgFile, outStream.GetBuffer());
+            // Then add the code to create a new word document and insert 
+            return imgFile;
+        }
+
+        public static string ReplaceWordImageFile(string sourceText)
+        {
+            var reg = new Regex(@"(?is)<v:imagedata[^>]*?src=(['""\s]?)((?:(?!topics)[^'""\s])*)\1[^>]*?>", RegexOptions.IgnoreCase);
+            foreach (Match m in reg.Matches(sourceText))
+            {
+                switch (Path.GetExtension(m.Groups[2].Value))
+                {
+                    case ".wmz":
+                    case ".emz":
+                        {
+                            string temp = m.Groups[0].Value.Replace(m.Groups[2].Value,
+                                        DeCompressWMZOREMZFile(m.Groups[2].Value.StartsWith("file:///")
+                                                                   ? m.Groups[2].Value.Substring(8)
+                                                                   : m.Groups[2].Value));
+                            sourceText = sourceText.Replace(m.Groups[0].Value, temp);
+                        }
+                        break;
+                }
+            }
+            sourceText = Regex.Replace(sourceText, @"v:imagedata", "img");
+            return sourceText;
+        }
+
         public static string ClearWordNoDefult(string sourceText, bool bIgnoreFont, bool bRemoveStyles, bool cleanWordKeepsStructure)
         {
+            sourceText = ReplaceWordImageFile(sourceText);
             sourceText = Regex.Replace(sourceText, @"<o:p>\s*<\/o:p>", "");
             sourceText = Regex.Replace(sourceText, @"<o:p>.*?<\/o:p>", " ");
             // Remove mso-xxx styles.
-            sourceText = Regex.Replace(sourceText, @"\s*mso-[^:]+:[^;""]+;?", "", RegexOptions.IgnoreCase);
+            sourceText = Regex.Replace(sourceText, @"\s*mso-[^:]+:[^;""'>]+;?", "", RegexOptions.IgnoreCase);
             // Remove margin styles.
             sourceText = Regex.Replace(sourceText, @"\s*MARGIN: 0cm 0cm 0pt\s*;", "", RegexOptions.IgnoreCase);
             sourceText = Regex.Replace(sourceText, @"\s*MARGIN: 0cm 0cm 0pt\s*""", "\"", RegexOptions.IgnoreCase);
