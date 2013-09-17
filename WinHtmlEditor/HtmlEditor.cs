@@ -2478,7 +2478,7 @@ namespace WinHtmlEditor
                 outStream.Write(data, 0, readCount);
             } while (readCount == 2048);
             String imgFile = Path.GetDirectoryName(wmzoremzFile) + "\\" + Path.GetFileNameWithoutExtension(wmzoremzFile) +
-                             (Path.GetExtension(wmzoremzFile) == "wmz"
+                             (Path.GetExtension(wmzoremzFile) == ".wmz"
                                   ? ".wmf"
                                   : ".emf");
             File.WriteAllBytes(imgFile, outStream.GetBuffer());
