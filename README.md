@@ -10,7 +10,7 @@ WinHtmlEditor
 <br>for more information,Please see here : 
 [http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html](http://www.cnblogs.com/tewuapple/archive/2012/06/30/2570894.html "blog")</br>
 <br>u can contact me by g talk.</br>
-<br>g talk:tewuapple@gmail.com(email.png)</br>
+<br>g talk:![tewuapple@gmail.com](email.png)</br>
 Licenses
 --------
 - WinHtmlEditor is licensed under the terms of the Apache 2.0 License. The license can be found at
