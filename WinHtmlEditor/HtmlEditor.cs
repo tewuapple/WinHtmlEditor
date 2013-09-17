@@ -2482,7 +2482,6 @@ namespace WinHtmlEditor
                                   ? ".wmf"
                                   : ".emf");
             File.WriteAllBytes(imgFile, outStream.GetBuffer());
-            // Then add the code to create a new word document and insert 
             return imgFile;
         }
 
