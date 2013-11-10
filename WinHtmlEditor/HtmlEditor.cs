@@ -410,7 +410,7 @@ namespace WinHtmlEditor
             {
                 // set the read only property before return
                 body.contentEditable = CONTENT_EDITABLE_INHERIT;
-                string html = body.outerHTML.Trim();
+                string html = _doc.body.outerHTML.Trim();
                 ReadOnly = _readOnly;
                 return html;
 
@@ -3665,15 +3665,14 @@ namespace WinHtmlEditor
             var htmlDocument = wb.Document;
             if (!htmlDocument.IsNull())
             {
-                document = (mshtmlDocument)htmlDocument.DomDocument;
-                _doc = (mshtmlIHTMLDocument2)htmlDocument.DomDocument;
+                document = (mshtmlDocument)wb.Document.DomDocument;
+                _doc = (mshtmlIHTMLDocument2)wb.Document.DomDocument;
 
                 // at this point the document and body has been loaded
                 // so define the event handler for the context menu
-                htmlDocument.ContextMenuShowing += DocumentContextMenu;
-                htmlDocument.AttachEventHandler("onselectionchange", DocumentSelectionChange);
-                htmlDocument.AttachEventHandler("onkeydown", DocumentKeyPress);
-
+                wb.Document.ContextMenuShowing += DocumentContextMenu;
+                wb.Document.AttachEventHandler("onselectionchange", DocumentSelectionChange);
+                wb.Document.AttachEventHandler("onkeydown", DocumentKeyPress);
             }
             body = (mshtmlBody)document.body;
 
