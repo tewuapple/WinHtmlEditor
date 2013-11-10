@@ -3665,14 +3665,14 @@ namespace WinHtmlEditor
             var htmlDocument = wb.Document;
             if (!htmlDocument.IsNull())
             {
-                document = (mshtmlDocument)wb.Document.DomDocument;
-                _doc = (mshtmlIHTMLDocument2)wb.Document.DomDocument;
+                document = (mshtmlDocument)htmlDocument.DomDocument;
+                _doc = (mshtmlIHTMLDocument2)htmlDocument.DomDocument;
 
                 // at this point the document and body has been loaded
                 // so define the event handler for the context menu
-                wb.Document.ContextMenuShowing += DocumentContextMenu;
-                wb.Document.AttachEventHandler("onselectionchange", DocumentSelectionChange);
-                wb.Document.AttachEventHandler("onkeydown", DocumentKeyPress);
+                htmlDocument.ContextMenuShowing += DocumentContextMenu;
+                htmlDocument.AttachEventHandler("onselectionchange", DocumentSelectionChange);
+                htmlDocument.AttachEventHandler("onkeydown", DocumentKeyPress);
             }
             body = (mshtmlBody)document.body;
 
