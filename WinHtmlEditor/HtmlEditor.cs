@@ -999,7 +999,7 @@ namespace WinHtmlEditor
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    var writer = new StreamWriter(dialog.FileName);
+                    var writer = new StreamWriter(dialog.FileName,false,Encoding.UTF8);
                     writer.Write(BodyHtml);
                     writer.Close();
                 }
