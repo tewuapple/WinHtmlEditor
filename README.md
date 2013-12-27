@@ -1,5 +1,6 @@
 WinHtmlEditor(WYSIWYG html editor)
 --------
+(23094754_vz5p.png)
 <br>one html editor for winform(.net)</br>
 <br>welcome to WinHtmlEditor qq Group：217478320</br>
 <br>if u want develop,please choose the develop branch</br>
