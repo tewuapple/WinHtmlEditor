@@ -1,4 +1,4 @@
-![logo](logo.png)WinHtmlEditor(WYSIWYG html editor)
+![logo](logo.jpg)WinHtmlEditor(WYSIWYG html editor)
 --------
 <br>![read me](WinHtmlEditor.png)</br>
 <br>one html editor for winform(.net)</br>
