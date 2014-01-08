@@ -1,6 +1,6 @@
-WinHtmlEditor(WYSIWYG html editor)
+![logo](logo.jpg)WinHtmlEditor(WYSIWYG html editor)
 --------
-<br>![read me](23094754_vz5p.png)</br>
+<br>![read me](WinHtmlEditor.png)</br>
 <br>one html editor for winform(.net)</br>
 <br>welcome to WinHtmlEditor qq Group：217478320</br>
 <br>if u want develop,please choose the develop branch</br>
