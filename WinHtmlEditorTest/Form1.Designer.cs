@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.htmlEditor1 = new WinHtmlEditor.HtmlEditor();
+            this.htmlEditor2 = new WinHtmlEditor.HtmlEditor();
             this.SuspendLayout();
             // 
             // htmlEditor1
@@ -36,7 +37,6 @@
             this.htmlEditor1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.htmlEditor1.BodyInnerHTML = null;
             this.htmlEditor1.BodyInnerText = null;
-            this.htmlEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.htmlEditor1.EnterToBR = false;
             this.htmlEditor1.FontSize = WinHtmlEditor.FontSize.Three;
             this.htmlEditor1.Location = new System.Drawing.Point(0, 0);
@@ -44,9 +44,25 @@
             this.htmlEditor1.ShowStatusBar = true;
             this.htmlEditor1.ShowToolBar = true;
             this.htmlEditor1.ShowWb = true;
-            this.htmlEditor1.Size = new System.Drawing.Size(1019, 600);
+            this.htmlEditor1.Size = new System.Drawing.Size(1020, 271);
             this.htmlEditor1.TabIndex = 0;
             this.htmlEditor1.WebBrowserShortcutsEnabled = true;
+            // 
+            // htmlEditor2
+            // 
+            this.htmlEditor2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.htmlEditor2.BodyInnerHTML = null;
+            this.htmlEditor2.BodyInnerText = null;
+            this.htmlEditor2.EnterToBR = false;
+            this.htmlEditor2.FontSize = WinHtmlEditor.FontSize.Three;
+            this.htmlEditor2.Location = new System.Drawing.Point(0, 277);
+            this.htmlEditor2.Name = "htmlEditor2";
+            this.htmlEditor2.ShowStatusBar = true;
+            this.htmlEditor2.ShowToolBar = true;
+            this.htmlEditor2.ShowWb = true;
+            this.htmlEditor2.Size = new System.Drawing.Size(1020, 304);
+            this.htmlEditor2.TabIndex = 1;
+            this.htmlEditor2.WebBrowserShortcutsEnabled = true;
             // 
             // Form1
             // 
@@ -54,6 +70,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1019, 600);
+            this.Controls.Add(this.htmlEditor2);
             this.Controls.Add(this.htmlEditor1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -65,6 +82,7 @@
         #endregion
 
         private WinHtmlEditor.HtmlEditor htmlEditor1;
+        private WinHtmlEditor.HtmlEditor htmlEditor2;
 
 
 

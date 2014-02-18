@@ -904,6 +904,7 @@ namespace WinHtmlEditor
         /// <param name="sHtml"></param>
         public void PasteIntoSelection(string sHtml)
         {
+            HTMLEditHelper.DOMDocument = _doc;
             HTMLEditHelper.PasteIntoSelection(sHtml);
         }
 
@@ -3575,11 +3576,11 @@ namespace WinHtmlEditor
                         break;
                     case INTERNAL_COMMAND_INSERTDATE:
                         // Insert date
-                        HTMLEditHelper.PasteIntoSelection(DateTime.Now.ToLongDateString());
+                        PasteIntoSelection(DateTime.Now.ToLongDateString());
                         break;
                     case INTERNAL_COMMAND_INSERTTIME:
                         // Insert time
-                        HTMLEditHelper.PasteIntoSelection(DateTime.Now.ToLongTimeString());
+                        PasteIntoSelection(DateTime.Now.ToLongTimeString());
                         break;
                     case INTERNAL_COMMAND_CLEARWORD:
                         // Clear word
