@@ -20,6 +20,8 @@ namespace WinHtmlEditorTest
         private void Form1_Load(object sender, EventArgs e)
         {
             this.htmlEditor1.BodyInnerHTML = "sunzq";
+            this.htmlEditor1.FontName = new FontFamily("Arial");
+            this.htmlEditor1.FontSize = FontSize.Seven;
         }
     }
 }

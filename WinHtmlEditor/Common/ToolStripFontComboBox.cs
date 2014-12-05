@@ -127,6 +127,49 @@ namespace WinHtmlEditor
             }
         }
 
+        protected override void OnDropDown(EventArgs e)
+        {
+            base.OnDropDown(e);
+            AdjustComboBoxDropDownListWidth();  //调整comboBox的下拉列表的大小
+        }
+
+        private void AdjustComboBoxDropDownListWidth()
+        {
+            Graphics g = null;
+            try
+            {
+                int width = Width;
+                g = this.ComboBox.CreateGraphics();
+
+                //checks if a scrollbar will be displayed.
+                //If yes, then get its width to adjust the size of the drop down list.
+                int vertScrollBarWidth =
+                    (Items.Count > MaxDropDownItems)
+                        ? SystemInformation.VerticalScrollBarWidth
+                        : 0;
+
+                int newWidth;
+                foreach (object s in Items) //Loop through list items and check size of each items.
+                {
+                    if (s != null)
+                    {
+                        newWidth = (int)g.MeasureString(s.ToString().Trim(), GetFont(s.ToString())).Width
+                                   + vertScrollBarWidth;
+                        if (width < newWidth)
+                            width = newWidth;
+                        //set the width of the drop down list to the width of the largest item.
+                    }
+                }
+                DropDownWidth = width;
+            }
+            catch
+            { }
+            finally
+            {
+                if (g != null)
+                    g.Dispose();
+            }
+        }
         #endregion  Protected Overridden Methods
 
         #region  Public Methods

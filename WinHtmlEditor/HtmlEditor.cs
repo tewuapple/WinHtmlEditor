@@ -3020,35 +3020,47 @@ namespace WinHtmlEditor
             set
             {
                 int sz;
+                string text=string.Empty;
                 switch (value)
                 {
                     case FontSize.One:
                         sz = 1;
+                        text = "1 (8 pt)";
                         break;
                     case FontSize.Two:
                         sz = 2;
+                        text = "2 (10 pt)";
                         break;
                     case FontSize.Three:
                         sz = 3;
+                        text = "3 (12 pt)";
                         break;
                     case FontSize.Four:
                         sz = 4;
+                        text = "4 (14 pt)";
                         break;
                     case FontSize.Five:
                         sz = 5;
+                        text = "5 (18 pt)";
                         break;
                     case FontSize.Six:
                         sz = 6;
+                        text = "6 (24 pt)";
                         break;
                     case FontSize.Seven:
                         sz = 7;
+                        text = "7 (36 pt)";
                         break;
                     default:
                         sz = 7;
+                        text = "7 (36 pt)";
                         break;
                 }
                 if (!wb.Document.IsNull())
+                {
                     wb.Document.ExecCommand(HTML_COMMAND_FONTSIZE, false, sz.ToString(CultureInfo.InvariantCulture));
+                    this.tscbFontSize.Text = text;
+                }
             }
         }
 
@@ -3069,6 +3081,7 @@ namespace WinHtmlEditor
                 if (!value.IsNull() && !wb.Document.IsNull())
                 {
                     wb.Document.ExecCommand(HTML_COMMAND_FONTNAME, false, value.Name);
+                    tsfcbFontName.Text = value.Name;
                 }
             }
         }
