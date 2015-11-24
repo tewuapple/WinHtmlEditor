@@ -317,7 +317,16 @@ namespace WinHtmlEditor
                 if (item.Visible) 
                     x += item.Width;
             }
-            return this.Owner.PointToScreen(new Point(x, -4));
+            if (x == 0)
+            {
+                Point mP = Control.MousePosition;
+                return new Point(mP.X - 30, mP.Y - 30);
+
+            }
+            else
+            {
+                return this.Owner.PointToScreen(new Point(x, -4));
+            }
         }
 
         /// <summary>
