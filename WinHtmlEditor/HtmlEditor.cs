@@ -1844,15 +1844,16 @@ namespace WinHtmlEditor
         /// </summary>
         public void InsertLine()
         {
-            mshtmlTextRange range = GetTextRange();
-            if (range != null)
-            {
-                ExecuteCommandRange(range, HTML_COMMAND_INSERT_HORIZONTAL_RULE, null);
-            }
-            else
-            {
-                throw new HtmlEditorException("Invalid Selection for Line insertion.", "InsertLine");
-            }
+            ExecuteCommandRange(HTML_COMMAND_INSERT_HORIZONTAL_RULE, null);
+            //mshtmlTextRange range = GetTextRange();
+            //if (range != null)
+            //{
+            //    ExecuteCommandRange(range, HTML_COMMAND_INSERT_HORIZONTAL_RULE, null);
+            //}
+            //else
+            //{
+            //    throw new HtmlEditorException("Invalid Selection for Line insertion.", "InsertLine");
+            //}
 
         } //InsertLine
 
@@ -2456,6 +2457,7 @@ namespace WinHtmlEditor
             tsTopToolBar.Dock = DockStyle.Top;
             InitUi();
             HTMLEditHelper.DOMDocument = _doc;
+            wb.Document.AttachEventHandler("onselectionchange", DocumentSelectionChange);
             Focus();
         }
 
@@ -3164,7 +3166,7 @@ namespace WinHtmlEditor
 
             try
             {
-                if (!range.IsNull())
+                if (!range.IsNull() && !range.htmlText.IsNullOrEmpty())
                 {
                     // ensure command is a valid command and then enabled for the selection
                     if (range.queryCommandSupported(command))
@@ -3179,6 +3181,25 @@ namespace WinHtmlEditor
                             {
                                 // mark the selection with the appropriate tag
                                 retValue = range.queryCommandState(command);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // ensure command is a valid command and then enabled for the selection
+                    if (_doc.queryCommandSupported(command))
+                    {
+                        if (isEnabled)
+                        {
+                            retValue = _doc.queryCommandEnabled(command);
+                        }
+                        else
+                        {
+                            if (_doc.queryCommandEnabled(command))
+                            {
+                                // mark the selection with the appropriate tag
+                                retValue = _doc.queryCommandState(command);
                             }
                         }
                     }
@@ -3213,7 +3234,7 @@ namespace WinHtmlEditor
         {
             try
             {
-                if (!range.IsNull())
+                if (!range.IsNull() && !range.htmlText.IsNullOrEmpty())
                 {
                     // ensure command is a valid command and then enabled for the selection
                     if (range.queryCommandSupported(command))
@@ -3224,6 +3245,10 @@ namespace WinHtmlEditor
                             range.execCommand(command, false, data);
                         }
                     }
+                }
+                else
+                {
+                    ExecuteCommandDocument(command);
                 }
             }
             catch (Exception ex)
@@ -3251,13 +3276,13 @@ namespace WinHtmlEditor
             try
             {
                 // ensure command is a valid command and then enabled for the selection
-                if (document.queryCommandSupported(command))
+                if (_doc.queryCommandSupported(command))
                 {
                     // if (document.queryCommandEnabled(command)) {}
                     // Test fails with a COM exception if command is Print
 
                     // execute the given command
-                    document.execCommand(command, prompt, null);
+                    _doc.execCommand(command, prompt, null);
                 }
             }
             catch (Exception ex)
@@ -3275,7 +3300,7 @@ namespace WinHtmlEditor
         {
             // obtain the selected range object and execute command
             mshtmlTextRange range = GetTextRange();
-            return !range.IsNull()? QueryCommandRange(range, command) : null;
+            return QueryCommandRange(range, command);
         } // QueryCommandRange
 
         /// <summary>
@@ -3284,9 +3309,9 @@ namespace WinHtmlEditor
         private object QueryCommandRange(mshtmlTextRange range, string command)
         {
             object retValue = null;
-            if (!range.IsNull())
+            try
             {
-                try
+                if (!range.IsNull() && !range.htmlText.IsNullOrEmpty())
                 {
                     // ensure command is a valid command and then enabled for the selection
                     if (range.queryCommandSupported(command))
@@ -3297,17 +3322,36 @@ namespace WinHtmlEditor
                         }
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    // have unknown error so set return to null
-                    retValue = null;
+                    retValue = QueryCommandDocument(command);
                 }
             }
-
+            catch (Exception)
+            {
+                // have unknown error so set return to null
+                retValue = null;
+            }
             // return the obtained value
             return retValue;
 
         } //QueryCommandRange
+
+        /// <summary>
+        /// Determines the value of the command
+        /// </summary>
+        private object QueryCommandDocument(string command)
+        {
+            // ensure command is a valid command and then enabled for the selection
+            if (document.queryCommandSupported(command))
+            {
+                if (document.queryCommandEnabled(command))
+                {
+                    return document.queryCommandValue(command);
+                }
+            }
+            return null;
+        }
 
         /// <summary>
         /// Gets the selected Html Range Element
@@ -3685,7 +3729,7 @@ namespace WinHtmlEditor
                 // at this point the document and body has been loaded
                 // so define the event handler for the context menu
                 htmlDocument.ContextMenuShowing += DocumentContextMenu;
-                htmlDocument.AttachEventHandler("onselectionchange", DocumentSelectionChange);
+                //htmlDocument.AttachEventHandler("onselectionchange", DocumentSelectionChange);
                 htmlDocument.AttachEventHandler("onkeydown", DocumentKeyPress);
             }
             body = (mshtmlBody)document.body;
