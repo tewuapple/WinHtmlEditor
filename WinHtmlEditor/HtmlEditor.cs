@@ -3166,7 +3166,7 @@ namespace WinHtmlEditor
 
             try
             {
-                if (!range.IsNull() && !range.htmlText.IsNullOrEmpty())
+                if (!range.IsNull() && !range.text.IsNullOrEmpty())
                 {
                     // ensure command is a valid command and then enabled for the selection
                     if (range.queryCommandSupported(command))
@@ -3234,7 +3234,7 @@ namespace WinHtmlEditor
         {
             try
             {
-                if (!range.IsNull() && !range.htmlText.IsNullOrEmpty())
+                if (!range.IsNull() && !range.text.IsNullOrEmpty())
                 {
                     // ensure command is a valid command and then enabled for the selection
                     if (range.queryCommandSupported(command))
@@ -3248,7 +3248,7 @@ namespace WinHtmlEditor
                 }
                 else
                 {
-                    ExecuteCommandDocument(command);
+                    ExecuteCommandDocument(command, false, data);
                 }
             }
             catch (Exception ex)
@@ -3271,7 +3271,7 @@ namespace WinHtmlEditor
         /// <summary>
         /// Executes the execCommand on the document with a system prompt
         /// </summary>
-        private void ExecuteCommandDocument(string command, bool prompt = false)
+        private void ExecuteCommandDocument(string command, bool prompt = false, object value = null)
         {
             try
             {
@@ -3282,7 +3282,7 @@ namespace WinHtmlEditor
                     // Test fails with a COM exception if command is Print
 
                     // execute the given command
-                    _doc.execCommand(command, prompt, null);
+                    _doc.execCommand(command, prompt, value);
                 }
             }
             catch (Exception ex)
@@ -3311,7 +3311,7 @@ namespace WinHtmlEditor
             object retValue = null;
             try
             {
-                if (!range.IsNull() && !range.htmlText.IsNullOrEmpty())
+                if (!range.IsNull() && !range.text.IsNullOrEmpty())
                 {
                     // ensure command is a valid command and then enabled for the selection
                     if (range.queryCommandSupported(command))
