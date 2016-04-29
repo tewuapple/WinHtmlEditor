@@ -2302,13 +2302,20 @@ namespace WinHtmlEditor
             UpdateFontComboBox();
             UpdateFontSizeComboBox();
         }
-
+        
         /// <summary>
-        /// Method to perform the process of key being pressed
+        /// Method to perform the process of key being up
         /// </summary>
-        private void DocumentKeyPress(object sender, EventArgs e)
+        private void DocumentKeyUp(object sender, EventArgs e)
         {
             WordCount();
+        }
+
+        /// <summary>
+        /// Method to perform the process of key being down
+        /// </summary>
+        private void DocumentKeyDown(object sender, EventArgs e)
+        {
             // define the event object being processes and review the key being pressed
             mshtmlEventObject eventObject = document.parentWindow.@event;
             if (eventObject.ctrlKey)
@@ -3505,14 +3512,17 @@ namespace WinHtmlEditor
                     case INTERNAL_COMMAND_CUT:
                         // Browser CUT command
                         Cut();
+                        WordCount();
                         break;
                     case INTERNAL_COMMAND_PASTE:
                         // Browser PASTE command
                         Paste();
+                        WordCount();
                         break;
                     case INTERNAL_COMMAND_DELETE:
                         // Browser DELETE command
                         Delete();
+                        WordCount();
                         break;
                     case INTERNAL_COMMAND_UNDO:
                         // Undo the previous editing
@@ -3733,7 +3743,8 @@ namespace WinHtmlEditor
                 // so define the event handler for the context menu
                 htmlDocument.ContextMenuShowing += DocumentContextMenu;
                 //htmlDocument.AttachEventHandler("onselectionchange", DocumentSelectionChange);
-                htmlDocument.AttachEventHandler("onkeydown", DocumentKeyPress);
+                htmlDocument.AttachEventHandler("onkeydown", DocumentKeyDown);
+                htmlDocument.AttachEventHandler("onkeyup", DocumentKeyUp);
             }
             body = (mshtmlBody)document.body;
 
