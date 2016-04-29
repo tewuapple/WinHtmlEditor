@@ -3512,17 +3512,14 @@ namespace WinHtmlEditor
                     case INTERNAL_COMMAND_CUT:
                         // Browser CUT command
                         Cut();
-                        WordCount();
                         break;
                     case INTERNAL_COMMAND_PASTE:
                         // Browser PASTE command
                         Paste();
-                        WordCount();
                         break;
                     case INTERNAL_COMMAND_DELETE:
                         // Browser DELETE command
                         Delete();
-                        WordCount();
                         break;
                     case INTERNAL_COMMAND_UNDO:
                         // Undo the previous editing
@@ -3678,6 +3675,7 @@ namespace WinHtmlEditor
                     default:
                         throw new HtmlEditorException("Unknown Operation Being Performed.", command);
                 }
+                WordCount();
             }
             catch (HtmlEditorException ex)
             {
