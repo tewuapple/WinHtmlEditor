@@ -278,6 +278,7 @@ namespace WinHtmlEditor
                     if (value.IsNull()) value = string.Empty;
                     // set the body property
                     body.innerHTML = value;
+                    WordCount();
                     // set the body text and html
                     _bodyText = body.innerText;
                     _bodyHtml = body.innerHTML;
@@ -912,29 +913,31 @@ namespace WinHtmlEditor
         /// 统计Html编辑器内容的字数
         /// </summary>
         /// <returns>字数</returns>
-        public int WordCount()
+        public void WordCount()
         {
             Debug.Assert(wb.Document != null, "wb.Document != null");
             Debug.Assert(wb.Document.Body != null, "wb.Document.Body != null");
+
+            int count = 0;
 #if VS2010
-            return wb.Document.Body.InnerText.IsNull()
+            count = wb.Document.Body.InnerText.IsNull()
                        ? 0
                        : Regex.Split(wb.Document.Body.InnerText, @"\s").
                              Sum(si => Regex.Matches(si, @"[\u0000-\u00ff]+").Count + si.Count(c => (int) c > 0x00FF));
 #else
-            if (wb.Document.Body.InnerText.IsNull())
-                return 0;
-            var sec = Regex.Split(wb.Document.Body.InnerText, @"\s");
-            int count = 0;
-            foreach (var si in sec)
+            if (!wb.Document.Body.InnerText.IsNull())
             {
-                int ci = Regex.Matches(si, @"[\u0000-\u00ff]+").Count;
-                foreach (var c in si)
-                    if (c > 0x00FF) ci++;
-                count += ci;
+                var sec = Regex.Split(wb.Document.Body.InnerText, @"\s");
+                foreach (var si in sec)
+                {
+                    int ci = Regex.Matches(si, @"[\u0000-\u00ff]+").Count;
+                    foreach (var c in si)
+                        if (c > 0x00FF) ci++;
+                    count += ci;
+                }
             }
-            return count;
 #endif
+            tsslWordCount.Text = string.Format("字数：{0}", count);
         }
 
         /// <summary>
@@ -2305,6 +2308,7 @@ namespace WinHtmlEditor
         /// </summary>
         private void DocumentKeyPress(object sender, EventArgs e)
         {
+            WordCount();
             // define the event object being processes and review the key being pressed
             mshtmlEventObject eventObject = document.parentWindow.@event;
             if (eventObject.ctrlKey)
@@ -3628,8 +3632,7 @@ namespace WinHtmlEditor
                         break;
                     case INTERNAL_COMMAND_WORDCOUNT:
                         // Word count
-                        int wordCount = WordCount();
-                        tsslWordCount.Text = string.Format("字数：{0}", wordCount);
+                        WordCount();
                         break;
                     case INTERNAL_COMMAND_INSERTDATE:
                         // Insert date

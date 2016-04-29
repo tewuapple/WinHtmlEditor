@@ -50,7 +50,7 @@
             this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsTopToolBar = new System.Windows.Forms.ToolStrip();
             this.tsfcbFontName = new WinHtmlEditor.ToolStripFontComboBox();
-            this.tscbFontSize = new System.Windows.Forms.ToolStripComboBox();
+            this.tscbFontSize = new WinHtmlEditor.Common.ToolStripFontSizeComboBox();
             this.tsbNew = new System.Windows.Forms.ToolStripButton();
             this.tsbOpen = new System.Windows.Forms.ToolStripButton();
             this.tsbPrint = new System.Windows.Forms.ToolStripButton();
@@ -117,14 +117,14 @@
             this.tscMain.ContentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tscMain.ContentPanel.Controls.Add(this.ssHtml);
             this.tscMain.ContentPanel.Controls.Add(this.wb);
-            this.tscMain.ContentPanel.Size = new System.Drawing.Size(1296, 484);
+            this.tscMain.ContentPanel.Size = new System.Drawing.Size(1296, 445);
             this.tscMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscMain.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tscMain.LeftToolStripPanelVisible = false;
             this.tscMain.Location = new System.Drawing.Point(0, 0);
             this.tscMain.Name = "tscMain";
             this.tscMain.RightToolStripPanelVisible = false;
-            this.tscMain.Size = new System.Drawing.Size(1296, 510);
+            this.tscMain.Size = new System.Drawing.Size(1296, 471);
             this.tscMain.TabIndex = 0;
             this.tscMain.Text = "toolStripContainer1";
             // 
@@ -136,7 +136,7 @@
             // 
             this.ssHtml.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslWordCount});
-            this.ssHtml.Location = new System.Drawing.Point(0, 458);
+            this.ssHtml.Location = new System.Drawing.Point(0, 419);
             this.ssHtml.Name = "ssHtml";
             this.ssHtml.Size = new System.Drawing.Size(1292, 22);
             this.ssHtml.TabIndex = 1;
@@ -153,9 +153,9 @@
             this.wb.ContextMenuStrip = this.cmsHtml;
             this.wb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wb.Location = new System.Drawing.Point(0, 0);
-            this.wb.MinimumSize = new System.Drawing.Size(20, 22);
+            this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(1292, 480);
+            this.wb.Size = new System.Drawing.Size(1292, 441);
             this.wb.TabIndex = 0;
             this.wb.Url = new System.Uri("http://-", System.UriKind.Absolute);
             this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
@@ -366,6 +366,7 @@
             // 
             // tscbFontSize
             // 
+            this.tscbFontSize.AutoSize = false;
             this.tscbFontSize.Name = "tscbFontSize";
             this.tscbFontSize.Size = new System.Drawing.Size(75, 26);
             this.tscbFontSize.Tag = "FontSize";
@@ -880,12 +881,12 @@
             // 
             // HtmlEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Controls.Add(this.tscMain);
             this.Name = "HtmlEditor";
-            this.Size = new System.Drawing.Size(1296, 510);
+            this.Size = new System.Drawing.Size(1296, 471);
             this.Load += new System.EventHandler(this.HtmlEditor_Load);
             this.tscMain.ContentPanel.ResumeLayout(false);
             this.tscMain.ContentPanel.PerformLayout();
@@ -960,7 +961,7 @@
         private NetSpell.SpellChecker.Dictionary.WordDictionary wordDictionary;
         private NetSpell.SpellChecker.Spelling spellCheck;
         private ToolStripFontComboBox tsfcbFontName;
-        private System.Windows.Forms.ToolStripComboBox tscbFontSize;
+        private WinHtmlEditor.Common.ToolStripFontSizeComboBox tscbFontSize;
         private System.Windows.Forms.ToolStripButton tsbPreview;
         private System.Windows.Forms.ToolStripButton tsbAutoLayout;
         private System.Windows.Forms.ToolStripButton tsbUndo;

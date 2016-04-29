@@ -19,9 +19,9 @@ namespace WinHtmlEditorTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.htmlEditor1.BodyInnerHTML = "sunzq";
-            this.htmlEditor1.FontName = new FontFamily("Arial");
+            this.htmlEditor1.FontName = new FontFamily("Calibri");
             this.htmlEditor1.FontSize = FontSize.Seven;
+            this.htmlEditor1.BodyInnerHTML = "<FONT size=7 face=Calibri>szq</FONT>";
         }
     }
 }

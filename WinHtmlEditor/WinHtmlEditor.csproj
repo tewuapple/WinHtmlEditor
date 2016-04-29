@@ -121,6 +121,9 @@
     <Compile Include="Common\ToolStripFontComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Common\ToolStripFontSizeComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Common\ToolStripTableSizeSelector.cs">
       <SubType>Component</SubType>
     </Compile>
