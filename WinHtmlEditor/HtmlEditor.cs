@@ -2332,6 +2332,7 @@ namespace WinHtmlEditor
                         break;
                 }
             }
+            
             if ((eventObject.keyCode != 13)) return;
             if (EnterToBR)
             {
@@ -2340,6 +2341,11 @@ namespace WinHtmlEditor
                 range.pasteHTML(!eventObject.shiftKey ? "<br>" : "<P>&nbsp;</P>");
                 range.collapse();
                 range.@select();
+                if (eventObject.keyCode == 13)
+                {
+                    SendKeys.Send("{BS}");
+                }
+                return;
             }
             if (!eventObject.shiftKey)
             {
