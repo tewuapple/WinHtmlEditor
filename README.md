@@ -1,5 +1,6 @@
 ![logo](logo.jpg)WinHtmlEditor(WYSIWYG html editor)
 --------
+[![Build status](https://img.shields.io/appveyor/ci/tewuapple/winhtmleditor/master.svg?label=winhtmleditor&style=flat-square)](https://ci.appveyor.com/project/tewuapple/winhtmleditor)
 <br>![read me](WinHtmlEditor.png)</br>
 <br>one html editor for winform(.net)</br>
 <br>welcome to WinHtmlEditor qq Group：217478320</br>
