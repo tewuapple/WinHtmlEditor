@@ -100,6 +100,7 @@
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.wordDictionary = new NetSpell.SpellChecker.Dictionary.WordDictionary(this.components);
             this.spellCheck = new NetSpell.SpellChecker.Spelling(this.components);
+            this.tscMain.BottomToolStripPanel.SuspendLayout();
             this.tscMain.ContentPanel.SuspendLayout();
             this.tscMain.TopToolStripPanel.SuspendLayout();
             this.tscMain.SuspendLayout();
@@ -110,14 +111,17 @@
             // 
             // tscMain
             // 
-            this.tscMain.BottomToolStripPanelVisible = false;
+            // 
+            // tscMain.BottomToolStripPanel
+            // 
+            this.tscMain.BottomToolStripPanel.Controls.Add(this.ssHtml);
             // 
             // tscMain.ContentPanel
             // 
+            this.tscMain.ContentPanel.AutoScroll = true;
             this.tscMain.ContentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tscMain.ContentPanel.Controls.Add(this.ssHtml);
             this.tscMain.ContentPanel.Controls.Add(this.wb);
-            this.tscMain.ContentPanel.Size = new System.Drawing.Size(1296, 445);
+            this.tscMain.ContentPanel.Size = new System.Drawing.Size(1296, 423);
             this.tscMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscMain.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tscMain.LeftToolStripPanelVisible = false;
@@ -136,9 +140,9 @@
             // 
             this.ssHtml.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslWordCount});
-            this.ssHtml.Location = new System.Drawing.Point(0, 419);
+            this.ssHtml.Location = new System.Drawing.Point(0, 0);
             this.ssHtml.Name = "ssHtml";
-            this.ssHtml.Size = new System.Drawing.Size(1292, 22);
+            this.ssHtml.Size = new System.Drawing.Size(1296, 22);
             this.ssHtml.TabIndex = 1;
             this.ssHtml.Text = "statusStrip1";
             // 
@@ -155,7 +159,7 @@
             this.wb.Location = new System.Drawing.Point(0, 0);
             this.wb.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb.Name = "wb";
-            this.wb.Size = new System.Drawing.Size(1292, 441);
+            this.wb.Size = new System.Drawing.Size(1292, 419);
             this.wb.TabIndex = 0;
             this.wb.Url = new System.Uri("http://-", System.UriKind.Absolute);
             this.wb.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wb_DocumentCompleted);
@@ -888,8 +892,9 @@
             this.Name = "HtmlEditor";
             this.Size = new System.Drawing.Size(1296, 471);
             this.Load += new System.EventHandler(this.HtmlEditor_Load);
+            this.tscMain.BottomToolStripPanel.ResumeLayout(false);
+            this.tscMain.BottomToolStripPanel.PerformLayout();
             this.tscMain.ContentPanel.ResumeLayout(false);
-            this.tscMain.ContentPanel.PerformLayout();
             this.tscMain.TopToolStripPanel.ResumeLayout(false);
             this.tscMain.TopToolStripPanel.PerformLayout();
             this.tscMain.ResumeLayout(false);
