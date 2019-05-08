@@ -112,9 +112,7 @@
       <DependentUpon>OfficeColorPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\SelectableColor.cs" />
-    <Compile Include="Common\TableSizeControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Common\TableSizeControl.cs" />
     <Compile Include="Common\ToolStripColorPicker.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -125,6 +123,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\ToolStripTableSizeSelector.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\WebBroswer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Form\EditHtmlForm.cs">

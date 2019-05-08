@@ -33,7 +33,7 @@
             this.tscMain = new System.Windows.Forms.ToolStripContainer();
             this.ssHtml = new System.Windows.Forms.StatusStrip();
             this.tsslWordCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.wb = new System.Windows.Forms.WebBrowser();
+            this.wb = new WinHtmlEditor.Common.SubWebBroswer();
             this.cmsHtml = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiTable = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTableModify = new System.Windows.Forms.ToolStripMenuItem();
@@ -961,7 +961,7 @@
         private System.Windows.Forms.ToolStripButton tsbSpellCheck;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton tsbAbout;
-        internal System.Windows.Forms.WebBrowser wb;
+        internal WinHtmlEditor.Common.SubWebBroswer wb;
         private System.Windows.Forms.ToolStripButton tsbClearWord;
         private NetSpell.SpellChecker.Dictionary.WordDictionary wordDictionary;
         private NetSpell.SpellChecker.Spelling spellCheck;

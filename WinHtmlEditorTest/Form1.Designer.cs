@@ -44,7 +44,7 @@
             this.htmlEditor1.ShowStatusBar = true;
             this.htmlEditor1.ShowToolBar = true;
             this.htmlEditor1.ShowWb = true;
-            this.htmlEditor1.Size = new System.Drawing.Size(1020, 271);
+            this.htmlEditor1.Size = new System.Drawing.Size(1020, 250);
             this.htmlEditor1.TabIndex = 0;
             this.htmlEditor1.WebBrowserShortcutsEnabled = true;
             // 
@@ -55,21 +55,21 @@
             this.htmlEditor2.BodyInnerText = null;
             this.htmlEditor2.EnterToBR = false;
             this.htmlEditor2.FontSize = WinHtmlEditor.FontSize.Three;
-            this.htmlEditor2.Location = new System.Drawing.Point(0, 277);
+            this.htmlEditor2.Location = new System.Drawing.Point(0, 256);
             this.htmlEditor2.Name = "htmlEditor2";
             this.htmlEditor2.ShowStatusBar = true;
             this.htmlEditor2.ShowToolBar = true;
             this.htmlEditor2.ShowWb = true;
-            this.htmlEditor2.Size = new System.Drawing.Size(1020, 304);
+            this.htmlEditor2.Size = new System.Drawing.Size(1020, 281);
             this.htmlEditor2.TabIndex = 1;
             this.htmlEditor2.WebBrowserShortcutsEnabled = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1019, 600);
+            this.ClientSize = new System.Drawing.Size(1019, 554);
             this.Controls.Add(this.htmlEditor2);
             this.Controls.Add(this.htmlEditor1);
             this.Name = "Form1";

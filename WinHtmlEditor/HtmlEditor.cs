@@ -992,7 +992,7 @@ namespace WinHtmlEditor
         /// <summary>
         /// Method to allow the user to persist the Html stream to a file
         /// </summary>
-        public void Save()
+        public string Save()
         {
             using (var dialog = new SaveFileDialog
             {
@@ -1007,6 +1007,7 @@ namespace WinHtmlEditor
                     writer.Write(BodyHtml);
                     writer.Close();
                 }
+                return dialog.FileName;
             }
         } //New
 
