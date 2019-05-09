@@ -125,7 +125,7 @@
     <Compile Include="Common\ToolStripTableSizeSelector.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Common\WebBroswer.cs">
+    <Compile Include="Common\SubWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Form\EditHtmlForm.cs">
